@@ -11,32 +11,33 @@ struct Manga {
         // principal items
     let title: String
     let logoTitle: String
-    let image: String
+    var imageName: String
     let author: String
     let story: String
 
-        // mangas liked
-    let starRating: Double
-    let isFavorite: Bool
+        // manga liked
+    var starRating: Double?
+    var isFavorite: Bool?
 
         // categories/kinds
     enum Category: String {
         case shonen
     }
+    var category: Category
 
-    enum Kind: String {
+    enum Kind: String, CaseIterable {
         case aventure
         case sport
-
     }
+    var kind: Kind
 
-    let volumes: Volume
-}
+    enum State: String, CaseIterable {
+        case novelty
+        case stopPublished
+        case comingSoon
+    }
+    var state: State
 
-struct Volume {
-    let number: Int
-    let title: String
-    let resume: String
-    let numberOfPage: Int
-    let date: Date
+    let Books: [Book]!
+    var followUp: Bool
 }

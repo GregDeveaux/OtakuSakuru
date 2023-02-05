@@ -10,7 +10,9 @@ import SwiftUI
 
 extension Color {
         // color chart
+    static let otakuBackground = Color("1_OtakuBackground")
     static let redJapan = Color("RedJapan")
     static let indigoJapan = Color("IndigoJapan")
     static let darkIndigoJapan = Color("DarkIndigoJapan")
+    static let sandJapan = Color("SandJapan")
 }
