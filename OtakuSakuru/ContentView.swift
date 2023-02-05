@@ -10,11 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            Color.red.ignoresSafeArea()
-            VStack {
-                Image("LogoOtakuSakuru")
-            }
-            .padding(50)
+            Color.redJapan.ignoresSafeArea()
+
+            Image("LogoOtakuSakuru")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 280, height: 280, alignment: .center)
         }
     }
 }
