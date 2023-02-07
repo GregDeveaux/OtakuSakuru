@@ -30,7 +30,7 @@
 		BCBEAF35298F2BF3008EE3FA /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF34298F2BF3008EE3FA /* Manga.swift */; };
 		BCBEAF38298FCCEB008EE3FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF37298FCCEB008EE3FA /* User.swift */; };
 		BCBEAF3A298FD32A008EE3FA /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF39298FD329008EE3FA /* Book.swift */; };
-		BCBEAF3C298FFF40008EE3FA /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF3B298FFF40008EE3FA /* LaunchView.swift */; };
+		BCBEAF3C298FFF40008EE3FA /* LaunchAnimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF3B298FFF40008EE3FA /* LaunchAnimateView.swift */; };
 		BCBEAF4029901225008EE3FA /* MangaImageEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF3F29901225008EE3FA /* MangaImageEffect.swift */; };
 		BCBEAF4329902C70008EE3FA /* ImageMangaAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF4229902C70008EE3FA /* ImageMangaAuthor.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +59,7 @@
 		BCBEAF34298F2BF3008EE3FA /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		BCBEAF37298FCCEB008EE3FA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BCBEAF39298FD329008EE3FA /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		BCBEAF3B298FFF40008EE3FA /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		BCBEAF3B298FFF40008EE3FA /* LaunchAnimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimateView.swift; sourceTree = "<group>"; };
 		BCBEAF3F29901225008EE3FA /* MangaImageEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaImageEffect.swift; sourceTree = "<group>"; };
 		BCBEAF4229902C70008EE3FA /* ImageMangaAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMangaAuthor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,7 +117,7 @@
 			children = (
 				BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */,
 				BCBEAF36298F2BFC008EE3FA /* Model */,
-				BCBEAF3D298FFF4F008EE3FA /* View */,
+				BCBEAF3D298FFF4F008EE3FA /* Views */,
 				BCBEAF4129901C84008EE3FA /* ViewModel */,
 				BC8ADF57298C729C00F8C84E /* Assets.xcassets */,
 				BC8ADF59298C729C00F8C84E /* Preview Content */,
@@ -160,15 +160,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		BCBEAF3D298FFF4F008EE3FA /* View */ = {
+		BCBEAF3D298FFF4F008EE3FA /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				BC8ADF55298C729C00F8C84E /* ContentView.swift */,
-				BCBEAF3B298FFF40008EE3FA /* LaunchView.swift */,
+				BCBEAF3B298FFF40008EE3FA /* LaunchAnimateView.swift */,
+				BCFBDEB62991C7AE00EE5742 /* NewsPage */,
 				BCBEAF3E29900F37008EE3FA /* MangaPage */,
 				BCBEAF22298F14D9008EE3FA /* Color+Extensions.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		BCBEAF3E29900F37008EE3FA /* MangaPage */ = {
@@ -186,6 +187,13 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BCFBDEB62991C7AE00EE5742 /* NewsPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NewsPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,7 +317,7 @@
 				BC8ADF56298C729C00F8C84E /* ContentView.swift in Sources */,
 				BCBEAF4029901225008EE3FA /* MangaImageEffect.swift in Sources */,
 				BCBEAF4329902C70008EE3FA /* ImageMangaAuthor.swift in Sources */,
-				BCBEAF3C298FFF40008EE3FA /* LaunchView.swift in Sources */,
+				BCBEAF3C298FFF40008EE3FA /* LaunchAnimateView.swift in Sources */,
 				BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */,
 				BCBEAF3A298FD32A008EE3FA /* Book.swift in Sources */,
 				BCBEAF38298FCCEB008EE3FA /* User.swift in Sources */,
@@ -463,10 +471,10 @@
 				DEVELOPMENT_TEAM = 9MRD2CZ6V7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OtakuSakuru/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -493,10 +501,10 @@
 				DEVELOPMENT_TEAM = 9MRD2CZ6V7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OtakuSakuru/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

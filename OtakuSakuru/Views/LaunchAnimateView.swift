@@ -1,5 +1,5 @@
 //
-//  LaunchView.swift
+//  LaunchAnimateView.swift
 //  OtakuSakuru
 //
 //  Created by Greg Deveaux on 05/02/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LaunchView: View {
+struct LaunchAnimateView: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
@@ -28,17 +28,15 @@ struct LaunchView: View {
                 .foregroundColor(.redJapan)
 
             Image("LogoOtakuSakuru")
-                .renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200, alignment: .center)
-                .foregroundColor(.white)
         }
     }
 }
 
 struct LaunchView_Previews: PreviewProvider {
     static var previews: some View {
-        LaunchView()
+        LaunchAnimateView()
     }
 }
