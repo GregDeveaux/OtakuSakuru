@@ -10,7 +10,7 @@ import Foundation
 struct Book {
         // principal items
     let imageName: String
-    let number: Int
+    let volume: Int
     let title: String
     let ISBN: Int
     let publisher: String

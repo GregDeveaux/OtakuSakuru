@@ -10,6 +10,7 @@ import Foundation
 struct ProfilUser {
 
     let name: String
+    let age: Int
     let imageName: String
 
     let mangasCollection: [Manga]

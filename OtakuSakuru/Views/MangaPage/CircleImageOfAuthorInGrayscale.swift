@@ -1,5 +1,5 @@
 //
-//  ImageMangaAuthor.swift
+//  CircleImageOfAuthorInGrayscale.swift
 //  OtakuSakuru
 //
 //  Created by Greg Deveaux on 05/02/2023.
@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct ImageMangaAuthor: View {
+struct CircleImageOfAuthorInGrayscale: View {
     var image: Image
 
     var body: some View {
+            // create an image
         image
             .resizable()
             .scaledToFit()
@@ -20,8 +21,8 @@ struct ImageMangaAuthor: View {
     }
 }
 
-struct MangaAuthorInImageCircle_Previews: PreviewProvider {
+struct CircleImageOfAuthorInGrayscale_Previews: PreviewProvider {
     static var previews: some View {
-        ImageMangaAuthor(image: Image("EiichiroOda"))
+        CircleImageOfAuthorInGrayscale(image: Image("EiichiroOda"))
     }
 }

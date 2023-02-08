@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 02/02/2023.
+//  Created by Greg Deveaux on 02/02/2023.
 //
 
 import SwiftUI
@@ -20,6 +20,11 @@ struct ContentView: View {
             LaunchAnimateView()
                 .tabItem {
                     Label("Launch", systemImage: "airtag.fill")
+                }
+
+            FrameVisionView()
+                .tabItem {
+                    Label("Scan", systemImage: "barcode")
                 }
 
             MangaDetailView()

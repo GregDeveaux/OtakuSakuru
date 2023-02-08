@@ -1,5 +1,5 @@
 //
-//  MangaImageEffect.swift
+//  MangaImageParallaxEffect.swift
 //  OtakuSakuru
 //
 //  Created by Greg-Mini on 05/02/2023.
@@ -7,15 +7,18 @@
 
 import SwiftUI
 
-struct MangaImageEffect: View {
+    // main image with parallax effect
+struct MangaImageParallaxEffect: View {
     var body: some View {
-            // main image with parallax effect
+            // use geometry to place all image and the logo
         GeometryReader { geometry in
             ZStack {
+                // Parallax image
                 Image("OnePiece_VogueMerry")
                     .resizable()
                     .scaledToFill()
-
+                
+                // logo Manga
                 Image("OnePieceLogoColor")
                     .resizable()
                     .scaledToFit()
@@ -25,12 +28,13 @@ struct MangaImageEffect: View {
                     .shadow(radius: 1.5, x: 2, y: 2)
             }
         }
+            // height of Image
         .frame(height: 500)
     }
 }
 
-struct MangaImageEffect_Previews: PreviewProvider {
+struct MangaImageParallaxEffect_Previews: PreviewProvider {
     static var previews: some View {
-        MangaImageEffect()
+        MangaImageParallaxEffect()
     }
 }
