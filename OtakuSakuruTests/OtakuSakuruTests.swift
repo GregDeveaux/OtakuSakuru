@@ -2,10 +2,13 @@
 //  OtakuSakuruTests.swift
 //  OtakuSakuruTests
 //
-//  Created by Greg-Mini on 04/02/2023.
+//  Created by Greg Deveaux on 04/02/2023.
 //
 
 import XCTest
+import SwiftUI
+
+@testable import OtakuSakuru
 
 final class OtakuSakuruTests: XCTestCase {
 
@@ -15,10 +18,6 @@ final class OtakuSakuruTests: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testColor() throws {
-        
     }
 
     func testPerformanceExample() throws {

@@ -7,47 +7,77 @@
 
 import Foundation
 
+    // The book is a volume of one manga or artbook(draws) or guidebook(characters info) or novel
 struct Book {
-        // principal items
-    let imageName: String
-    let volume: Int
+
+        // -------------------------------------------------------------
+        // MARK: - category
+        // -------------------------------------------------------------
+
+    let category: EditionType
+    enum EditionType: String {
+        case manga
+        case artbook
+        case guidebook
+        case novel
+    }
+
+        // -------------------------------------------------------------
+        // MARK: - description
+        // -------------------------------------------------------------
+
+        /// book
     let title: String
+    let volume: Int
+    let imageName: String
+    let mangakas: [Mangaka]
+        /// published
     let ISBN: Int
     let publisher: String
     let synopsis: String
     let numberOfPages: Int
-    let releaseDate: Date
-    let publicationDate: Date
-    let price: Double
+    let dimensions: String
+    let releaseDate: String
+    let firstPublicationDate: String? = nil
+    let price: Double? = nil
+
+        // -------------------------------------------------------------
+        // MARK: - status of published
+        // -------------------------------------------------------------
+
+    var state: State = .inProgress
+    enum State: String, CaseIterable {
+        case inProgress = "In progress"
+        case novelty
+        case alreadyPublished
+        case comingSoon
+    }
+
+        // -------------------------------------------------------------
+        // MARK: - for user collection (like/follow/read status)
+        // -------------------------------------------------------------
 
         // volume liked
-    var starRating: Double
-    var isFavorite: Bool
+    var starRatingWholeUser: Double = 0
+    var isFavorite: Bool = false
 
         // volume personnal info
-    let acquisitionDate: Date!
-    var isAcquired: Bool {
+    let acquisitionDate: Date? = nil
+    var isAcquired: Bool = false {
         didSet {
             if acquisitionDate != nil {
-                isAcquired = false
-            } else {
                 isAcquired = true
             }
         }
     }
 
-    let totalNumberOfUsersWhoAcquiredIt: Int
+    let totalNumberOfUsersWhoAcquiredIt: Int = 0
 
-        // to follow actualities and book release
-    enum State: String, CaseIterable {
-        case novelty
-        case alreadyPublished
-        case comingSoon
-    }
-    var state: State
-    var followUp: Bool
+         // follow the book to know if published
+    var followUp: Bool = false
 
         // state to read of user for the profil
+    var readStatus: UserReadingStatus = .toRead
     enum UserReadingStatus: String, CaseIterable {
         case toRead = "to read"
         case nowPlaying = "now playing"
@@ -55,5 +85,4 @@ struct Book {
         case pause
         case readingCanceled = "reading canceled"
     }
-    var readStatus: UserReadingStatus
 }

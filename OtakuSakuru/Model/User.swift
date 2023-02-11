@@ -7,12 +7,25 @@
 
 import Foundation
 
-struct ProfilUser {
+    // -------------------------------------------------------------
+    // MARK: - profil
+    // -------------------------------------------------------------
 
+struct ProfilUser {
     let name: String
-    let age: Int
+    let age: Int  // for the adult Manga
     let imageName: String
 
+        // Manga books in possession
     let mangasCollection: [Manga]
+
+    let statistics: [Statistic]? = nil
+}
+
+    // -------------------------------------------------------------
+    // MARK: - statistics
+    // -------------------------------------------------------------
+
+struct Statistic {
 
 }

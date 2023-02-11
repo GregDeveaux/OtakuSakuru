@@ -8,15 +8,33 @@
 import SwiftUI
 
 struct FrameVisionView: View {
+    @ObservedObject var recognizedBarcode = RecognizedBarcode()
+
         // image frame for recepted vision
     var image: CGImage?
     private let label = Text("Frame")
 
     var body: some View {
-        if let image = image {
-            Image(image, scale: 1.0, orientation: .up, label: label)
-        } else {
-            Color.redJapan
+        ZStack(alignment: .bottom) {
+
+
+            ZStack {
+                Button {
+
+                } label: {
+                    Image(systemName: "barcode")
+                        .resizable()
+                        .scaledToFit()
+                        .padding(13)
+                        .frame(width: 60, height: 60)
+                        .background{
+                            Circle()
+                                .fill(.yellow)
+                        }
+                }
+            }
+            .frame(alignment: .bottom)
+            .padding(.bottom, 40)
         }
     }
 }
