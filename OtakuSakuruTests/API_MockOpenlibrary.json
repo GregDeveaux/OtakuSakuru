@@ -1,0 +1,36 @@
+{
+    "ISBN:9782505085034": {
+        "url": "https://openlibrary.org/books/OL46540312M/Hunter_X_Hunter_-_Tome_37",
+        "key": "/books/OL46540312M",
+        "title": "Hunter X Hunter - Tome 37",
+        "authors": [
+            {
+                "url": "https://openlibrary.org/authors/OL2733216A/Yoshihiro_Togashi",
+                "name": "Yoshihiro Togashi"
+            }
+        ],
+        "number_of_pages": 208,
+        "identifiers": {
+            "isbn_10": [
+                "250508503X"
+            ],
+            "isbn_13": [
+                "9782505085034"
+            ],
+            "openlibrary": [
+                "OL46540312M"
+            ]
+        },
+        "publishers": [
+            {
+                "name": "KANA"
+            }
+        ],
+        "publish_date": "Mar 03, 2023",
+        "cover": {
+            "small": "https://covers.openlibrary.org/b/id/13267113-S.jpg",
+            "medium": "https://covers.openlibrary.org/b/id/13267113-M.jpg",
+            "large": "https://covers.openlibrary.org/b/id/13267113-L.jpg"
+        }
+    }
+}

@@ -1,5 +1,5 @@
 //
-//  Collection.swift
+//  CollectionView.swift
 //  OtakuSakuru
 //
 //  Created by Greg-Mini on 11/02/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Collection: View {
+struct CollectionView: View {
     @State var booksOfUser: [Book] = [
         Book(category: .manga, title: "Naruto", volume: 8,
              imageName: "Naruto_Tome8",
@@ -37,7 +37,6 @@ struct Collection: View {
     ]
 
     var body: some View {
-        
         NavigationView {
             List {
                 ForEach(booksOfUser, id: \.ISBN) { book in
@@ -46,15 +45,18 @@ struct Collection: View {
                                    volume: book.volume,
                                    publisher: book.publisher)
                 }
+                .listRowBackground(Color.sandJapan)
+                .listRowSeparator(.hidden)
             }
             .listStyle(PlainListStyle())
+            .background(Color.sandJapan)
             .navigationTitle("Liste")
         }
     }
 }
 
-struct Collection_Previews: PreviewProvider {
+struct CollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        Collection()
+        CollectionView()
     }
 }

@@ -17,20 +17,25 @@ struct ContentView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            LaunchAnimateView()
-                .tabItem {
-                    Label("Launch", systemImage: "airtag.fill")
-                }
+//            LaunchAnimateView()
+//                .tabItem {
+//                    Label("Launch", systemImage: "airtag.fill")
+//                }
 
-            FrameVisionView()
+            ScanView()
                 .tabItem {
                     Label("Scan", systemImage: "barcode")
                 }
 
-            MangaDetailView()
-                .tabItem {
-                    Label("Manga", systemImage: "star")
-                }
+//            MangaDetailView()
+//                .tabItem {
+//                    Label("Manga", systemImage: "star")
+//                }
+//
+//            CollectionView()
+//                .tabItem {
+//                    Label("Collection", systemImage: "books.vertical.fill")
+//                }
         }
         .accentColor(.black)
     }

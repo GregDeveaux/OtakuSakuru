@@ -8,7 +8,7 @@
 //import AVFoundation
 //import CoreImage
 //
-//class CameraManager: ObservableObject {
+//class OldCameraManagers: ObservableObject {
 //    @Published var frame: CGImage?
 //    private var cameraAccessGranted = false
 //
