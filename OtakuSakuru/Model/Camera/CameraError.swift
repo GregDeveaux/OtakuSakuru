@@ -3,7 +3,7 @@
 //  OtakuSakuru
 //
 //  Created by Greg Deveaux on 12/02/2023.
-//  Based on tutorial of Yono Mittlefehldt
+//  Based on tutorial of Yono Mittlefehldt (Kodeco)
 //
 
 import Foundation

@@ -15,4 +15,5 @@ extension Color {
     static let indigoJapan = Color("IndigoJapan")
     static let darkIndigoJapan = Color("DarkIndigoJapan")
     static let sandJapan = Color("SandJapan")
+    static let blueGreenJapan = Color("BlueGreenJapan")
 }

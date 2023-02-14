@@ -8,11 +8,35 @@
 import SwiftUI
 
 struct ScanView: View {
-    @StateObject private var model = ContentViewModel()
+    @StateObject private var model = ScanViewModel()
 
     var body: some View {
 
-        FrameVisionView(image: model.frame)
+        ZStack {
+            Color.redJapan
+                .ignoresSafeArea()
+            LogoWithHalo()
+                .offset(y: -265)
+            VStack {
+                FrameScanView(image: model.frame, isbnText: model.isbnText ?? "nil")
+
+                Button {
+
+                } label: {
+                    Circle()
+                        .frame(width: 90, height: 90, alignment: .center)
+                        .foregroundColor(Color.indigoJapan)
+                        .overlay {
+                            Image(systemName: "camera")
+                                .resizable()
+                                .scaledToFill()
+                                .foregroundColor(.white)
+                                .frame(width: 35, height: 35, alignment: .center)
+                        }
+                }
+            }
+
+        }
 
     }
 }
