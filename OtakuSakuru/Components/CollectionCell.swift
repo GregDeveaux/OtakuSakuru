@@ -24,7 +24,7 @@ struct CollectionCell: View {
                         .multilineTextAlignment(.leading)
                     .offset(x: -25, y: -13)
                 }
-
+                    /// Block
                 Rectangle()
                     .frame(height: 140)
                     .foregroundColor(colorScheme == .light ? Color.white.opacity(0.55) : Color.white.opacity(0.15))
@@ -32,14 +32,27 @@ struct CollectionCell: View {
                     .offset(y: -15)
             }
 
-
             HStack {
-                Image(imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 150, alignment: .center)
-                    .offset(x: 0, y: -20)
-                    .padding()
+                    /// Book 3D
+                HStack(alignment: .top, spacing: 0, content: {
+                    Image(imageName)
+                        .resizable()
+                        .frame(width: 80,height: 150, alignment: .leading)
+                        .offset(x: 20, y: -20)
+                        .rotation3DEffect(.degrees(-10),
+                                          axis: (x: 0, y: 1, z: 0))
+                    Image("BookPage")
+                        .resizable()
+                        .frame(width: 15,height: 168, alignment: .leading)
+                        .offset(x: 25, y: -32)
+                        .rotation3DEffect(.degrees(25),
+                                          axis: (x: 0, y: 1, z: 0))
+                })
+                .shadow(color: Color.black.opacity(0.1), radius: 2, x: 2, y: 0)
+                .shadow(color: Color.black.opacity(0.2), radius: 3, x: 7, y: 0)
+                .shadow(color: Color.black.opacity(0.2), radius: 8, x: 20, y: 0)
+                .shadow(color: Color.black.opacity(0.1), radius: 8, x: 50, y: 0)
+
 
                 VStack(alignment: .leading) {
                     Text(title)
@@ -51,7 +64,8 @@ struct CollectionCell: View {
 
                 Spacer()
 
-                StarFavorite()
+                    /// Star
+                StarFavorite(isActivate: false)
                     .aspectRatio(3, contentMode: .fit)
             }
         }

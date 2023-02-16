@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScanView: View {
     @StateObject private var model = ScanViewModel()
+    @State var isActivated = false
 
     var body: some View {
 
@@ -21,7 +22,7 @@ struct ScanView: View {
                 FrameScanView(image: model.frame, isbnText: model.isbnText ?? "nil")
 
                 Button {
-
+                    isActivated = true
                 } label: {
                     Circle()
                         .frame(width: 90, height: 90, alignment: .center)

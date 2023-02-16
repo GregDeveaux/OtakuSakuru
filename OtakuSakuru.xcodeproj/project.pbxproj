@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC5AD356299D6392004B695C /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = BC5AD355299D6392004B695C /* Apollo */; };
+		BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD357299D857A004B695C /* API_Anilist.swift */; };
+		BC5AD35A299D85CA004B695C /* Anilist.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BC5AD359299D85CA004B695C /* Anilist.graphql */; };
 		BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */; };
 		BC8ADF56298C729C00F8C84E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8ADF55298C729C00F8C84E /* ContentView.swift */; };
 		BC8ADF58298C729C00F8C84E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC8ADF57298C729C00F8C84E /* Assets.xcassets */; };
@@ -71,6 +74,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC5AD357299D857A004B695C /* API_Anilist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Anilist.swift; sourceTree = "<group>"; };
+		BC5AD359299D85CA004B695C /* Anilist.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Anilist.graphql; sourceTree = "<group>"; };
 		BC8ADF50298C729B00F8C84E /* OtakuSakuru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtakuSakuru.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtakuSakuruApp.swift; sourceTree = "<group>"; };
 		BC8ADF55298C729C00F8C84E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC5AD356299D6392004B695C /* Apollo in Frameworks */,
 				BCBEAF17298E7BF2008EE3FA /* FirebaseDatabaseSwift in Frameworks */,
 				BCBEAF15298E7BF2008EE3FA /* FirebaseDatabase in Frameworks */,
 				BCBEAF0D298E7BF2008EE3FA /* FirebaseAnalyticsSwift in Frameworks */,
@@ -288,6 +294,8 @@
 				BCB3B22229992C1D00585FC7 /* API_EndPoint.swift */,
 				BCB3B22429992D0400585FC7 /* API_Openlibrary.swift */,
 				BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */,
+				BC5AD357299D857A004B695C /* API_Anilist.swift */,
+				BC5AD359299D85CA004B695C /* Anilist.graphql */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -407,6 +415,7 @@
 				BCBEAF1C298E7BF2008EE3FA /* FirebaseFirestoreSwift */,
 				BCBEAF1E298E7BF2008EE3FA /* FirebaseStorage */,
 				BCBEAF20298E7BF2008EE3FA /* FirebaseStorageCombine-Community */,
+				BC5AD355299D6392004B695C /* Apollo */,
 			);
 			productName = OtakuSakuru;
 			productReference = BC8ADF50298C729B00F8C84E /* OtakuSakuru.app */;
@@ -467,6 +476,7 @@
 			mainGroup = BC8ADF47298C729B00F8C84E;
 			packageReferences = (
 				BCBEAF09298E7BF2008EE3FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				BC5AD354299D6392004B695C /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = BC8ADF51298C729B00F8C84E /* Products */;
 			projectDirPath = "";
@@ -483,6 +493,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC5AD35A299D85CA004B695C /* Anilist.graphql in Resources */,
 				BC8ADF5B298C729C00F8C84E /* Preview Assets.xcassets in Resources */,
 				BC8ADF58298C729C00F8C84E /* Assets.xcassets in Resources */,
 				BCBEAF08298E7547008EE3FA /* GoogleService-Info.plist in Resources */,
@@ -521,6 +532,7 @@
 				BCB3B2322999960F00585FC7 /* CameraManager.swift in Sources */,
 				BCBEAF3A298FD32A008EE3FA /* Book.swift in Sources */,
 				BCB3B23929999D9000585FC7 /* CGImage+Extensions.swift in Sources */,
+				BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */,
 				BCB3B2342999966700585FC7 /* FrameManager.swift in Sources */,
 				BCB3B22029992AB400585FC7 /* API_Method.swift in Sources */,
 				BCBEAF38298FCCEB008EE3FA /* User.swift in Sources */,
@@ -800,6 +812,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		BC5AD354299D6392004B695C /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		BCBEAF09298E7BF2008EE3FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -811,6 +831,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		BC5AD355299D6392004B695C /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC5AD354299D6392004B695C /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
 		BCB3B2052997D0C900585FC7 /* FirebaseAnalyticsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BCBEAF09298E7BF2008EE3FA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

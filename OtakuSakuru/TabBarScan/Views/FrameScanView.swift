@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FrameScanView: View {
-    
+    @State private var cameraActivate = false
+
         // image frame for recepted vision
     var image: CGImage?
     private let label = Text("Frame")
