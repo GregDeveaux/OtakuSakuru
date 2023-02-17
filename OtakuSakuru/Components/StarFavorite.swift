@@ -12,7 +12,7 @@ struct StarFavorite: View {
 
     var body: some View {
         Button {
-            withAnimation(.easeInOut(duration: 2)) {
+            withAnimation(.easeIn(duration: 0.5)) {
                 isActivate.toggle()
             }
         } label: {
@@ -21,11 +21,13 @@ struct StarFavorite: View {
                     .frame(width: 70, height: 70, alignment: .trailing)
                     .foregroundColor(.redJapan)
                     .overlay {
-                        Image(systemName: "star")
-                            .font(.system(size: 40))
-                            .fontWeight(.light)
-                            .offset(y: -1)
+                        ZStack {
+                            Image(systemName: "star")
+                                .font(.system(size: 35))
+                                .fontWeight(.light)
+                                .offset(y: -1)
                             .foregroundColor(.white)
+                        }
                     }
             } else {
                 ZStack {

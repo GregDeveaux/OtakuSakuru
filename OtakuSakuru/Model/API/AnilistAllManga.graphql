@@ -1,0 +1,18 @@
+query AnilistAllManga {
+  Page {
+    media(type: MANGA) {
+      title {
+        english
+        romaji
+      }
+      description
+      genres
+      coverImage {
+        extraLarge
+        large
+        medium
+        color
+      }
+    }
+  }
+}
