@@ -10,6 +10,8 @@
 		BC525563299EF46A00940C01 /* Anilist_AllMangasExemple.json in Resources */ = {isa = PBXBuildFile; fileRef = BC525562299EF46A00940C01 /* Anilist_AllMangasExemple.json */; };
 		BC52557029A03E6800940C01 /* Anilist_Schema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = BC52556F29A03E6800940C01 /* Anilist_Schema.graphqls */; };
 		BC52557329A0521C00940C01 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = BC52557229A0521C00940C01 /* Apollo */; };
+		BC52557529A0C5F600940C01 /* API_Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52557429A0C5F600940C01 /* API_Error.swift */; };
+		BC52557729A0C65C00940C01 /* API_QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52557629A0C65C00940C01 /* API_QueryService.swift */; };
 		BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD357299D857A004B695C /* API_Anilist.swift */; };
 		BC5AD35A299D85CA004B695C /* Anilist_AllMangasQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BC5AD359299D85CA004B695C /* Anilist_AllMangasQuery.graphql */; };
 		BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */; };
@@ -78,6 +80,8 @@
 /* Begin PBXFileReference section */
 		BC525562299EF46A00940C01 /* Anilist_AllMangasExemple.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Anilist_AllMangasExemple.json; sourceTree = "<group>"; };
 		BC52556F29A03E6800940C01 /* Anilist_Schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = Anilist_Schema.graphqls; sourceTree = "<group>"; };
+		BC52557429A0C5F600940C01 /* API_Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Error.swift; sourceTree = "<group>"; };
+		BC52557629A0C65C00940C01 /* API_QueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_QueryService.swift; sourceTree = "<group>"; };
 		BC5AD357299D857A004B695C /* API_Anilist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Anilist.swift; sourceTree = "<group>"; };
 		BC5AD359299D85CA004B695C /* Anilist_AllMangasQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Anilist_AllMangasQuery.graphql; sourceTree = "<group>"; };
 		BC8ADF50298C729B00F8C84E /* OtakuSakuru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtakuSakuru.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +158,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC52556E29A03AD500940C01 /* AnilistGraphql */ = {
+		BC52556E29A03AD500940C01 /* API_AnilistGraphql */ = {
 			isa = PBXGroup;
 			children = (
 				BC5AD357299D857A004B695C /* API_Anilist.swift */,
@@ -162,7 +166,18 @@
 				BC5AD359299D85CA004B695C /* Anilist_AllMangasQuery.graphql */,
 				BC525562299EF46A00940C01 /* Anilist_AllMangasExemple.json */,
 			);
-			path = AnilistGraphql;
+			path = API_AnilistGraphql;
+			sourceTree = "<group>";
+		};
+		BC52557829A0C7A700940C01 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				BCB3B21F29992AB400585FC7 /* API_Method.swift */,
+				BC52557429A0C5F600940C01 /* API_Error.swift */,
+				BCB3B22229992C1D00585FC7 /* API_EndPoint.swift */,
+				BC52557629A0C65C00940C01 /* API_QueryService.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		BC8ADF47298C729B00F8C84E = {
@@ -305,11 +320,10 @@
 		BCB3B22129992AD000585FC7 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				BCB3B21F29992AB400585FC7 /* API_Method.swift */,
-				BCB3B22229992C1D00585FC7 /* API_EndPoint.swift */,
+				BC52557829A0C7A700940C01 /* Base */,
 				BCB3B22429992D0400585FC7 /* API_Openlibrary.swift */,
 				BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */,
-				BC52556E29A03AD500940C01 /* AnilistGraphql */,
+				BC52556E29A03AD500940C01 /* API_AnilistGraphql */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -554,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB3B2012997CAF000585FC7 /* Publisher.swift in Sources */,
+				BC52557529A0C5F600940C01 /* API_Error.swift in Sources */,
 				BCB3B1FF2997A58200585FC7 /* Mangaka.swift in Sources */,
 				BC8ADF56298C729C00F8C84E /* ContentView.swift in Sources */,
 				BCBEAF4029901225008EE3FA /* MangaImageParallaxEffect.swift in Sources */,
@@ -568,6 +583,7 @@
 				BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */,
 				BCB3B21E299921CA00585FC7 /* API_Wikipedia.swift in Sources */,
 				BCB3B2322999960F00585FC7 /* CameraManager.swift in Sources */,
+				BC52557729A0C65C00940C01 /* API_QueryService.swift in Sources */,
 				BCBEAF3A298FD32A008EE3FA /* Book.swift in Sources */,
 				BCB3B23929999D9000585FC7 /* CGImage+Extensions.swift in Sources */,
 				BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */,

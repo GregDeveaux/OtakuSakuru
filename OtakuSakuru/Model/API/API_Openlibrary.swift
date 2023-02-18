@@ -14,7 +14,7 @@ extension API {
         // ----------------------------------------------------------------------
 
     enum Openlibrary {
-        struct ISBN {
+        struct ISBN: Codable {
             var title: String
             var authors: [Author]
             var numberOfPages: Int
@@ -30,14 +30,15 @@ extension API {
                 case identifiers
                 case publishers
                 case publishDate = "publish_date"
+                case cover
             }
         }
 
-        struct Author {
+        struct Author: Codable {
             var name: String
         }
 
-        struct Identifier {
+        struct Identifier: Codable {
             var isbn13: String
 
             enum CodingKeys: String, CodingKey {
@@ -45,11 +46,11 @@ extension API {
             }
         }
 
-        struct Publisher {
+        struct Publisher: Codable {
             var name: String
         }
 
-        struct Cover {
+        struct Cover: Codable {
             var small: String
             var medium: String
             var large: String

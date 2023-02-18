@@ -2,7 +2,7 @@
 //  API_Method.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 12/02/2023.
+//  Created by Greg Deveaux on 12/02/2023.
 //
 
 import Foundation

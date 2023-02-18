@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScanView: View {
-    @StateObject private var model = ScanViewModel()
+    @StateObject private var scanViewModel = ScanViewModel()
     @State var isActivated = false
 
     var body: some View {
@@ -19,7 +19,7 @@ struct ScanView: View {
             LogoWithHalo()
                 .offset(y: -265)
             VStack {
-                FrameScanView(image: model.frame, isbnText: model.isbnText ?? "nil")
+                FrameScanView(image: scanViewModel.frame, isbnText: scanViewModel.isbnText ?? "nil")
 
                 Button {
                     isActivated = true
@@ -34,6 +34,11 @@ struct ScanView: View {
                                 .foregroundColor(.white)
                                 .frame(width: 35, height: 35, alignment: .center)
                         }
+                }
+                HStack {
+                    AsyncImage(url: URL(string: scanViewModel.imageName ?? "moon"))
+                        .frame(width: 100, height: 120, alignment: .center)
+                    Text(scanViewModel.title ?? "not title")
                 }
             }
 

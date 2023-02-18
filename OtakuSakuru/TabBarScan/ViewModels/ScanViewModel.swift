@@ -17,6 +17,10 @@ class ScanViewModel: ObservableObject {
     @Published var isbnText: String?
     var isbnFound = false
 
+    @Published var imageName: String?
+    @Published var title: String?
+
+
     init() {
         setupSubscriptions()
     }
@@ -50,8 +54,10 @@ class ScanViewModel: ObservableObject {
 
             let result = observations.first?.payloadStringValue
             self.isbnText = result
+
             if result != nil {
                 self.isbnFound = true
+                self.getData(ISBN: self.isbnText ?? "nil")
             }
             print(result ?? "Not isbn")
         }
@@ -63,6 +69,19 @@ class ScanViewModel: ObservableObject {
         }
         catch {
             print(error)
+        }
+    }
+
+    func getData(ISBN: String) {
+        API.QueryService.shared.getData(endpoint: .openlibrary(ISBN: ISBN), type: API.Openlibrary.ISBN.self) { result in
+            switch result {
+                case .failure(let error):
+                    print("🛑 SCAN_VM/DATA_ISBN: \(error.localizedDescription)")
+                case .success(let result):
+                    self.imageName = result.cover.large
+                    self.title = result.title
+                    print("✅ SCAN_VM/DATA_ISBN: The ISBN give the result: \(result)")
+            }
         }
     }
 }
