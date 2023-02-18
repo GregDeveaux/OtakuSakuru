@@ -8,5 +8,11 @@
 import Foundation
 
 extension API {
-    
+    enum Anilist {
+        struct AllMangaQuery {
+            func get() {
+                
+            }
+        }
+    }
 }

@@ -62,49 +62,23 @@ enum Category: String {
 }
 
 enum Kind: String, CaseIterable {
-    case dojinsho = "Dōjinshi"
     case action
     case adventure
-    case car
     case comedy
-    case cook
     case drama
     case ecchi
     case fantasy
-    case gakuen
-    case gekiga
-    case genderBender = "Gender Bender"
-    case harem
     case hentai
-    case history
     case horror
-    case isekai
-    case jidaimono
-    case kowai = "Kowaï"
-    case mahoShojo = "Maho shōjo"
-    case magicalGirl = "Magical Girl"
-    case mahouShoujo = "Mahou shoujo"
+    case mahouShoujo = "Mahou Shoujo"
     case mecha
-    case moe
     case music
     case mystery
-    case nekketsu
-    case pantsu
     case psychological
-    case redikomi
     case romance
     case sciFi = "Sci-Fi"
     case sliceOfLife = "Slice of life"
-    case amour
-    case shakai
-    case shitei
-    case shojoAi = "Shōjo-ai"
-    case shonenAi = "Shōnen-ai"
-    case sport
+    case sports
     case supernatural
-    case suiri
     case thriller
-    case yaoi
-    case yonkoma
-    case yuri
 }
