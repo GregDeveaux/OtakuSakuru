@@ -15,7 +15,7 @@ extension API {
 
     enum EndPoint {
         case wikipedia(title: String)
-        case openlibrary(ISBN: String)
+        case googleBook(ISBN: String)
 
         var url: URL {
             var components = URLComponents()
@@ -30,14 +30,11 @@ extension API {
                         URLQueryItem(name: "format", value: "json"),
                         URLQueryItem(name: "titles", value: "\(title)")
                     ]
-                case .openlibrary(let ISBN):
-                    components.host = "openlibrary.org"
-                    components.path = "/api/books"
+                case .googleBook(let ISBN):
+                    components.host = "www.googleapis.com"
+                    components.path = "/books/v1/volumes"
                     components.queryItems = [
-                        URLQueryItem(name: "type", value: "public"),
-                        URLQueryItem(name: "q", value: "\(ISBN)"),
-                        URLQueryItem(name: "jscmd", value: "data"),
-                        URLQueryItem(name: "format", value: "json")
+                        URLQueryItem(name: "q", value: "isbn:\(ISBN)")
                     ]
             }
             guard let url = components.url else {

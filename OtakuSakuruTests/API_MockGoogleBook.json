@@ -1,0 +1,71 @@
+{
+    "kind": "books#volumes",
+    "totalItems": 1,
+    "items": [
+        {
+            "kind": "books#volume",
+            "id": "2KgsvgAACAAJ",
+            "etag": "KUjCC+OgkD8",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/2KgsvgAACAAJ",
+            "volumeInfo": {
+                "title": "Gunnm - Edition originale",
+                "authors": [
+                    "Yukito Kishiro"
+                ],
+                "publishedDate": "2016-10-19",
+                "description": "Au coeur de la décharge dans laquelle il vit, un cybernéticien retrouve les restes d'une jeune androïde. La ramener à la vie marque le début d'une saga qui va bouleverser l'ensemble du système solaire.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "2344017542"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9782344017548"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 220,
+                "printType": "BOOK",
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "language": "fr",
+                "previewLink": "http://books.google.com/books?id=2KgsvgAACAAJ&dq=isbn:9782344017548&hl=&cd=1&source=gbs_api",
+                "infoLink": "http://books.google.com/books?id=2KgsvgAACAAJ&dq=isbn:9782344017548&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Gunnm_Edition_originale.html?hl=&id=2KgsvgAACAAJ"
+            },
+            "saleInfo": {
+                "country": "US",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "US",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=2KgsvgAACAAJ&hl=&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "La jaquette indique : &quot;Au coeur de la décharge dans laquelle il vit, un cybernéticien retrouve les restes d&#39;une jeune androïde. La ramener à la vie marquait le début d&#39;une saga qui allait bouleverser l&#39;ensemble du système solaire&quot;"
+            }
+        }
+    ]
+}

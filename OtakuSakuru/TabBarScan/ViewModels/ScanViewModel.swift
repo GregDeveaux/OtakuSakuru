@@ -73,13 +73,13 @@ class ScanViewModel: ObservableObject {
     }
 
     func getData(ISBN: String) {
-        API.QueryService.shared.getData(endpoint: .openlibrary(ISBN: ISBN), type: API.Openlibrary.ISBN.self) { result in
+        API.QueryService.shared.getData(endpoint: .googleBook(ISBN: ISBN), type: API.GoogleBook.ISBN.self) { [weak self] result in
             switch result {
                 case .failure(let error):
                     print("🛑 SCAN_VM/DATA_ISBN: \(error.localizedDescription)")
                 case .success(let result):
-                    self.imageName = result.cover.large
-                    self.title = result.title
+                    self?.title = result.items[0].volumeInfo.title
+                    self?.imageName = "https://www.canalbd.net/img/couvpage/54/\(self?.isbnText ?? "Nothing")_cg.jpg"
                     print("✅ SCAN_VM/DATA_ISBN: The ISBN give the result: \(result)")
             }
         }

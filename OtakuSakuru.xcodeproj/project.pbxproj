@@ -12,6 +12,7 @@
 		BC52557329A0521C00940C01 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = BC52557229A0521C00940C01 /* Apollo */; };
 		BC52557529A0C5F600940C01 /* API_Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52557429A0C5F600940C01 /* API_Error.swift */; };
 		BC52557729A0C65C00940C01 /* API_QueryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52557629A0C65C00940C01 /* API_QueryService.swift */; };
+		BC52557A29A18B1D00940C01 /* ValidatePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52557929A18B1D00940C01 /* ValidatePopupView.swift */; };
 		BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5AD357299D857A004B695C /* API_Anilist.swift */; };
 		BC5AD35A299D85CA004B695C /* Anilist_AllMangasQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = BC5AD359299D85CA004B695C /* Anilist_AllMangasQuery.graphql */; };
 		BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */; };
@@ -37,8 +38,8 @@
 		BCB3B21E299921CA00585FC7 /* API_Wikipedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */; };
 		BCB3B22029992AB400585FC7 /* API_Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B21F29992AB400585FC7 /* API_Method.swift */; };
 		BCB3B22329992C1D00585FC7 /* API_EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B22229992C1D00585FC7 /* API_EndPoint.swift */; };
-		BCB3B22529992D0400585FC7 /* API_Openlibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B22429992D0400585FC7 /* API_Openlibrary.swift */; };
-		BCB3B227299931B500585FC7 /* API_MockOpenlibrary.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB3B226299931B500585FC7 /* API_MockOpenlibrary.json */; };
+		BCB3B22529992D0400585FC7 /* API_GoogleBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B22429992D0400585FC7 /* API_GoogleBook.swift */; };
+		BCB3B227299931B500585FC7 /* API_MockGoogleBook.json in Resources */ = {isa = PBXBuildFile; fileRef = BCB3B226299931B500585FC7 /* API_MockGoogleBook.json */; };
 		BCB3B2322999960F00585FC7 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2312999960F00585FC7 /* CameraManager.swift */; };
 		BCB3B2342999966700585FC7 /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2332999966700585FC7 /* FrameManager.swift */; };
 		BCB3B2362999998F00585FC7 /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2352999998F00585FC7 /* CameraError.swift */; };
@@ -82,6 +83,7 @@
 		BC52556F29A03E6800940C01 /* Anilist_Schema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = Anilist_Schema.graphqls; sourceTree = "<group>"; };
 		BC52557429A0C5F600940C01 /* API_Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Error.swift; sourceTree = "<group>"; };
 		BC52557629A0C65C00940C01 /* API_QueryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_QueryService.swift; sourceTree = "<group>"; };
+		BC52557929A18B1D00940C01 /* ValidatePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatePopupView.swift; sourceTree = "<group>"; };
 		BC5AD357299D857A004B695C /* API_Anilist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Anilist.swift; sourceTree = "<group>"; };
 		BC5AD359299D85CA004B695C /* Anilist_AllMangasQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Anilist_AllMangasQuery.graphql; sourceTree = "<group>"; };
 		BC8ADF50298C729B00F8C84E /* OtakuSakuru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtakuSakuru.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,8 +105,8 @@
 		BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Wikipedia.swift; sourceTree = "<group>"; };
 		BCB3B21F29992AB400585FC7 /* API_Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Method.swift; sourceTree = "<group>"; };
 		BCB3B22229992C1D00585FC7 /* API_EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_EndPoint.swift; sourceTree = "<group>"; };
-		BCB3B22429992D0400585FC7 /* API_Openlibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Openlibrary.swift; sourceTree = "<group>"; };
-		BCB3B226299931B500585FC7 /* API_MockOpenlibrary.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API_MockOpenlibrary.json; sourceTree = "<group>"; };
+		BCB3B22429992D0400585FC7 /* API_GoogleBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_GoogleBook.swift; sourceTree = "<group>"; };
+		BCB3B226299931B500585FC7 /* API_MockGoogleBook.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = API_MockGoogleBook.json; sourceTree = "<group>"; };
 		BCB3B2312999960F00585FC7 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		BCB3B2332999966700585FC7 /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
 		BCB3B2352999998F00585FC7 /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			children = (
 				BC8EC4F62992F62F009366D9 /* ScanView.swift */,
 				BC8EC4FC299432BD009366D9 /* FrameScanView.swift */,
+				BC52557929A18B1D00940C01 /* ValidatePopupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,7 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				BC52557829A0C7A700940C01 /* Base */,
-				BCB3B22429992D0400585FC7 /* API_Openlibrary.swift */,
+				BCB3B22429992D0400585FC7 /* API_GoogleBook.swift */,
 				BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */,
 				BC52556E29A03AD500940C01 /* API_AnilistGraphql */,
 			);
@@ -361,7 +364,7 @@
 			children = (
 				BCB3B2022997CF1B00585FC7 /* MockURLProtocol.swift */,
 				BCBEAF2B298F16A0008EE3FA /* OtakuSakuruTests.swift */,
-				BCB3B226299931B500585FC7 /* API_MockOpenlibrary.json */,
+				BCB3B226299931B500585FC7 /* API_MockGoogleBook.json */,
 			);
 			path = OtakuSakuruTests;
 			sourceTree = "<group>";
@@ -535,7 +538,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB3B227299931B500585FC7 /* API_MockOpenlibrary.json in Resources */,
+				BCB3B227299931B500585FC7 /* API_MockGoogleBook.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +581,7 @@
 				BCB3B2152997DA2900585FC7 /* CollectionView.swift in Sources */,
 				BCBEAF3C298FFF40008EE3FA /* LaunchView.swift in Sources */,
 				BCB3B21C2998680500585FC7 /* StarFavorite.swift in Sources */,
+				BC52557A29A18B1D00940C01 /* ValidatePopupView.swift in Sources */,
 				BC8EC501299437C4009366D9 /* LogoWithHalo.swift in Sources */,
 				BC8EC4F72992F62F009366D9 /* ScanView.swift in Sources */,
 				BC8ADF54298C729C00F8C84E /* OtakuSakuruApp.swift in Sources */,
@@ -593,7 +597,7 @@
 				BCBEAF35298F2BF3008EE3FA /* Manga.swift in Sources */,
 				BCBEAF33298F266E008EE3FA /* MangaDetailView.swift in Sources */,
 				BCBEAF23298F14D9008EE3FA /* Color+Extensions.swift in Sources */,
-				BCB3B22529992D0400585FC7 /* API_Openlibrary.swift in Sources */,
+				BCB3B22529992D0400585FC7 /* API_GoogleBook.swift in Sources */,
 				BC8EC50529943E02009366D9 /* OldCameraManager.swift in Sources */,
 				BCB3B2172997DFA000585FC7 /* CollectionCell.swift in Sources */,
 				BCB3B22329992C1D00585FC7 /* API_EndPoint.swift in Sources */,

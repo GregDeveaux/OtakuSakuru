@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScanView: View {
     @StateObject private var scanViewModel = ScanViewModel()
-    @State var isActivated = false
+    @State private var isActivated = false
 
     var body: some View {
 
