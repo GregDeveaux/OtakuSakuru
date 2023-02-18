@@ -31,7 +31,7 @@ extension API {
                         URLQueryItem(name: "titles", value: "\(title)")
                     ]
                 case .openlibrary(let ISBN):
-                    components.host = "https://openlibrary.org"
+                    components.host = "openlibrary.org"
                     components.path = "/api/books"
                     components.queryItems = [
                         URLQueryItem(name: "type", value: "public"),
