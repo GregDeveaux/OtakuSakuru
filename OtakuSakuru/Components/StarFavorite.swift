@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct StarFavorite: View {
-    @State var isActivate: Bool
+    @State var isActivate: Bool = false
 
     var body: some View {
         Button {
-            withAnimation(.easeIn(duration: 0.5)) {
-                isActivate.toggle()
-            }
+            isActivate.toggle()
         } label: {
             if !isActivate {
                 Circle()

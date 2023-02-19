@@ -66,7 +66,7 @@ struct CollectionCell: View {
 
                     /// Star
                 StarFavorite(isActivate: false)
-                    .aspectRatio(3, contentMode: .fit)
+                    .scaleEffect(CGSize(width: 0.6, height: 0.6), anchor: .leading)
             }
         }
     }

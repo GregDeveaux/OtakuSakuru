@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FrameScanView: View {
+    @Environment (\.colorScheme) var colorSheme
+
     @State private var cameraActivate = false
 
         // image frame for recepted vision
@@ -25,7 +27,7 @@ struct FrameScanView: View {
                 .cornerRadius(15)
         } else {
             RoundedRectangle(cornerRadius: 15)
-                .foregroundColor(.sandJapan)
+                .foregroundColor(colorSheme == .light ? .sandJapan : .black)
                 .frame(width: 300, height: 220, alignment: .center)
                 .overlay {
                     ZStack {
@@ -70,11 +72,9 @@ struct FrameScanView: View {
                                 .font(.system(size: 35))
                         }
                     }
-                    .foregroundColor(.redJapan)
+                    .foregroundColor(colorSheme == .light ? .redJapan : .indigoJapan)
                 }
         }
-        Text(isbnText)
-            .bold()
     }
 
     struct FrameVisionView_Previews: PreviewProvider {

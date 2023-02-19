@@ -13,13 +13,13 @@ class ScanViewModel: ObservableObject {
     @Published var frame: CGImage?
         // generate frame will come from FrameManager
     private let frameManager = FrameManager.shared
-
+    var cameraIsActivate = false
+        // ISBN
     @Published var isbnText: String?
     var isbnFound = false
-
+        // retrieve infomations to the manga
     @Published var imageName: String?
     @Published var title: String?
-
 
     init() {
         setupSubscriptions()
@@ -27,17 +27,19 @@ class ScanViewModel: ObservableObject {
 
     func setupSubscriptions() {
             // check FrameManager
-        frameManager.$current.receive(on: RunLoop.main)
-            .compactMap { buffer in
-                    // convert CVPixelBuffer to CGImage
-                guard let image = CGImage.create(from: buffer) else { return nil }
-                if !self.isbnFound {
-                    self.recognizeBarcode(cgImage: image)
+            frameManager.$current.receive(on: RunLoop.main)
+                .compactMap { buffer in
+                        // convert CVPixelBuffer to CGImage
+                    guard let image = CGImage.create(from: buffer) else { return nil }
+
+                    if !self.isbnFound {
+                        self.recognizeBarcode(cgImage: image)
+                    }
+
+                    return image
                 }
-                return image
-            }
-            // assign the output of the pipeline
-            .assign(to: &$frame)
+                // assign the output of the pipeline
+                .assign(to: &$frame)
     }
 
         // -------------------------------------------------------
@@ -71,6 +73,10 @@ class ScanViewModel: ObservableObject {
             print(error)
         }
     }
+
+        // -------------------------------------------------------
+        // MARK: - retrieve info by ISBN
+        // -------------------------------------------------------
 
     func getData(ISBN: String) {
         API.QueryService.shared.getData(endpoint: .googleBook(ISBN: ISBN), type: API.GoogleBook.ISBN.self) { [weak self] result in
