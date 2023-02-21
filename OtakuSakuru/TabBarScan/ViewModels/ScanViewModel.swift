@@ -9,20 +9,33 @@ import CoreImage
 import Vision
 
 class ScanViewModel: ObservableObject {
+
         // contain the image of FrameView
     @Published var frame: CGImage?
+
         // generate frame will come from FrameManager
     private let frameManager = FrameManager.shared
-    var cameraIsActivate = false
+    @Published var cameraIsActivate = false
+
         // ISBN
     @Published var isbnText: String?
-    var isbnFound = false
+    @Published var isbnFound = false
+
         // retrieve infomations to the manga
     @Published var imageName: String?
     @Published var title: String?
 
-    init() {
-        setupSubscriptions()
+
+        // -------------------------------------------------------
+        // MARK: - start the camera for scan barcode
+        // -------------------------------------------------------
+        // we activate the camera to scan a barcode
+    func scanBarcode() {
+        if cameraIsActivate {
+            setupSubscriptions()
+        } else {
+            print("❌🎥 SCAN_VIEW_MODEL/SCAN_BARCODE: Camera disconnected")
+        }
     }
 
     func setupSubscriptions() {
@@ -46,7 +59,7 @@ class ScanViewModel: ObservableObject {
         // MARK: - recognized the barcode by image
         // -------------------------------------------------------
 
-    func recognizeBarcode(cgImage: CGImage?) {
+    func recognizeBarcode(cgImage: CGImage?) {  //TODO: async https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/
         guard let cgImage = cgImage else { return }
 
         let handler = VNImageRequestHandler(cgImage: cgImage)
@@ -85,8 +98,10 @@ class ScanViewModel: ObservableObject {
                     print("🛑 SCAN_VM/DATA_ISBN: \(error.localizedDescription)")
                 case .success(let result):
                     self?.title = result.items[0].volumeInfo.title
-                    self?.imageName = "https://www.canalbd.net/img/couvpage/54/\(self?.isbnText ?? "Nothing")_cg.jpg"
                     print("✅ SCAN_VM/DATA_ISBN: The ISBN give the result: \(result)")
+
+                        // stop the camera
+                    self?.cameraIsActivate = false
             }
         }
     }

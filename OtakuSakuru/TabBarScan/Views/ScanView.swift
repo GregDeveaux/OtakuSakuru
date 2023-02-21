@@ -14,7 +14,6 @@ struct ScanView: View {
     @State private var isActivated = false
 
     var body: some View {
-
         GeometryReader { proxy in
             ZStack {
                 Color.otakuBackground
@@ -27,11 +26,20 @@ struct ScanView: View {
                 VStack {
                     FrameScanView(image: scanViewModel.frame, isbnText: scanViewModel.isbnText ?? "nil")
                         .position(x: proxy.size.width / 2,
-                                  y: proxy.size.height / 2)
+                                  y: proxy.size.height / 1.75)
+                        .accessibilityAddTraits(.startsMediaSession)
+                        .accessibilityLabel("This frame is modify after that to push the button and a camera is activate to scan the barcode")
 
                     scanButton
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityLabel("You activate the camera after push on the button camera and we stop it in push again.")
+                }
+                if scanViewModel.isbnFound {
+                    ValidatePopupView(title: scanViewModel.title ?? "not title", isbn: scanViewModel.isbnText ?? "nil")
                 }
             }
+            .accessibilityAddTraits(.isSummaryElement)
+            .accessibilityLabel("This page allows to add a manga in your collection by scan barcode.")
         }
     }
 }
@@ -45,10 +53,15 @@ struct ScanView_Previews: PreviewProvider {
 private extension ScanView {
     var scanButton: some View {
         Button {
-            isActivated = true
-            scanViewModel.cameraIsActivate = true
-            
-            print("✅ ScanView/scanButton: Camera is activate")
+            if !isActivated {
+                isActivated = true
+                scanViewModel.cameraIsActivate.toggle() ///true
+                scanViewModel.scanBarcode()
+            } else {
+                isActivated = false
+                scanViewModel.cameraIsActivate.toggle() ///false
+            }
+            print("✅ SCAN_VIEW/SCAN_BUTTON: Camera is activate? \(scanViewModel.cameraIsActivate)")
         } label: {
             Circle()
                 .frame(width: 90, height: 90, alignment: .center)
@@ -61,5 +74,6 @@ private extension ScanView {
                         .frame(width: 35, height: 35, alignment: .center)
                 }
         }
+        .padding(.bottom, 30)
     }
 }

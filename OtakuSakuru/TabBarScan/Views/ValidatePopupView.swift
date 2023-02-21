@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ValidatePopupView: View {
-    @State var url = URL(string: "")
-    @State var title = "Manga"
+    @Environment (\.colorScheme) var colorSheme
+
+    var title: String
+    var isbn: String
 
     var body: some View {
         ZStack {
-//            Color.black.ignoresSafeArea()
-//                .opacity(0.8)
             VStack {
                 GeometryReader { proxy in
                     RoundedRectangle(cornerRadius: 15)
@@ -33,7 +33,8 @@ struct ValidatePopupView: View {
                                     .bold()
                                     .font(.system(size: 30))
                                     .fontDesign(.rounded)
-                                    .foregroundColor(.blueGreenJapan)
+                                    .foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan)
+
                                 Text("You don't have this manga\n in your collection")
                                     .font(.system(size: 17))
                                     .bold()
@@ -41,27 +42,28 @@ struct ValidatePopupView: View {
                                     .padding(.top, 1)
                                     .offset(y: -10)
 
-                                AsyncImage(url: url) { image in
+                                AsyncImage(url: URL(string: "https://www.canalbd.net/img/couvpage/54/\(isbn)_cg.jpg")) { image in
                                     image.resizable()
                                 } placeholder: {
                                     ProgressView()
+                                        .frame(width: proxy.size.width * 0.5, height: proxy.size.height * 0.33, alignment: .center)
+                                        .background(Color.indigoJapan)
                                 }
                                 .scaledToFit()
                                 .frame(width: proxy.size.width * 0.5,
                                        height: proxy.size.height * 0.33,
                                        alignment: .center)
                                 .padding(.bottom, 25)
-                                .background(Color.blueGreenJapan)
                                 .overlay(alignment: .bottom) {
-                                        Text("ISBN")
+                                        Text(isbn)
                                         .font(.system(size: 15))
                                             .frame(width: 150, height: 30, alignment: .center)
                                             .background(.regularMaterial)
                                             .cornerRadius(30)
-                                            .padding()
+                                            .padding(.bottom, 40)
                                 }
 
-                                Text("Do you want to add\n \(Text("\(title)").bold().foregroundColor(.blueGreenJapan))  \nin the collection?")
+                                Text("Do you want to add\n \(Text("\(title)").bold().foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan))  \nin the collection?")
                                     .font(.system(size: 17))
                                     .multilineTextAlignment(.center)
 
@@ -83,6 +85,6 @@ struct ValidatePopupView: View {
 
 struct ValidatePopupView_Previews: PreviewProvider {
     static var previews: some View {
-        ValidatePopupView()
+        ValidatePopupView(title: "Gunnm - Edition originale", isbn: "9782344017548")
     }
 }
