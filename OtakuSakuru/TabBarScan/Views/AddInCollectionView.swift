@@ -1,5 +1,5 @@
 //
-//  RoundedRectangleButtonView.swift
+//  AddButtonInCollectionView.swift
 //  OtakuSakuru
 //
 //  Created by Greg-Mini on 19/02/2023.
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct RoundedRectangleButtonView: View {
-    @Environment (\.dismiss) var dismiss
+struct AddInCollectionView: View {
 
     @State private var isAddToTheCollection: Bool = false
     
@@ -17,8 +16,11 @@ struct RoundedRectangleButtonView: View {
 
     var body: some View {
         Button {
+            withAnimation {
+                isAddToTheCollection.toggle()
+            }
+
             if !buttonYes {
-                dismiss()
                 print("🛑 ROUNDED_RECTANGLE_BUTTON_VIEW/BUTTON: No, the manga is rejected")
             } else {
                 isAddToTheCollection = true
@@ -40,6 +42,6 @@ struct RoundedRectangleButtonView: View {
 
 struct RoundedRectangleButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        RoundedRectangleButtonView(color: .blueGreenJapan, buttonYes: true)
+        AddInCollectionView(color: .blueGreenJapan, buttonYes: true)
     }
 }

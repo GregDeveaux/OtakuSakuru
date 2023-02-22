@@ -2,14 +2,19 @@
 //  CollectionView.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 11/02/2023.
+//  Created by Greg Deveaux on 11/02/2023.
 //
 
 import SwiftUI
 
 struct CollectionView: View {
+    @EnvironmentObject var collectionViewModel: CollectionViewModel
+
     @State var booksOfUser: [Book] = [
-        Book(category: .manga, title: "Naruto", volume: 8,
+        Book(editionType: .manga,
+             category: .shonen,
+             kind: [.action, .comedy, .adventure],
+             title: "Naruto", volume: 8,
              imageName: "Naruto_Tome8",
              mangakas: [Mangaka(name: "Masashi Kishimoto", function: .creator)],
              ISBN: 9782505115021, publisher: "Kana",
@@ -17,7 +22,10 @@ struct CollectionView: View {
              numberOfPages: 380, dimensions: "14cm x 21cm",
              releaseDate: "03/02/2023",
              isAcquired: true),
-        Book(category: .novel, title: "One Piece", volume: 1,
+        Book(editionType: .novel,
+             category: .shonen,
+             kind: [.action, .comedy, .adventure],
+             title: "One Piece", volume: 1,
              imageName: "OnePiece-Novel",
              mangakas: [Mangaka(name: "Eiichiro Oda", function: .creator),
                         Mangaka(name: "Shou Hinata", function: .scriptwriter)],
@@ -26,32 +34,47 @@ struct CollectionView: View {
              numberOfPages: 270, dimensions: "115 x 180 mm",
              releaseDate: "03/02/2023",
              isAcquired: true),
-        Book(category: .manga, title: "Fire force", volume: 27,
+        Book(editionType: .manga,
+             category: .shonen,
+             kind: [.action, .adventure],
+             title: "Fire force", volume: 27,
              imageName: "FireForce_Tome27",
              mangakas: [Mangaka(name: "Atsushi Ohkubo", function: .creator)],
              ISBN: 9782505117223, publisher: "Kana",
              synopsis: "Quel destin Shinra porte-t-il donc sur ses épaules ? Et quelle est la vérité sur sa naissance et celle de son frère Shô ? Alors que ce dernier, accompagné d'Arrow, mène une enquête sur le mystérieux secret concernant sa famille, il retrouve, par le biais de l'Adora Link, sa mère Mari devenue une Torche humaine. Quelle décision le jeune homme va-t-il prendre après avoir découvert toute la vérité ?! Au même moment…",
              numberOfPages: 192, dimensions: "115 mm x 175 mm",
              releaseDate: "03/02/2023",
-             isAcquired: true),
+             isAcquired: true)
     ]
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(booksOfUser, id: \.ISBN) { book in
-                    CollectionCell(imageName: book.imageName,
-                                   title: book.title,
-                                   volume: book.volume,
-                                   publisher: book.publisher)
-                }
-                .listRowBackground(Color.sandJapan)
-                .listRowSeparator(.hidden)
+        VStack {
+            HStack {
+                SearchBar(searchText: .constant("One Piece")) //TODO: remove constant
+                Image(systemName: "face.smiling.inverse")
+                    .foregroundColor(.blueGreenJapan)
+                    .padding()
             }
-            .listStyle(PlainListStyle())
-            .background(Color.sandJapan)
-            .navigationTitle("Liste")
+
+            NavigationView {
+                Section() {
+                    List {
+                        ForEach(booksOfUser, id: \.ISBN) { book in
+                            MangaVolumeCell(imageName: book.imageName,
+                                           title: book.title,
+                                           volume: book.volume,
+                                           publisher: book.publisher)
+                        }
+                        .listRowBackground(Color.sandJapan)
+                        .listRowSeparator(.hidden)
+                    }
+                    .listStyle(PlainListStyle())
+                    .background(Color.sandJapan)
+                    .navigationTitle("Liste")
+                }
+            }
         }
+        .background(Color.sandJapan)
     }
 }
 

@@ -45,10 +45,9 @@ class ScanViewModel: ObservableObject {
                         // convert CVPixelBuffer to CGImage
                     guard let image = CGImage.create(from: buffer) else { return nil }
 
-                    if !self.isbnFound {
-                        self.recognizeBarcode(cgImage: image)
-                    }
-
+                        if !self.isbnFound {
+                            self.recognizeBarcode(cgImage: image)
+                        }
                     return image
                 }
                 // assign the output of the pipeline
@@ -59,7 +58,7 @@ class ScanViewModel: ObservableObject {
         // MARK: - recognized the barcode by image
         // -------------------------------------------------------
 
-    func recognizeBarcode(cgImage: CGImage?) {  //TODO: async https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/
+    func recognizeBarcode(cgImage: CGImage?) {  //TODO: async https://peterfriese.dev/posts/swiftui-concurrency-essentials-part1/   ---   https://www.hackingwithswift.com/quick-start/concurrency/how-to-use-mainactor-to-run-code-on-the-main-queue
         guard let cgImage = cgImage else { return }
 
         let handler = VNImageRequestHandler(cgImage: cgImage)
@@ -84,6 +83,7 @@ class ScanViewModel: ObservableObject {
         }
         catch {
             print(error)
+            return
         }
     }
 

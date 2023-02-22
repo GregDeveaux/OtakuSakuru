@@ -68,10 +68,11 @@ struct ValidatePopupView: View {
                                     .multilineTextAlignment(.center)
 
                                 HStack {
-                                    RoundedRectangleButtonView(
+                                    AddInCollectionView(
                                         color: .redJapan,
                                         buttonYes: false)
-                                    RoundedRectangleButtonView(
+                                    .transition(.move(edge: .bottom))
+                                    AddInCollectionView(
                                         color: .blueGreenJapan,
                                         buttonYes: true)
                                 }

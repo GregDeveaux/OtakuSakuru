@@ -1,13 +1,13 @@
 //
-//  CollectionCell.swift
+//  MangaVolumeCell.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 11/02/2023.
+//  Created by Greg Deveaux on 11/02/2023.
 //
 
 import SwiftUI
 
-struct CollectionCell: View {
+struct MangaVolumeCell: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
@@ -74,6 +74,6 @@ struct CollectionCell: View {
 
 struct CollectionCell_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionCell(imageName: "Naruto_Tome8", title: "Naruto", volume: 8, publisher: "Hokage")
+        MangaVolumeCell(imageName: "Naruto_Tome8", title: "Naruto", volume: 8, publisher: "Hokage")
     }
 }

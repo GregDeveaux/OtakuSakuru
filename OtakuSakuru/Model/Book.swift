@@ -11,16 +11,20 @@ import Foundation
 struct Book {
 
         // -------------------------------------------------------------
-        // MARK: - category
+        // MARK: - categories
         // -------------------------------------------------------------
 
-    let category: EditionType
+    let editionType: EditionType
     enum EditionType: String {
         case manga
         case artbook
         case guidebook
         case novel
     }
+
+    let category: Category
+
+    let kind: [Kind]
 
         // -------------------------------------------------------------
         // MARK: - description

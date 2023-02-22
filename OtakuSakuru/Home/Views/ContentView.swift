@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selection: Tab = .featured
-
-    enum Tab {
-        case featured
-        case list
-    }
+    @StateObject var collectionViewModel = CollectionViewModel()
 
     var body: some View {
-        TabView(selection: $selection) {
+        TabView {
             LaunchAnimateView()
                 .tabItem {
                     Label("Launch", systemImage: "airtag.fill")
@@ -36,6 +31,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Collection", systemImage: "books.vertical.fill")
                 }
+                .environmentObject(collectionViewModel)
         }
         .accentColor(.black)
     }
