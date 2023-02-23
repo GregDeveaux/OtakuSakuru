@@ -35,6 +35,18 @@ struct CollectionView: View {
              releaseDate: "03/02/2023",
              isAcquired: true),
         Book(editionType: .manga,
+             category: .seinen,
+             kind: [.action, .adventure, .drama, .sciFi],
+             title: "HokutoNoKen", volume: 5,
+             imageName: "HokutoNoKen_Tome5",
+             mangakas: [Mangaka(name: "Eiichiro Oda", function: .creator),
+                        Mangaka(name: "Shou Hinata", function: .scriptwriter)],
+             ISBN: 9782820345950, publisher: "Glénat",
+             synopsis: "Des années avant que Luffy ne prenne la mer, découvrez comment Ace s’est constitué son équipage… et comment il a acquis les pouvoirs du pyro-fruit !",
+             numberOfPages: 270, dimensions: "115 x 180 mm",
+             releaseDate: "03/02/2023",
+             isAcquired: true),
+        Book(editionType: .manga,
              category: .shonen,
              kind: [.action, .adventure],
              title: "Fire force", volume: 27,
@@ -57,24 +69,32 @@ struct CollectionView: View {
             }
 
             NavigationView {
-                Section() {
-                    List {
-                        ForEach(booksOfUser, id: \.ISBN) { book in
-                            MangaVolumeCell(imageName: book.imageName,
-                                           title: book.title,
-                                           volume: book.volume,
-                                           publisher: book.publisher)
+                List {
+                    ForEach(booksOfUser, id: \.title) { section in
+                        Section(header: Text(section.title)) {
+                            ForEach(booksOfUser, id: \.ISBN) { book in
+                                NavigationLink(destination: {
+                                    BookDetailView()
+                                }, label: {
+
+                                })
+                                MangaVolumeCell(imageName: book.imageName,
+                                                title: book.title,
+                                                volume: book.volume,
+                                                publisher: book.publisher)
+                            }
+                            .listRowBackground(Color.sandJapan)
+                            .listRowSeparator(.hidden)
                         }
-                        .listRowBackground(Color.sandJapan)
-                        .listRowSeparator(.hidden)
+                        .listStyle(PlainListStyle())
+                        .background(Color.sandJapan)
+                        .navigationTitle("Liste")
                     }
-                    .listStyle(PlainListStyle())
-                    .background(Color.sandJapan)
-                    .navigationTitle("Liste")
                 }
             }
         }
         .background(Color.sandJapan)
+        .ignoresSafeArea()
     }
 }
 

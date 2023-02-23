@@ -11,4 +11,14 @@ class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
+    @Published var sortFilter: SortFilter = .title
+
+}
+
+enum SortFilter: String {
+    case title
+    case author
+    case kind
+    case category
+    case date
 }

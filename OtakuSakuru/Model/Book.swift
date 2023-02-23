@@ -8,7 +8,11 @@
 import Foundation
 
     // The book is a volume of one manga or artbook(draws) or guidebook(characters info) or novel
-struct Book {
+struct Book: Identifiable {
+
+    var id: Int {
+        return ISBN
+    }
 
         // -------------------------------------------------------------
         // MARK: - categories

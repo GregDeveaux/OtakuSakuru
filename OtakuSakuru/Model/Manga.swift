@@ -8,7 +8,9 @@
 import Foundation
 
 /// A manga is the whole oeuvre
-struct Manga {
+struct Manga: Identifiable {
+
+    let id = UUID()
 
         // -------------------------------------------------------------
         // MARK: - design identity
