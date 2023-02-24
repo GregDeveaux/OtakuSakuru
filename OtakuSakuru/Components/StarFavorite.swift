@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StarFavorite: View {
-    @State var isActivate: Bool = false
+    @State private var isActivate: Bool = false
 
     var body: some View {
         Button {
@@ -104,6 +104,6 @@ struct StarFavorite: View {
 
 struct StarFavorite_Previews: PreviewProvider {
     static var previews: some View {
-        StarFavorite(isActivate: false)
+        StarFavorite()
     }
 }

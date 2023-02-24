@@ -37,7 +37,7 @@
 		BCB3B20C2997D26C00585FC7 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = BCB3B20B2997D26C00585FC7 /* FirebaseStorage */; };
 		BCB3B20E2997D2B100585FC7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = BCB3B20D2997D2B100585FC7 /* FirebaseDatabase */; };
 		BCB3B2152997DA2900585FC7 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2142997DA2900585FC7 /* CollectionView.swift */; };
-		BCB3B2172997DFA000585FC7 /* MangaVolumeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2162997DFA000585FC7 /* MangaVolumeCell.swift */; };
+		BCB3B2172997DFA000585FC7 /* MangaVolumeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B2162997DFA000585FC7 /* MangaVolumeRow.swift */; };
 		BCB3B21C2998680500585FC7 /* StarFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B21B2998680500585FC7 /* StarFavorite.swift */; };
 		BCB3B21E299921CA00585FC7 /* API_Wikipedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */; };
 		BCB3B22029992AB400585FC7 /* API_Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB3B21F29992AB400585FC7 /* API_Method.swift */; };
@@ -108,7 +108,7 @@
 		BCB3B2002997CAF000585FC7 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		BCB3B2022997CF1B00585FC7 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		BCB3B2142997DA2900585FC7 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
-		BCB3B2162997DFA000585FC7 /* MangaVolumeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaVolumeCell.swift; sourceTree = "<group>"; };
+		BCB3B2162997DFA000585FC7 /* MangaVolumeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaVolumeRow.swift; sourceTree = "<group>"; };
 		BCB3B21B2998680500585FC7 /* StarFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarFavorite.swift; sourceTree = "<group>"; };
 		BCB3B21D299921CA00585FC7 /* API_Wikipedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Wikipedia.swift; sourceTree = "<group>"; };
 		BCB3B21F29992AB400585FC7 /* API_Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API_Method.swift; sourceTree = "<group>"; };
@@ -213,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				BC8ADF53298C729C00F8C84E /* OtakuSakuruApp.swift */,
+				BCB3B21A2998660200585FC7 /* Components */,
 				BCBEAF36298F2BFC008EE3FA /* Model */,
 				BC8EC4FF29943792009366D9 /* Launch */,
 				BCB3B21829984FEC00585FC7 /* Home */,
@@ -220,8 +221,6 @@
 				BC8EC4F52992F60A009366D9 /* TabBarScan */,
 				BCB3B2112997D98300585FC7 /* TabBarCollection */,
 				BCBEAF3E29900F37008EE3FA /* Manga */,
-				BC8ADF57298C729C00F8C84E /* Assets.xcassets */,
-				BCB3B21A2998660200585FC7 /* Components */,
 				BC8ADF59298C729C00F8C84E /* Preview Content */,
 				BCBEAF06298E74F4008EE3FA /* Secrets */,
 			);
@@ -324,7 +323,8 @@
 		BCB3B21A2998660200585FC7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				BCB3B2162997DFA000585FC7 /* MangaVolumeCell.swift */,
+				BC8ADF57298C729C00F8C84E /* Assets.xcassets */,
+				BCB3B2162997DFA000585FC7 /* MangaVolumeRow.swift */,
 				BC8EC500299437C4009366D9 /* LogoWithHalo.swift */,
 				BCB3B21B2998680500585FC7 /* StarFavorite.swift */,
 				BC00991829A587440074ED13 /* SearchBar.swift */,
@@ -615,7 +615,7 @@
 				BCBEAF23298F14D9008EE3FA /* Color+Extensions.swift in Sources */,
 				BCB3B22529992D0400585FC7 /* API_GoogleBook.swift in Sources */,
 				BC8EC50529943E02009366D9 /* OldCameraManager.swift in Sources */,
-				BCB3B2172997DFA000585FC7 /* MangaVolumeCell.swift in Sources */,
+				BCB3B2172997DFA000585FC7 /* MangaVolumeRow.swift in Sources */,
 				BCB3B22329992C1D00585FC7 /* API_EndPoint.swift in Sources */,
 				BCB3B2362999998F00585FC7 /* CameraError.swift in Sources */,
 			);

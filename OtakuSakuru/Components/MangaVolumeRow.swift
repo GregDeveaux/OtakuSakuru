@@ -7,24 +7,19 @@
 
 import SwiftUI
 
-struct MangaVolumeCell: View {
+struct MangaVolumeRow: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
-    var imageName: String
-    var title: String
-    var volume: Int
-    var publisher: String
+    var book: Book
+    var mangakas: [Mangaka] {
+        book.mangakas
+    }
 
     var body: some View {
         ZStack {
             VStack {
-                HStack {
-                    Text(publisher)
-                        .multilineTextAlignment(.leading)
-                    .offset(x: -25, y: -13)
-                }
-                    /// Block
+                /// Block
                 Rectangle()
                     .frame(height: 140)
                     .foregroundColor(colorScheme == .light ? Color.white.opacity(0.55) : Color.white.opacity(0.15))
@@ -33,9 +28,9 @@ struct MangaVolumeCell: View {
             }
 
             HStack {
-                    /// Book 3D
+                /// 3D Book
                 HStack(alignment: .top, spacing: 0, content: {
-                    Image(imageName)
+                    Image(book.imageName)
                         .resizable()
                         .frame(width: 80,height: 150, alignment: .leading)
                         .offset(x: 20, y: -20)
@@ -52,28 +47,39 @@ struct MangaVolumeCell: View {
                 .shadow(color: Color.black.opacity(0.2), radius: 3, x: 7, y: 0)
                 .shadow(color: Color.black.opacity(0.2), radius: 8, x: 20, y: 0)
                 .shadow(color: Color.black.opacity(0.1), radius: 8, x: 50, y: 0)
+                .padding(.trailing, 40)
 
 
-                VStack(alignment: .leading) {
-                    Text(title)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(book.publisher)
+                        .padding(.bottom, 25)
+                    Text(book.title)
                         .font(.title)
                         .fontWeight(.bold)
-                    Text("Tome \(volume)")
+                    Text("Tome \(book.volume)")
                 }
-                .padding()
+                .frame(width: 150, height: 180, alignment: .topLeading)
+                .offset(y: -25)
+//                .background(.yellow)
 
                 Spacer()
 
-                    /// Star
-                StarFavorite(isActivate: false)
+                /// Button favorite
+                StarFavorite()
                     .scaleEffect(CGSize(width: 0.6, height: 0.6), anchor: .leading)
+                    .background(.blue)
             }
         }
     }
 }
 
 struct CollectionCell_Previews: PreviewProvider {
+    @StateObject var viewModel = CollectionViewModel()
+    
     static var previews: some View {
-        MangaVolumeCell(imageName: "Naruto_Tome8", title: "Naruto", volume: 8, publisher: "Hokage")
+        MangaVolumeRow(book: <#Book#>)
     }
 }
+
+
+//MangaVolumeRow(imageName: "Naruto_Tome8", book: <#Book#>, title: "Naruto", volume: 8, publisher: "Hokage")

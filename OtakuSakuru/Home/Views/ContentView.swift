@@ -27,11 +27,10 @@ struct ContentView: View {
                     Label("Manga", systemImage: "star")
                 }
 
-            CollectionView()
+            CollectionView(viewModel: collectionViewModel, books: collectionViewModel.booksOfUser)
                 .tabItem {
                     Label("Collection", systemImage: "books.vertical.fill")
                 }
-                .environmentObject(collectionViewModel)
         }
         .accentColor(.black)
     }
