@@ -24,3 +24,34 @@ struct Publisher {
     let mangas: [Manga]
     let books: [Book]
 }
+
+
+    // -------------------------------------------------------------
+    // MARK: - example publisher
+    // -------------------------------------------------------------
+
+var examplePublishers: [Publisher] = [
+    Publisher(name: "Glénat",
+              imageLogoName: "",
+              History: "",
+              mangas: [],
+              books: []),
+    
+    Publisher(name: "Crunchyroll",
+              imageLogoName: "",
+              History: "",
+              mangas: [],
+              books: []),
+    
+    Publisher(name: "Kana",
+              imageLogoName: "",
+              History: "",
+              mangas: [],
+              books: []),
+
+    Publisher(name: "Kurokawa",
+              imageLogoName: "",
+              History: "",
+              mangas: [],
+              books: [])
+]

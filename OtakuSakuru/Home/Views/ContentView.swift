@@ -27,7 +27,7 @@ struct ContentView: View {
                     Label("Manga", systemImage: "star")
                 }
 
-            CollectionView(viewModel: collectionViewModel, books: collectionViewModel.booksOfUser)
+            CollectionView(viewModel: collectionViewModel, mangas: exampleMangas)
                 .tabItem {
                     Label("Collection", systemImage: "books.vertical.fill")
                 }
@@ -37,6 +37,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+
     static var previews: some View {
         ContentView()
     }

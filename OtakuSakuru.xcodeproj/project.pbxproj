@@ -328,6 +328,7 @@
 				BC8EC500299437C4009366D9 /* LogoWithHalo.swift */,
 				BCB3B21B2998680500585FC7 /* StarFavorite.swift */,
 				BC00991829A587440074ED13 /* SearchBar.swift */,
+				BCB3B23729999C4E00585FC7 /* Extensions */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -391,7 +392,6 @@
 				BCBEAF39298FD329008EE3FA /* Book.swift */,
 				BCB3B1FE2997A58200585FC7 /* Mangaka.swift */,
 				BCB3B2002997CAF000585FC7 /* Publisher.swift */,
-				BCB3B23729999C4E00585FC7 /* Extensions */,
 			);
 			path = Model;
 			sourceTree = "<group>";
