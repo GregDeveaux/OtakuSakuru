@@ -8,7 +8,12 @@
 import Foundation
 
 /// A manga is the whole oeuvre
-struct Manga: Identifiable {
+struct Manga: Identifiable, Equatable {
+
+    static func == (lhs: Manga, rhs: Manga) -> Bool {
+        return lhs.title == rhs.title
+    }
+
 
     let id = UUID()
 
