@@ -50,10 +50,14 @@ struct Manga: Identifiable {
         // MARK: - books with the Manga title
         // -------------------------------------------------------------
 
-    let books: [Book]!
+    var books: [Book]!
 }
 
-enum Category: String {
+enum Category: String, Identifiable {
+    var id: Self {
+            return self
+        }
+
     case kodomo                 // for kids - age: +3
     case shonen = "Shōnen"      // for male - age: +7
     case shojo = "Shōjo"        // for female - age: +7
@@ -62,7 +66,11 @@ enum Category: String {
     case josei                  // for all - age: +18
 }
 
-enum Kind: String, CaseIterable {
+enum Kind: String, CaseIterable, Identifiable {
+    var id: Self {
+            return self
+        }
+
     case action
     case adventure
     case comedy

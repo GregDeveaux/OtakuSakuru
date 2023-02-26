@@ -28,7 +28,7 @@ struct Book: Identifiable {
 
     let category: Category
 
-    let kind: [Kind]
+    let kinds: [Kind]
 
         // -------------------------------------------------------------
         // MARK: - description
@@ -104,7 +104,7 @@ struct Book: Identifiable {
 var exampleBooks: [Book] = [
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "Naruto",
          volume: 8,
          imageName: "Naruto_Tome8",
@@ -120,8 +120,8 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .novel,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
-         title: "One Piece",
+         kinds: [.action, .comedy, .adventure],
+         title: "One Piece - Ace",
          volume: 1,
          imageName: "OnePiece-Novel",
          mangakas: exampleMangakas.filter({ $0.mangas == ["One Piece"] }),
@@ -136,7 +136,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .seinen,
-         kind: [.action, .adventure, .drama, .sciFi],
+         kinds: [.action, .adventure, .drama, .sciFi],
          title: "Hokuto No Ken",
          volume: 5,
          imageName: "HokutoNoKen_Tome5",
@@ -152,7 +152,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "One Piece",
          volume: 1,
          imageName: "OnePiece-Manga-Tome1",
@@ -168,7 +168,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "One Piece",
          volume: 2,
          imageName: "OnePiece-Manga-Tome2",
@@ -184,7 +184,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "One Piece",
          volume: 9,
          imageName: "OnePiece-Manga-Tome9",
@@ -200,7 +200,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "One Piece",
          volume: 100,
          imageName: "OnePiece-Manga-Tome100",
@@ -216,7 +216,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .comedy, .adventure],
+         kinds: [.action, .comedy, .adventure],
          title: "One-Punch Man",
          volume: 13,
          imageName: "OnePunchMan_Tome13",
@@ -232,7 +232,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .seinen,
-         kind: [.action, .adventure, .drama, .sciFi],
+         kinds: [.action, .adventure, .drama, .sciFi],
          title: "Hokuto No Ken",
          volume: 1,
          imageName: "HokutoNoKen_Tome1",
@@ -248,7 +248,7 @@ var exampleBooks: [Book] = [
 
     Book(editionType: .manga,
          category: .shonen,
-         kind: [.action, .adventure],
+         kinds: [.action, .adventure],
          title: "Fire force",
          volume: 27,
          imageName: "FireForce_Tome27",

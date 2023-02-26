@@ -8,7 +8,9 @@
 import Foundation
 
     /// A mangaka is the job of creator, cartoonist and sciptwriter in the world of manga
-struct Mangaka {
+struct Mangaka: Identifiable {
+
+    var id: UUID = UUID()
 
     let name: String
 
@@ -17,7 +19,11 @@ struct Mangaka {
         // -------------------------------------------------------------
 
     let function: Function
-    enum Function {
+    enum Function: String, CaseIterable, Identifiable {
+        var id: Self {
+                return self
+            }
+
         case creator
         case cartoonist
         case scriptwriter

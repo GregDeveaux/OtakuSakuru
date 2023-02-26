@@ -40,9 +40,6 @@ struct MangaDetailView: View {
                 .frame(width: 200, alignment: .trailing)
                 .rotationEffect(Angle(degrees: -90))
 
-
-
-
                 ZStack {
                     Circle()
                         .foregroundColor(Color.redJapan)
@@ -52,7 +49,6 @@ struct MangaDetailView: View {
                         .renderingMode(.original)
                         .blendMode(.softLight)
                         .frame(width: 50, height: 50, alignment: .center)
-
                 }
 
                 Text("""
@@ -68,8 +64,7 @@ struct MangaDetailView: View {
             .padding()
 
         }
-        .ignoresSafeArea()
-        .background(colorScheme == .light ? Color.sandJapan : Color.darkIndigoJapan)
+        .background(Color.otakuBackgroundSecondary)
     }
 }
 

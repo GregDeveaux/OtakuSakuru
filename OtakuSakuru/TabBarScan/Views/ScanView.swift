@@ -16,7 +16,7 @@ struct ScanView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                Color.otakuBackground
+                Color.otakuBackgroundPrimary
                     .ignoresSafeArea()
 
                 LogoWithHalo()

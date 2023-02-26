@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct Publisher {
+struct Publisher: Identifiable {
+    
+    var id: UUID = UUID()
 
         // -------------------------------------------------------------
         // MARK: - description

@@ -17,11 +17,16 @@ class CollectionViewModel: ObservableObject {
 
 }
 
-enum SortFilter: String, CaseIterable {
-    case title
-    case mangaka
-    case publisher
-    case kind
-    case category
-    case date
+enum SortFilter: String, CaseIterable, Identifiable {
+
+    var id: Self {
+            return self
+        }
+
+    case title = "Titre"
+    case mangaka = "Mangaka"
+    case publisher = "Éditeur"
+    case kind = "Genre"
+    case category = "Catégorie"
+    case date = "Date d'acquisition"
 }

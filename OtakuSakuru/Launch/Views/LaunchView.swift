@@ -11,7 +11,7 @@ struct LaunchAnimateView: View {
     var body: some View {
         ZStack {
             // use lightmode or darkmode Background on the all screen
-            Color.otakuBackground.ignoresSafeArea()
+            Color.otakuBackgroundPrimary.ignoresSafeArea()
 
             LogoWithHalo()
 

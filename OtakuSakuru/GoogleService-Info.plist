@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>34030616493-b50bosjrkmp7vj7odujapc271ou95dh1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.34030616493-b50bosjrkmp7vj7odujapc271ou95dh1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCH0Yl4nivsvL6ssdzHIlmU58yVe0TkdsY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>34030616493</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>fr.gregDeveaux.OtakuSakuru</string>
+	<key>PROJECT_ID</key>
+	<string>otaku-sakuru</string>
+	<key>STORAGE_BUCKET</key>
+	<string>otaku-sakuru.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:34030616493:ios:a0f66672d55415a1ef2b24</string>
+</dict>
+</plist>
