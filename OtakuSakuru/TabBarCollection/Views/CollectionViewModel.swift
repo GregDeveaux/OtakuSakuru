@@ -11,15 +11,15 @@ class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
-    @Published var arrayOfItemForFilter: [String] = []
-
     @Published var mangaBooksOfUser: [Book] = Book.example
+
+    @Published var arrayOfItemsForFilter: [String] = []
 
     func sortTheBooks(by filter: SortFilter) {
         switch filter {
             case .title:
-                arrayOfItemForFilter.removeAll()
-                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.title } )).sorted()
+                arrayOfItemsForFilter.removeAll()
+                arrayOfItemsForFilter = Array(Set(mangaBooksOfUser.map { $0.title } )).sorted()
 
                 mangaBooksOfUser.sort { ($0.title, $0.volume) < ($1.title, $1.volume) }
                     /// Idem that if We can use if/return :
@@ -31,41 +31,56 @@ class CollectionViewModel: ObservableObject {
                     ///  }
                 print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by title \(mangaBooksOfUser)")
             case .mangaka:
-                arrayOfItemForFilter.removeAll()
+                arrayOfItemsForFilter.removeAll()
 //                var booksByName: [Book] = []
 //                //pour chaque auteur
                 mangaBooksOfUser.forEach { book in
                     book.mangakas.forEach { mangaka in
-                        arrayOfItemForFilter.append(mangaka.name)
+                        arrayOfItemsForFilter.append(mangaka.name)
 //                        booksByName.append(contentsOf: booksOfUser.sorted { ($0.title, $0.volume) < ($1.title, $1.volume) })
                     }
                 }
-                arrayOfItemForFilter.sort()
+                arrayOfItemsForFilter = Array(Set(arrayOfItemsForFilter)).sorted()
 
             case .publisher:
-                arrayOfItemForFilter.removeAll()
-                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.publisher })).sorted()
+                arrayOfItemsForFilter.removeAll()
+                arrayOfItemsForFilter = Array(Set(mangaBooksOfUser.map { $0.publisher })).sorted()
 
                 mangaBooksOfUser.sort { ($0.publisher, $0.title, $0.volume) < ($1.publisher, $1.title, $1.volume) }
                 print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by publisher \(mangaBooksOfUser)")
 
             case .kind:
-                arrayOfItemForFilter.removeAll()
+                arrayOfItemsForFilter.removeAll()
                 mangaBooksOfUser.forEach { books in
                     books.kinds.forEach { kind in
-                        arrayOfItemForFilter.append(kind.rawValue)
+                        arrayOfItemsForFilter.append(kind.rawValue)
                     }
                 }
-                arrayOfItemForFilter.sort()
+                arrayOfItemsForFilter = Array(Set(arrayOfItemsForFilter)).sorted()
 
-//                booksOfUser = booksOfUser.sorted { $0.kinds < $1.kinds }
+//                mangaBooksOfUser.sort { $0.kinds < $1.kinds }
 
             case .category:
-                arrayOfItemForFilter.removeAll()
-                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.category.rawValue })).sorted()
+                arrayOfItemsForFilter.removeAll()
+                arrayOfItemsForFilter = Array(Set(mangaBooksOfUser.map { $0.category.rawValue })).sorted()
 
                 mangaBooksOfUser.sort { ($0.category.rawValue, $0.title, $0.volume) < ($1.category.rawValue, $1.title, $1.volume) }
                 print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by category \(mangaBooksOfUser)")
+        }
+    }
+
+    func mangaSection(chosenfilter: SortFilter, section: Book) -> String {
+        switch chosenfilter {
+            case .title:
+                return section.title
+            case .mangaka:
+                return section.title
+            case .publisher:
+                return section.publisher
+            case .kind:
+                return section.title
+            case .category:
+                return section.category.rawValue
         }
     }
 }

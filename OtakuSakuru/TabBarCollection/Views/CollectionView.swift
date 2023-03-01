@@ -12,9 +12,11 @@ struct CollectionView: View {
 
     @StateObject var viewModel = CollectionViewModel()
 
+    @State private var scrollSectionID: String = ""
+
     @State private var searchText = ""
     @State private var chosenFilter: SortFilter = .title
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -24,7 +26,7 @@ struct CollectionView: View {
                 }
                 .offset(y: -13)
                 .background(Color.otakuBackgroundPrimary)
-                
+
                 collectionList
                     .navigationTitle("Collection")
                     .navigationBarTitleDisplayMode(.inline)
@@ -80,9 +82,9 @@ struct CollectionView: View {
     var scrollAnchorButtonOfItem: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 15) {
-                ForEach(viewModel.arrayOfItemForFilter, id: \.self) { itemFilter in
+                ForEach(viewModel.arrayOfItemsForFilter, id: \.self) { itemFilter in
                     Button {
-
+                        scrollSectionID = String(itemFilter)
                     } label: {
                         Text(itemFilter)
                             .font(.system(size: 15))
@@ -105,45 +107,53 @@ struct CollectionView: View {
         // ---------------------------------------------------------------
 
     var collectionList: some View {
-        List {
-                // create a section in terms of filter
-            ForEach($viewModel.arrayOfItemForFilter, id: \.self) { $section in
-                Section {
-                    ForEach($viewModel.mangaBooksOfUser, id: \.ISBN) { $book in
+        ScrollViewReader { scrollView in
+            List {
+                    // create a section in terms of filter
+                ForEach($viewModel.arrayOfItemsForFilter, id: \.self) { $section in
+                    Section {
+                        ForEach($viewModel.mangaBooksOfUser, id: \.ISBN) { $book in
 
-                        if book.title == section {
-                            NavigationLink {
-                                BookDetailView(book: $book)
-                            } label: {
-                                MangaVolumeRow(book: $book)
+                            if viewModel.mangaSection(chosenfilter: chosenFilter, section: book) == section {
+                                NavigationLink {
+                                    BookDetailView(book: $book)
+                                } label: {
+                                    MangaVolumeRow(book: $book)
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
+                        }
+                            //onDelete only works with ForEach
+                        .onDelete(perform: { indexSet in
+                            viewModel.mangaBooksOfUser.remove(atOffsets: indexSet)
+                        })
+                    } header: {
+                        VStack {
+                            Text(section)
+                                .font(.smallCaps(.title2)())
+                                .bold()
+                                .frame(height: 10)
+                                .padding(.bottom, 5)
+                            Capsule()
+                                .frame(height: 1)
+                                .opacity(0.3)
                         }
                     }
-                        //onDelete only works with ForEach
-                    .onDelete(perform: { indexSet in
-                      viewModel.mangaBooksOfUser.remove(atOffsets: indexSet)
-                      })
-                } header: {
-                    VStack {
-                        Text(section)
-                            .font(.smallCaps(.title2)())
-                            .bold()
-                            .frame(height: 10)
-                            .padding(.bottom, 5)
-                        Capsule()
-                            .frame(height: 1)
-                            .opacity(0.3)
+                    .listRowBackground(Color.otakuBackgroundSecondary)
+                    .listRowSeparator(.hidden)
+                    .id(section)
+                }
+                .onChange(of: scrollSectionID) { newValue in
+                    withAnimation(.spring()) {
+                        scrollView.scrollTo(newValue, anchor: .top)
                     }
                 }
-                .listRowBackground(Color.otakuBackgroundSecondary)
-            .listRowSeparator(.hidden)
             }
-        }
-        .listStyle(PlainListStyle())
-        .background(Color.otakuBackgroundSecondary)
-        .onAppear {
-            viewModel.sortTheBooks(by: chosenFilter)
+            .listStyle(PlainListStyle())
+            .background(Color.otakuBackgroundSecondary)
+            .onAppear {
+                viewModel.sortTheBooks(by: chosenFilter)
+            }
         }
     }
 }
