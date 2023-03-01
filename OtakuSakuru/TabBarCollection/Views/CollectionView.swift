@@ -13,8 +13,7 @@ struct CollectionView: View {
     @StateObject var viewModel = CollectionViewModel()
 
     @State private var searchText = ""
-    @State var mangas: [Manga] = []
-    @State private var sortfilter: SortFilter = .title
+    @State private var chosenFilter: SortFilter = .title
 
     var body: some View {
         NavigationView {
@@ -40,6 +39,7 @@ struct CollectionView: View {
 
     var searchBar: some View {
         HStack {
+            ///SEARCH
             HStack {
                 Image(systemName: "magnifyingglass")
                     .padding()
@@ -52,10 +52,13 @@ struct CollectionView: View {
             .cornerRadius(15)
             .padding()
 
+            ///FILTER
             Menu {
                 ForEach(SortFilter.allCases, id: \.self) { filter in
                     Button {
-                        print("✅ COLLECTION_VIEW/FILTER_BUTTON: You are selected")
+                        chosenFilter = filter
+                        viewModel.sortTheBooks(by: chosenFilter)
+                        print("✅ COLLECTION_VIEW/FILTER_BUTTON: You are selected \(chosenFilter)")
                     } label: {
                         Text(filter.rawValue)
                     }
@@ -77,20 +80,18 @@ struct CollectionView: View {
     var scrollAnchorButtonOfItem: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 15) {
-                ForEach(mangas) { manga in
-                    ForEach(manga.books) { book in
-                        Button {
+                ForEach(viewModel.arrayOfItemForFilter, id: \.self) { itemFilter in
+                    Button {
 
-                        } label: {
-                            Text(manga.title)
-                                .font(.system(size: 15))
-                                .bold()
-                                .foregroundColor(.white)
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .cornerRadius(10)
-                        .tint(colorScheme == .light ? Color.indigoJapan : Color.blueGreenJapan)
+                    } label: {
+                        Text(itemFilter)
+                            .font(.system(size: 15))
+                            .bold()
+                            .foregroundColor(.white)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 10))
+                    .tint(colorScheme == .light ? Color.indigoJapan : Color.blueGreenJapan)
                 }
             }
         })
@@ -104,45 +105,56 @@ struct CollectionView: View {
         // ---------------------------------------------------------------
 
     var collectionList: some View {
-            List(mangas) { manga in
-                if var books = manga.books {
-                    Section {
-                        ForEach(books, id: \.ISBN) { book in
+        List {
+                // create a section in terms of filter
+            ForEach($viewModel.arrayOfItemForFilter, id: \.self) { $section in
+                Section {
+                    ForEach($viewModel.mangaBooksOfUser, id: \.ISBN) { $book in
+
+                        if book.title == section {
                             NavigationLink {
-                                BookDetailView(book: book)
+                                BookDetailView(book: $book)
                             } label: {
-                                MangaVolumeRow(book: book)
+                                MangaVolumeRow(book: $book)
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
-                        .onDelete(perform: { indexSet in
-                            books.remove(atOffsets: indexSet)
-                        })
-                        .listRowBackground(Color.otakuBackgroundSecondary)
-                        .listRowSeparator(.hidden)
-                    } header: {
-                        VStack {
-                            Text(manga.title)
-                                .font(.smallCaps(.title2)())
-                                .bold()
+                    }
+                        //onDelete only works with ForEach
+                    .onDelete(perform: { indexSet in
+                      viewModel.mangaBooksOfUser.remove(atOffsets: indexSet)
+                      })
+                } header: {
+                    VStack {
+                        Text(section)
+                            .font(.smallCaps(.title2)())
+                            .bold()
                             .frame(height: 10)
                             .padding(.bottom, 5)
-                            Capsule()
-                                .frame(height: 1)
-                                .opacity(0.3)
-                        }
+                        Capsule()
+                            .frame(height: 1)
+                            .opacity(0.3)
                     }
                 }
+                .listRowBackground(Color.otakuBackgroundSecondary)
+            .listRowSeparator(.hidden)
             }
-            .listStyle(PlainListStyle())
-            .background(Color.otakuBackgroundSecondary)
+        }
+        .listStyle(PlainListStyle())
+        .background(Color.otakuBackgroundSecondary)
+        .onAppear {
+            viewModel.sortTheBooks(by: chosenFilter)
+        }
     }
 }
+
 
 struct CollectionView_Previews: PreviewProvider {
-    static var mangas: [Manga] = exampleMangas
 
     static var previews: some View {
-        CollectionView(mangas: mangas)
+        CollectionView()
     }
 }
+
+
+

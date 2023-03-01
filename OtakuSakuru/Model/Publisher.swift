@@ -32,28 +32,30 @@ struct Publisher: Identifiable {
     // MARK: - example publisher
     // -------------------------------------------------------------
 
-var examplePublishers: [Publisher] = [
-    Publisher(name: "Glénat",
-              imageLogoName: "",
-              History: "",
-              mangas: [],
-              books: []),
-    
-    Publisher(name: "Crunchyroll",
-              imageLogoName: "",
-              History: "",
-              mangas: [],
-              books: []),
-    
-    Publisher(name: "Kana",
-              imageLogoName: "",
-              History: "",
-              mangas: [],
-              books: []),
+extension Publisher {
+    static var example: [Publisher] = [
+        Publisher(name: "Glénat",
+                  imageLogoName: "",
+                  History: "",
+                  mangas: [],
+                  books: Book.example.filter({ $0.publisher == "Glénat" })),
 
-    Publisher(name: "Kurokawa",
-              imageLogoName: "",
-              History: "",
-              mangas: [],
-              books: [])
-]
+        Publisher(name: "Crunchyroll",
+                  imageLogoName: "",
+                  History: "",
+                  mangas: [],
+                  books: Book.example.filter({ $0.publisher == "Crunchyroll" })),
+
+        Publisher(name: "Kana",
+                  imageLogoName: "",
+                  History: "",
+                  mangas: [],
+                  books: Book.example.filter({ $0.publisher == "Kana" })),
+
+        Publisher(name: "Kurokawa",
+                  imageLogoName: "",
+                  History: "",
+                  mangas: [],
+                  books: Book.example.filter({ $0.publisher == "Kurokawa" }))
+    ]
+}

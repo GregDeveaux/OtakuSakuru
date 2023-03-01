@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    let book: Book
+    @Binding var book: Book
+    @State private var isFavorite: Bool = false
 
     var body: some View {
         GeometryReader { proxy in
@@ -36,7 +37,7 @@ struct BookDetailView: View {
                             .padding()
                             .padding(.top, 40)
                             .overlay(alignment: .bottom) {
-                                StarFavorite()
+                                StarFavorite(isFavorite: $isFavorite)
                                     .offset(y: 30)
                             }
 
@@ -84,12 +85,9 @@ struct BookDetailView: View {
 }
 
 struct BookDetailView_Previews: PreviewProvider {
-    static var book = exampleBooks
+    static var book = Book.example
 
     static var previews: some View {
-        BookDetailView(book: book[5])
+        BookDetailView(book: .constant(book[5]))
     }
 }
-
-//kind: [.action, .comedy, .adventure],
-//mangakas: exampleMangakas.filter({ $0.mangas == ["Naruto"] }),

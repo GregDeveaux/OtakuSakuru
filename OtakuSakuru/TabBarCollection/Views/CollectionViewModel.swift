@@ -11,16 +11,17 @@ class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
-    @Published var sortFilter: SortFilter = .title
     @Published var arrayOfItemForFilter: [String] = []
 
-    @Published var booksOfUser: [Book] = []
+    @Published var mangaBooksOfUser: [Book] = Book.example
 
-    func sortFilter(_ filter: SortFilter) {
+    func sortTheBooks(by filter: SortFilter) {
         switch filter {
             case .title:
                 arrayOfItemForFilter.removeAll()
-                booksOfUser = booksOfUser.sorted { ($0.title, $0.volume) < ($1.title, $1.volume) }
+                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.title } )).sorted()
+
+                mangaBooksOfUser.sort { ($0.title, $0.volume) < ($1.title, $1.volume) }
                     /// Idem that if We can use if/return :
                     ///  booksOfUser = booksOfUser.sorted {
                     ///      if $0.title == $1.title {
@@ -28,13 +29,12 @@ class CollectionViewModel: ObservableObject {
                     ///      }
                     ///      return $0.title < $1.title
                     ///  }
-                arrayOfItemForFilter = Array(Set(booksOfUser.map { $0.title }))
-                print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by title")
+                print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by title \(mangaBooksOfUser)")
             case .mangaka:
                 arrayOfItemForFilter.removeAll()
 //                var booksByName: [Book] = []
 //                //pour chaque auteur
-                booksOfUser.forEach { book in
+                mangaBooksOfUser.forEach { book in
                     book.mangakas.forEach { mangaka in
                         arrayOfItemForFilter.append(mangaka.name)
 //                        booksByName.append(contentsOf: booksOfUser.sorted { ($0.title, $0.volume) < ($1.title, $1.volume) })
@@ -44,23 +44,28 @@ class CollectionViewModel: ObservableObject {
 
             case .publisher:
                 arrayOfItemForFilter.removeAll()
-                booksOfUser = booksOfUser.sorted { ($0.publisher, $0.title, $0.volume) < ($1.publisher, $1.title, $1.volume) }
-                arrayOfItemForFilter = Array(Set(booksOfUser.map { $0.publisher }))
+                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.publisher })).sorted()
+
+                mangaBooksOfUser.sort { ($0.publisher, $0.title, $0.volume) < ($1.publisher, $1.title, $1.volume) }
+                print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by publisher \(mangaBooksOfUser)")
 
             case .kind:
                 arrayOfItemForFilter.removeAll()
-                booksOfUser.forEach { books in
+                mangaBooksOfUser.forEach { books in
                     books.kinds.forEach { kind in
                         arrayOfItemForFilter.append(kind.rawValue)
                     }
                 }
-//                booksOfUser = booksOfUser.sorted { $0.kinds < $1.kinds }
                 arrayOfItemForFilter.sort()
+
+//                booksOfUser = booksOfUser.sorted { $0.kinds < $1.kinds }
 
             case .category:
                 arrayOfItemForFilter.removeAll()
-                booksOfUser = booksOfUser.sorted { ($0.category.rawValue, $0.title, $0.volume) < ($1.category.rawValue, $1.title, $1.volume) }
-                arrayOfItemForFilter = Array(Set(booksOfUser.map { $0.category.rawValue }))
+                arrayOfItemForFilter = Array(Set(mangaBooksOfUser.map { $0.category.rawValue })).sorted()
+
+                mangaBooksOfUser.sort { ($0.category.rawValue, $0.title, $0.volume) < ($1.category.rawValue, $1.title, $1.volume) }
+                print("✅ COLLECTION_VIEW_MODEL/SORT_FILTER: the manga is sorted by category \(mangaBooksOfUser)")
         }
     }
 }

@@ -11,10 +11,12 @@ struct MangaVolumeRow: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
-    var book: Book
+    @Binding var book: Book
     var mangakas: [Mangaka] {
         book.mangakas
     }
+
+    @State private var isFavorite: Bool = false
 
     var body: some View {
         HStack {
@@ -37,7 +39,7 @@ struct MangaVolumeRow: View {
 
                     Spacer()
 
-                    StarFavorite()
+                    StarFavorite(isFavorite: $isFavorite)
                         .scaleEffect(CGSize(width: 0.5, height: 0.5), anchor: .center)
                         .frame(width: 45, height: 45, alignment: .center)
                 }
@@ -101,14 +103,14 @@ struct MangaVolumeRow: View {
 struct CollectionCell_Previews: PreviewProvider {
 
     static let viewModel = CollectionViewModel()
-    static let books = exampleBooks
+    static let books = Book.example
 
     static var previews: some View {
         ZStack {
             /// Background
             Color.otakuBackgroundSecondary.ignoresSafeArea()
             /// Preview
-            MangaVolumeRow(book: books[0])
+            MangaVolumeRow(book: .constant(books[0]))
         }
     }
 }

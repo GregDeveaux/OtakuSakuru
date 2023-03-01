@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct StarFavorite: View {
-    @State private var isActivate: Bool = false
+    @Binding var isFavorite: Bool
 
     var body: some View {
         Button {
-            isActivate.toggle()
+            isFavorite.toggle()
         } label: {
-            if !isActivate {
+            if !isFavorite {
                 Circle()
                     .frame(width: 70, height: 70, alignment: .trailing)
                     .foregroundColor(.redJapan)
@@ -104,6 +104,6 @@ struct StarFavorite: View {
 
 struct StarFavorite_Previews: PreviewProvider {
     static var previews: some View {
-        StarFavorite()
+        StarFavorite(isFavorite: .constant(true))
     }
 }

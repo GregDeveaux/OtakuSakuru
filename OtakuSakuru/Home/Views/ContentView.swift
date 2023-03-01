@@ -27,7 +27,7 @@ struct ContentView: View {
                     Label("Manga", systemImage: "star")
                 }
 
-            CollectionView(viewModel: collectionViewModel, mangas: exampleMangas)
+            CollectionView(viewModel: collectionViewModel)
                 .tabItem {
                     Label("Collection", systemImage: "books.vertical.fill")
                 }
