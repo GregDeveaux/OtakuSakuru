@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    @Binding var book: Book
+    @State var book: Book
     @State private var isFavorite: Bool = false
 
     var body: some View {
@@ -37,7 +37,7 @@ struct BookDetailView: View {
                             .padding()
                             .padding(.top, 40)
                             .overlay(alignment: .bottom) {
-                                StarFavorite(isFavorite: $isFavorite)
+                                StarFavorite()
                                     .offset(y: 30)
                             }
 
@@ -88,6 +88,6 @@ struct BookDetailView_Previews: PreviewProvider {
     static var book = Book.example
 
     static var previews: some View {
-        BookDetailView(book: .constant(book[5]))
+        BookDetailView(book: book[5])
     }
 }

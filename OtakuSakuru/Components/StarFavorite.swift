@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StarFavorite: View {
-    @Binding var isFavorite: Bool
+    @State private var isFavorite: Bool = false
 
     var body: some View {
         Button {
@@ -104,6 +104,6 @@ struct StarFavorite: View {
 
 struct StarFavorite_Previews: PreviewProvider {
     static var previews: some View {
-        StarFavorite(isFavorite: .constant(true))
+        StarFavorite()
     }
 }

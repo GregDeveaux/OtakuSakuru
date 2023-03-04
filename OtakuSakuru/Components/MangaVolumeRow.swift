@@ -11,7 +11,7 @@ struct MangaVolumeRow: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
-    @Binding var book: Book
+    var book: Book
     var mangakas: [Mangaka] {
         book.mangakas
     }
@@ -39,7 +39,7 @@ struct MangaVolumeRow: View {
 
                     Spacer()
 
-                    StarFavorite(isFavorite: $isFavorite)
+                    StarFavorite()
                         .scaleEffect(CGSize(width: 0.5, height: 0.5), anchor: .center)
                         .frame(width: 45, height: 45, alignment: .center)
                 }
@@ -110,7 +110,7 @@ struct CollectionCell_Previews: PreviewProvider {
             /// Background
             Color.otakuBackgroundSecondary.ignoresSafeArea()
             /// Preview
-            MangaVolumeRow(book: .constant(books[0]))
+            MangaVolumeRow(book: books[0])
         }
     }
 }

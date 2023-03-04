@@ -44,9 +44,10 @@ struct CollectionView: View {
             ///SEARCH
             HStack {
                 Image(systemName: "magnifyingglass")
-                    .padding()
+                    .padding(.trailing, 3)
+                    .padding(.leading, 16)
 
-                TextField("Search", text: $searchText)
+                TextField("Recherche", text: $searchText)
             }
             .foregroundColor(colorScheme == .light ? .redJapan : .indigoJapan)
             .frame(height: 50)
@@ -56,10 +57,10 @@ struct CollectionView: View {
 
             ///FILTER
             Menu {
-                ForEach(SortFilter.allCases, id: \.self) { filter in
+                ForEach(SortFilter.allCases) { filter in
                     Button {
                         chosenFilter = filter
-                        viewModel.sortTheBooks(by: chosenFilter)
+                        viewModel.setUpList(by: chosenFilter)
                         print("✅ COLLECTION_VIEW/FILTER_BUTTON: You are selected \(chosenFilter)")
                     } label: {
                         Text(filter.rawValue)
@@ -82,7 +83,7 @@ struct CollectionView: View {
     var scrollAnchorButtonOfItem: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 15) {
-                ForEach(viewModel.arrayOfItemsForFilter, id: \.self) { itemFilter in
+                ForEach(viewModel.arrayOfButtonsTitleForFilter, id: \.self) { itemFilter in
                     Button {
                         scrollSectionID = String(itemFilter)
                     } label: {
@@ -108,35 +109,43 @@ struct CollectionView: View {
 
     var collectionList: some View {
         ScrollViewReader { scrollView in
+                // create a list of the all manga
             List {
-                    // create a section in terms of filter
-                ForEach($viewModel.arrayOfItemsForFilter, id: \.self) { $section in
+                ForEach(viewModel.arrayOfButtonsTitleForFilter, id: \.self) { section in
+                        // create a section in terms of filter
                     Section {
-                        ForEach($viewModel.mangaBooksOfUser, id: \.ISBN) { $book in
+                            // Books sorted by section title
+                        ForEach(viewModel.mangaBooksOfUser, id: \.ISBN) { book in
 
-                            if viewModel.mangaSection(chosenfilter: chosenFilter, section: book) == section {
+                            if viewModel.giveBookValueToStoreUnderEachSection(book: book, chosenfilter: chosenFilter) == section {
+
                                 NavigationLink {
-                                    BookDetailView(book: $book)
+                                    BookDetailView(book: book)
                                 } label: {
-                                    MangaVolumeRow(book: $book)
+                                    MangaVolumeRow(book: book)
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                            }
+                            else {
+
                             }
                         }
                             //onDelete only works with ForEach
                         .onDelete(perform: { indexSet in
-                            viewModel.mangaBooksOfUser.remove(atOffsets: indexSet)
+                            viewModel.deleteRow(indexSet: indexSet)
                         })
                     } header: {
-                        VStack {
+                        VStack(alignment: .center) {
                             Text(section)
                                 .font(.smallCaps(.title2)())
                                 .bold()
                                 .frame(height: 10)
                                 .padding(.bottom, 5)
                             Capsule()
-                                .frame(height: 1)
+                                .frame(height: 0.7)
                                 .opacity(0.3)
+                                .padding(.leading, -35)
+                                .padding(.trailing, -35)
                         }
                     }
                     .listRowBackground(Color.otakuBackgroundSecondary)
@@ -152,7 +161,7 @@ struct CollectionView: View {
             .listStyle(PlainListStyle())
             .background(Color.otakuBackgroundSecondary)
             .onAppear {
-                viewModel.sortTheBooks(by: chosenFilter)
+                viewModel.setUpList(by: chosenFilter)
             }
         }
     }

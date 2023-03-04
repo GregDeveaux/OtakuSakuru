@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var collectionViewModel = CollectionViewModel()
 
     var body: some View {
         TabView {
@@ -27,7 +26,7 @@ struct ContentView: View {
                     Label("Manga", systemImage: "star")
                 }
 
-            CollectionView(viewModel: collectionViewModel)
+            CollectionView()
                 .tabItem {
                     Label("Collection", systemImage: "books.vertical.fill")
                 }

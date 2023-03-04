@@ -8,7 +8,12 @@
 import Foundation
 
     /// A mangaka is the job of creator, cartoonist and sciptwriter in the world of manga
-struct Mangaka: Identifiable {
+struct Mangaka: Identifiable, Comparable {
+
+    static func < (lhs: Mangaka, rhs: Mangaka) -> Bool {
+        lhs.name < rhs.name
+    }
+
 
     var id: UUID = UUID()
 
@@ -64,7 +69,7 @@ extension Mangaka {
 
         Mangaka(name: "Shou Hinata",
                 function: .scriptwriter,
-                mangas: ["One Piece"],
+                mangas: ["One Piece - Ace"],
                 history: "écrivain japonais"),
 
         Mangaka(name: "Buronson",
