@@ -12,27 +12,37 @@ struct LogoWithHalo: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
+    @State private var angle: Double = 360
+
     var body: some View {
             /// Halo
-        ZStack {
-            Image("Halo")
-                .ignoresSafeArea()
-                .blendMode(.softLight)
-                .opacity(colorScheme == .light ? 0.85 : 0.25)
-                .frame(width: 1175, height: 1175, alignment: .center)
-                .offset(y: -20)
+        GeometryReader { proxy in
+            ZStack {
+                Image("Halo")
+                    .ignoresSafeArea()
+                    .blendMode(.softLight)
+                    .opacity(colorScheme == .light ? 0.85 : 0.25)
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
+                    .offset(y: -20)
+                    .rotationEffect(Angle(degrees: angle))
+                    .onAppear {
+                        withAnimation(.linear(duration: 90).repeatForever()) {
+                            angle = 0
+                        }
+                    }
 
-                /// Red circle under the circle of logo
-            Circle()
-                .frame(width: 129, height: 129, alignment: .center)
-                .offset(y: -23)
-                .foregroundColor(.redJapan)
+                    /// Red circle under the circle of logo
+                Circle()
+                    .frame(width: 129, height: 129, alignment: .center)
+                    .offset(y: -23)
+                    .foregroundColor(.redJapan)
 
-                /// Logo
-            Image("LogoOtakuSakuru")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200, alignment: .center)
+                    /// Logo
+                Image("LogoOtakuSakuru")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200, alignment: .center)
+            }
         }
     }
 }

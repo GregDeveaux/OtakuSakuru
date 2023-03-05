@@ -68,7 +68,6 @@ struct CollectionView: View {
                 .cornerRadius(15)
                 .padding()
 
-
                 ///FILTER
                 Menu {
                     ForEach(SortFilter.allCases) { filter in
