@@ -11,7 +11,7 @@ class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
-    @Published var mangaBooksOfUser: [Book] = Book.example
+    @Published var mangaBooksCollection: [Book] = Book.example
 
     @Published var arrayOfButtonsTitleForFilter: [String] = []
 
@@ -26,7 +26,7 @@ class CollectionViewModel: ObservableObject {
             // create one button by section according to filter
         createTheAnchorsOfSection(by: filter)
             // sort the book according to filter and alphabetic
-        mangaBooksOfUser
+        mangaBooksCollection
             .sort { ($0.title.capitalized, $0.volume) < ($1.title.capitalized, $1.volume) }
     }
 
@@ -41,14 +41,14 @@ class CollectionViewModel: ObservableObject {
         switch filter {
             case .title:
                 arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksOfUser.map { $0.title }
+                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.title }
                 sortAlphabetic()
                 print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for title \(arrayOfButtonsTitleForFilter)")
 
             case .mangaka:
                 arrayOfButtonsTitleForFilter.removeAll()
                     // retrieve the different mangakas of the book sorted
-                mangaBooksOfUser.forEach { book in
+                mangaBooksCollection.forEach { book in
                     book.mangakas.forEach {
                         arrayOfButtonsTitleForFilter.append($0.name)
                     }
@@ -58,14 +58,14 @@ class CollectionViewModel: ObservableObject {
 
             case .publisher:
                 arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksOfUser.map { $0.publisher }
+                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.publisher }
                 sortAlphabetic()
                 print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for publisher \(arrayOfButtonsTitleForFilter)")
 
             case .kind:
                 arrayOfButtonsTitleForFilter.removeAll()
                     // retrieve the different kinds of the book sorted
-                arrayOfButtonsTitleForFilter = mangaBooksOfUser
+                arrayOfButtonsTitleForFilter = mangaBooksCollection
                     .flatMap { $0.kinds }
                     .map { $0.rawValue }
                 sortAlphabetic()
@@ -73,7 +73,7 @@ class CollectionViewModel: ObservableObject {
 
             case .category:
                 arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksOfUser.map { $0.category.rawValue }
+                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.category.rawValue }
                 sortAlphabetic()
                 print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for category \(arrayOfButtonsTitleForFilter)")
         }
@@ -115,7 +115,7 @@ class CollectionViewModel: ObservableObject {
     }
 
     func deleteRow(indexSet: IndexSet) {
-        mangaBooksOfUser.remove(atOffsets: indexSet)
+        mangaBooksCollection.remove(atOffsets: indexSet)
     }
 }
 

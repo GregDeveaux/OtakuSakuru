@@ -13,8 +13,9 @@ struct CollectionView: View {
     @StateObject var viewModel = CollectionViewModel()
 
     @State private var scrollSectionID: String = ""
+    @State private var searchResult = CollectionViewModel().mangaBooksCollection   //TODO: var à revoir
 
-    @State private var searchText = ""
+    @State private var searchText: String = ""
     @State private var chosenFilter: SortFilter = .title
     
     var body: some View {
@@ -40,38 +41,52 @@ struct CollectionView: View {
         // ---------------------------------------------------------------
 
     var searchBar: some View {
-        HStack {
-            ///SEARCH
+        VStack {
+            Text(searchText)
             HStack {
-                Image(systemName: "magnifyingglass")
-                    .padding(.trailing, 3)
-                    .padding(.leading, 16)
+                ///SEARCH
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .padding(.trailing, 3)
+                        .padding(.leading, 16)
 
-                TextField("Recherche", text: $searchText)
-            }
-            .foregroundColor(colorScheme == .light ? .redJapan : .indigoJapan)
-            .frame(height: 50)
-            .background(.white)
-            .cornerRadius(15)
-            .padding()
-
-            ///FILTER
-            Menu {
-                ForEach(SortFilter.allCases) { filter in
-                    Button {
-                        chosenFilter = filter
-                        viewModel.setUpList(by: chosenFilter)
-                        print("✅ COLLECTION_VIEW/FILTER_BUTTON: You are selected \(chosenFilter)")
-                    } label: {
-                        Text(filter.rawValue)
-                    }
+                    TextField("Recherche", text: $searchText)
+                        .overlay(alignment: .trailing) {
+                            if !searchText.isEmpty {
+                                Button {
+                                    self.searchText = ""
+                                } label: {
+                                    Image(systemName: "multiply.circle.fill")
+                                        .padding()
+                                }
+                            }
+                        }
                 }
-            } label: {
-                Image(systemName: "slider.horizontal.3")
-                    .font(.system(size: 30))
-                    .foregroundColor(colorScheme == . light ? .sandJapan : .blueGreenJapan)
-                    .frame(height: 55)
-                    .padding(.trailing, 30)
+                .foregroundColor(colorScheme == .light ? .redJapan : .indigoJapan)
+                .frame(height: 45)
+                .background(.white)
+                .cornerRadius(15)
+                .padding()
+
+
+                ///FILTER
+                Menu {
+                    ForEach(SortFilter.allCases) { filter in
+                        Button {
+                            chosenFilter = filter
+                            viewModel.setUpList(by: chosenFilter)
+                            print("✅ COLLECTION_VIEW/FILTER_BUTTON: You are selected \(chosenFilter)")
+                        } label: {
+                            Text(filter.rawValue)
+                        }
+                    }
+                } label: {
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 30))
+                        .foregroundColor(colorScheme == . light ? .sandJapan : .blueGreenJapan)
+                        .frame(height: 55)
+                        .padding(.trailing, 30)
+                }
             }
         }
     }
@@ -115,7 +130,7 @@ struct CollectionView: View {
                         // create a section in terms of filter
                     Section {
                             // Books sorted by section title
-                        ForEach(viewModel.mangaBooksOfUser, id: \.ISBN) { book in
+                        ForEach(searchResult, id: \.ISBN) { book in
 
                             if viewModel.giveBookValueToStoreUnderEachSection(book: book, chosenfilter: chosenFilter) == section {
 
@@ -126,14 +141,24 @@ struct CollectionView: View {
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }
-                            else {
-
-                            }
                         }
                             //onDelete only works with ForEach
                         .onDelete(perform: { indexSet in
                             viewModel.deleteRow(indexSet: indexSet)
                         })
+                            // searchBar action
+                        .onChange(of: searchText) { searchText in
+
+//                            searchResult = viewModel.mangaBooksCollection
+                                // modify collection according to searchText
+                            if searchText.isEmpty || searchText != searchText {
+                                searchResult = viewModel.mangaBooksCollection
+                            } else {
+                                searchResult = viewModel.mangaBooksCollection.filter({ book in
+                                    book.title.lowercased().contains(searchText.lowercased())
+                                })
+                            }
+                        }
                     } header: {
                         VStack(alignment: .center) {
                             Text(section)
@@ -152,9 +177,9 @@ struct CollectionView: View {
                     .listRowSeparator(.hidden)
                     .id(section)
                 }
-                .onChange(of: scrollSectionID) { newValue in
+                .onChange(of: scrollSectionID) { sectionID in
                     withAnimation(.spring()) {
-                        scrollView.scrollTo(newValue, anchor: .top)
+                        scrollView.scrollTo(sectionID, anchor: .top)
                     }
                 }
             }
@@ -164,6 +189,7 @@ struct CollectionView: View {
                 viewModel.setUpList(by: chosenFilter)
             }
         }
+
     }
 }
 
