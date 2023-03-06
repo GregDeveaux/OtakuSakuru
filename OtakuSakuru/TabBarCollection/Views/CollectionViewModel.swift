@@ -91,6 +91,7 @@ class CollectionViewModel: ObservableObject {
         ///   - chosenfilter: filter choose by the user to sort the collection
         /// - Returns: value string
     func giveBookValueToStoreUnderEachSection(book: Book, chosenfilter: SortFilter) -> String {
+
         switch chosenfilter {
             case .title:
                 return book.title.capitalized

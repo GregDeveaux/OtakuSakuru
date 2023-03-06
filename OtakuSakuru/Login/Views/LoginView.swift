@@ -14,8 +14,10 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
-
+        // for password
     @State private var visible: Bool = false
+        // to login version or register version
+    @State private var newUser: Bool = true
 
         // for animation
     @State private var appear: Bool = false
@@ -38,30 +40,29 @@ struct LoginView: View {
 
 
                 VStack(alignment: .center, spacing: 10) {
-                    Text("Bienvenue")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .opacity(appear ? 1 : 0)
-                        .animation(.easeInOut(duration: 2).delay(1.35), value: appear)
+                    welcomeText
 
-                    TextField("Nom d'utilisateur",
-                              text: $username,
-                              prompt: Text("Nom d'utilisateur").foregroundColor(.white))
-                        .disableAutocorrection(true)
-                        .frame(width: 300, height: 45, alignment: .center)
-                        .onSubmit {
-                                //                            validate(name: username)
-                        }
-                        .opacity(appear ? 1 : 0)
-                        .animation(.easeInOut(duration: 2).delay(1.15), value: appear)
+                    if newUser {
+                        TextField("Nom d'utilisateur",
+                                  text: $username,
+                                  prompt: Text("Nom d'utilisateur").foregroundColor(.white))
+                            .foregroundColor(.white)
+                            .disableAutocorrection(true)
+                            .frame(width: 300, height: 45, alignment: .center)
+                            .onSubmit {
+                                    //                            validate(name: username)
+                            }
+                            .opacity(appear ? 1 : 0)
+                            .animation(.easeInOut(duration: 2).delay(1.15), value: appear)
 
-                    RoundedRectangle(cornerRadius: 15)
-                        .frame(width: 300, height: 1, alignment: .center)
-                        .foregroundColor(.white)
-                        .padding(.trailing, 30)
-                        .padding(.leading, 30)
-                        .opacity(appear ? 1 : 0)
-                        .animation(.easeInOut(duration: 2).delay(0.95), value: appear)
+                        RoundedRectangle(cornerRadius: 15)
+                            .frame(width: 300, height: 1, alignment: .center)
+                            .foregroundColor(.white)
+                            .padding(.trailing, 30)
+                            .padding(.leading, 30)
+                            .opacity(appear ? 1 : 0)
+                            .animation(.easeInOut(duration: 2).delay(0.95), value: appear)
+                    }
 
                     TextField("Adresse mail",
                               text: $email,
@@ -106,31 +107,9 @@ struct LoginView: View {
                     .opacity(appear ? 1 : 0)
                     .animation(.easeIn(duration: 2).delay(0.45), value: appear)
 
-                    Button {
-                        viewModel.createUser(withEmail: email, password: password)
-                    } label: {
-                        Text("S'enregister")
-                            .foregroundColor(appear ? .white : .indigoJapan)
-                            .frame(width: 300, height: 45, alignment: .center)
-                            .background(Color.indigoJapan)
-                            .cornerRadius(15)
-                            .animation(.easeInOut(duration: 2).delay(0.4), value: appear)
-                    }
-                    .padding(15)
-                    .opacity(appear ? 1 : 0)
-                    .animation(.easeInOut(duration: 2).delay(0.2), value: appear)
+                    registerOrLogInButton
 
-                    Button {
-
-                    } label: {
-                        Text("Mot de passe oublié ?")
-                            .font(.system(size: 15))
-                            .fontWeight(.thin)
-                            .foregroundColor(.white)
-                    }
-                    .padding(.top, -10)
-
-
+                    forgetPasswordButton
                 }
                 .position(x: proxy.size.width / 2,
                           y: proxy.size.height / 1.8)
@@ -138,6 +117,51 @@ struct LoginView: View {
                 }
             }
         }
+    }
+
+    var welcomeText: some View {
+        Text(newUser ? "Créez votre compte" : "Connectez-vous à votre compte")
+            .font(.system(size: 21.5))
+            .fontWeight(.medium)
+            .fontDesign(.rounded)
+            .foregroundColor(.white)
+            .padding()
+            .opacity(appear ? 1 : 0)
+            .animation(.easeInOut(duration: 2).delay(1.35), value: appear)
+    }
+
+    var registerOrLogInButton: some View {
+        Button {
+            if newUser {
+                viewModel.createUser(withEmail: email, password: password)
+            } else {
+                viewModel.signIn(withEmail: email, password: password)
+            }
+        } label: {
+            Text(newUser ? "S'enregister" : "Se connecter")
+                .fontWeight(.medium)
+                .foregroundColor(appear ? .white : .indigoJapan)
+                .frame(width: 300, height: 45, alignment: .center)
+                .background(Color.indigoJapan)
+                .cornerRadius(15)
+                .animation(.easeInOut(duration: 2).delay(0.4), value: appear)
+        }
+        .padding(15)
+        .opacity(appear ? 1 : 0)
+        .animation(.easeInOut(duration: 2).delay(0.2), value: appear)
+    }
+
+    var forgetPasswordButton: some View {
+        Button {
+
+        } label: {
+            Text("Mot de passe oublié ?")
+                .font(.system(size: 15))
+                .fontWeight(.thin)
+                .foregroundColor(.white)
+        }
+        .padding(.top, -10)
+        .opacity(newUser ? 0 : 1)
     }
 }
 

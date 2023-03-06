@@ -8,7 +8,7 @@
 import Foundation
 
     /// A mangaka is the job of creator, cartoonist and sciptwriter in the world of manga
-struct Mangaka: Identifiable, Comparable {
+struct Mangaka: Identifiable, Comparable, Hashable {
 
     static func < (lhs: Mangaka, rhs: Mangaka) -> Bool {
         lhs.name < rhs.name
