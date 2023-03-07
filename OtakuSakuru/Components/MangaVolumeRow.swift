@@ -16,7 +16,7 @@ struct MangaVolumeRow: View {
         book.mangakas
     }
 
-    @State private var isFavorite: Bool = false
+    @Binding var isFavorite: Bool
 
     var body: some View {
         HStack {
@@ -39,7 +39,7 @@ struct MangaVolumeRow: View {
 
                     Spacer()
 
-                    StarFavorite()
+                    StarFavorite(isFavorite: $isFavorite)
                         .scaleEffect(CGSize(width: 0.5, height: 0.5), anchor: .center)
                         .frame(width: 45, height: 45, alignment: .center)
                 }
@@ -110,7 +110,7 @@ struct CollectionCell_Previews: PreviewProvider {
             /// Background
             Color.otakuBackgroundSecondary.ignoresSafeArea()
             /// Preview
-            MangaVolumeRow(book: books[0])
+            MangaVolumeRow(book: books[0], isFavorite: .constant(true))
         }
     }
 }

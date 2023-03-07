@@ -97,7 +97,7 @@ struct CollectionView: View {
     var scrollAnchorButtonOfItem: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 15) {
-                ForEach(viewModel.arrayOfButtonsTitleForFilter, id: \.self) { itemFilter in
+                ForEach(viewModel.titlesButtonBySortFilter, id: \.self) { itemFilter in
                     Button {
                         scrollSectionID = String(itemFilter)
                     } label: {
@@ -125,18 +125,19 @@ struct CollectionView: View {
         ScrollViewReader { scrollView in
                 // create a list of the all manga
             List {
-                ForEach(viewModel.arrayOfButtonsTitleForFilter, id: \.self) { section in
+                ForEach(viewModel.titlesSectionBySortFilter, id: \.self) { section in
                         // create a section in terms of filter
                     Section {
                             // Books sorted by section title
-                        ForEach(searchResult, id: \.ISBN) { book in
+                        ForEach($viewModel.mangaBooksCollection, id: \.ISBN) { $book in
 
                             if viewModel.giveBookValueToStoreUnderEachSection(book: book, chosenfilter: chosenFilter) == section {
 
                                 NavigationLink {
-                                    BookDetailView(book: book)
+                                        // use $ only to modify property
+                                    BookDetailView(book: book, isFavorite: $book.isFavorite)
                                 } label: {
-                                    MangaVolumeRow(book: book)
+                                    MangaVolumeRow(book: book, isFavorite: $book.isFavorite)
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }

@@ -10,7 +10,7 @@ import SwiftUI
 struct AddInCollectionView: View {
 
     @State private var isAddToTheCollection: Bool = false
-    
+
     var color: Color
     var buttonYes: Bool
 

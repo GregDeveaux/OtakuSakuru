@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookDetailView: View {
     @State var book: Book
-    @State private var isFavorite: Bool = false
+    @Binding var isFavorite: Bool
 
     var body: some View {
         GeometryReader { proxy in
@@ -37,7 +37,7 @@ struct BookDetailView: View {
                             .padding()
                             .padding(.top, 40)
                             .overlay(alignment: .bottom) {
-                                StarFavorite()
+                                StarFavorite(isFavorite: $isFavorite)
                                     .offset(y: 30)
                             }
 
@@ -88,6 +88,6 @@ struct BookDetailView_Previews: PreviewProvider {
     static var book = Book.example
 
     static var previews: some View {
-        BookDetailView(book: book[5])
+        BookDetailView(book: book[5], isFavorite: .constant(true))
     }
 }

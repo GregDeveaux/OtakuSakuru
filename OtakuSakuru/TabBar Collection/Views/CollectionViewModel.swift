@@ -13,7 +13,9 @@ class CollectionViewModel: ObservableObject {
 
     @Published var mangaBooksCollection: [Book] = Book.example
 
-    @Published var arrayOfButtonsTitleForFilter: [String] = []
+    @Published var titlesSectionBySortFilter: [String] = []
+
+    @Published var titlesButtonBySortFilter: [String] = []
 
 
         // ----------------------------------------------------------------
@@ -40,49 +42,51 @@ class CollectionViewModel: ObservableObject {
     private func createTheAnchorsOfSection(by filter: SortFilter) {
         switch filter {
             case .title:
-                arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.title }
+                titlesButtonBySortFilter.removeAll()
+                titlesButtonBySortFilter = mangaBooksCollection.map { $0.title }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for title \(arrayOfButtonsTitleForFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for title \(titlesButtonBySortFilter)")
 
             case .mangaka:
-                arrayOfButtonsTitleForFilter.removeAll()
+                titlesButtonBySortFilter.removeAll()
                     // retrieve the different mangakas of the book sorted
                 mangaBooksCollection.forEach { book in
                     book.mangakas.forEach {
-                        arrayOfButtonsTitleForFilter.append($0.name)
+                        titlesButtonBySortFilter.append($0.name)
                     }
                 }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for mangaka \(arrayOfButtonsTitleForFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for mangaka \(titlesButtonBySortFilter)")
 
             case .publisher:
-                arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.publisher }
+                titlesButtonBySortFilter.removeAll()
+                titlesButtonBySortFilter = mangaBooksCollection.map { $0.publisher }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for publisher \(arrayOfButtonsTitleForFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for publisher \(titlesButtonBySortFilter)")
 
             case .kind:
-                arrayOfButtonsTitleForFilter.removeAll()
+                titlesButtonBySortFilter.removeAll()
                     // retrieve the different kinds of the book sorted
-                arrayOfButtonsTitleForFilter = mangaBooksCollection
+                titlesButtonBySortFilter = mangaBooksCollection
                     .flatMap { $0.kinds }
                     .map { $0.rawValue }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for kind \(arrayOfButtonsTitleForFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for kind \(titlesButtonBySortFilter)")
 
             case .category:
-                arrayOfButtonsTitleForFilter.removeAll()
-                arrayOfButtonsTitleForFilter = mangaBooksCollection.map { $0.category.rawValue }
+                titlesButtonBySortFilter.removeAll()
+                titlesButtonBySortFilter = mangaBooksCollection.map { $0.category.rawValue }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for category \(arrayOfButtonsTitleForFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for category \(titlesButtonBySortFilter)")
         }
     }
 
     private func sortAlphabetic() {
-        arrayOfButtonsTitleForFilter = Array(Set(arrayOfButtonsTitleForFilter))
+        titlesButtonBySortFilter = Array(Set(titlesButtonBySortFilter))
             .map { $0.capitalized }
             .sorted { $0 < $1 }
+            // save name section
+        titlesSectionBySortFilter = titlesButtonBySortFilter
     }
 
         /// Give the book values  to check equality with the section to store  the books under each section
@@ -99,7 +103,7 @@ class CollectionViewModel: ObservableObject {
                 var mangakaName = ""
                 book.mangakas.forEach { mangaka in
                     mangakaName = mangaka.name
-                    print(mangaka.name)
+                    print("✅ The mangaka name is \(mangaka.name)")
                 }
                 return mangakaName.capitalized
             case .publisher:
