@@ -91,31 +91,23 @@ class CollectionViewModel: ObservableObject {
 
         /// Give the book values  to check equality with the section to store  the books under each section
         /// - Parameters:
-        ///   - book: book in the collection
         ///   - chosenfilter: filter choose by the user to sort the collection
-        /// - Returns: value string
-    func giveBookValueToStoreUnderEachSection(book: Book, chosenfilter: SortFilter) -> String {
+        ///   - book: book in the collection
+        ///   - section: section to store the book in the collection
+        /// - Returns: value true if book value equal at a section
+    func giveBookValueToStoreUnderEachSection(chosenfilter: SortFilter, book: Book, section: String) -> Bool {
 
         switch chosenfilter {
             case .title:
-                return book.title.capitalized
+                return book.title.capitalized == section.capitalized
             case .mangaka:
-                var mangakaName = ""
-                book.mangakas.forEach { mangaka in
-                    mangakaName = mangaka.name
-                    print("✅ The mangaka name is \(mangaka.name)")
-                }
-                return mangakaName.capitalized
+                return book.mangakas.map({ $0.name.capitalized }).contains(section.capitalized)
             case .publisher:
-                return book.publisher.capitalized
+                return book.publisher.capitalized == section.capitalized
             case .kind:
-                var kindValue = ""
-                book.kinds.forEach { kind in
-                    kindValue = kind.rawValue.capitalized
-                }
-                return kindValue
+                return book.kinds.map({ $0.rawValue.capitalized }).contains(section.capitalized)
             case .category:
-                return book.category.rawValue.capitalized
+                return book.category.rawValue.capitalized == section.capitalized
         }
     }
 

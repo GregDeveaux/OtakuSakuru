@@ -358,8 +358,7 @@
 			children = (
 				BC8ADF57298C729C00F8C84E /* Assets.xcassets */,
 				BC8EC500299437C4009366D9 /* LogoWithHalo.swift */,
-				BCB3B21B2998680500585FC7 /* StarFavorite.swift */,
-				BC1E4E1A29B7B91600AF2ACD /* ChoseNumberStars.swift */,
+				BCFC698129B942980067570D /*  Stars Rate */,
 				BC00991829A587440074ED13 /* SearchBar.swift */,
 				BCB3B2162997DFA000585FC7 /* MangaVolumeRow.swift */,
 				BCB3B23729999C4E00585FC7 /* Extensions */,
@@ -460,6 +459,15 @@
 			children = (
 			);
 			path = "TabBar News";
+			sourceTree = "<group>";
+		};
+		BCFC698129B942980067570D /*  Stars Rate */ = {
+			isa = PBXGroup;
+			children = (
+				BCB3B21B2998680500585FC7 /* StarFavorite.swift */,
+				BC1E4E1A29B7B91600AF2ACD /* ChoseNumberStars.swift */,
+			);
+			path = " Stars Rate";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

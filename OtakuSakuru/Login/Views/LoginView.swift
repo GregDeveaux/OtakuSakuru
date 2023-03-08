@@ -17,7 +17,7 @@ struct LoginView: View {
         // for password
     @State private var visible: Bool = false
         // to login version or register version
-    @State private var newUser: Bool = true
+    @State private var newUser: Bool = false
 
         // for animation
     @State private var appear: Bool = false

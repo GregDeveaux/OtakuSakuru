@@ -2,14 +2,14 @@
 //  ChoseNumberStars.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 07/03/2023.
+//  Created by Greg Deveaux on 07/03/2023.
 //
 
 import SwiftUI
 
 struct ChooseNumberStars: View {
 
-    @State private var totalRate = 5
+    @State private var numberOfStarsChoose = 1
     @State var isActived: Bool = false
 
     var body: some View {
@@ -18,10 +18,10 @@ struct ChooseNumberStars: View {
                 .foregroundColor(.darkIndigoJapan)
             HStack {
                 ForEach(1...7, id: \.self) { index in
-                    if index <= totalRate {
-                        StarForRate(isActived: true , index: index)
+                    if index <= numberOfStarsChoose {
+                        StarForRate(index: index, isActived: true, numberOfStarsChoose: $numberOfStarsChoose)
                     } else {
-                        StarForRate(isActived: false , index: index)
+                        StarForRate(index: index, isActived: false, numberOfStarsChoose: $numberOfStarsChoose)
                     }
                 }
             }
@@ -43,15 +43,19 @@ struct ChoseNumberStars_Previews: PreviewProvider {
 }
 
 struct StarForRate: View {
-    @State var isActived: Bool = false
+    @Environment(\.colorScheme) var colorScheme
+
     var index: Int
+    var isActived: Bool
+    @Binding var numberOfStarsChoose: Int
+
 
     var body: some View {
         Button {
-            isActived.toggle()
+            numberOfStarsChoose = index
         } label: {
             Image(systemName: isActived ? "star.fill" : "star")
-                .foregroundColor(.redJapan)
+                .foregroundColor(colorScheme == .light ? .redJapan : .blueGreenJapan)
         }
     }
 }

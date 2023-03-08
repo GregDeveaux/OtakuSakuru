@@ -2,7 +2,7 @@
 //  StarFavorite.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 12/02/2023.
+//  Created by Greg Deveaux on 12/02/2023.
 //
 
 import SwiftUI
@@ -32,6 +32,7 @@ struct StarFavorite: View {
         .simultaneousGesture(
         LongPressGesture(minimumDuration: 2)
             .onEnded({ _ in
+                print("✅ STAR_FAVORITE/BUTTON_LONG_GESTURE: is actived")
             })
         )
     }

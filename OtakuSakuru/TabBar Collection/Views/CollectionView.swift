@@ -129,9 +129,9 @@ struct CollectionView: View {
                         // create a section in terms of filter
                     Section {
                             // Books sorted by section title
-                        ForEach($viewModel.mangaBooksCollection, id: \.ISBN) { $book in
+                        ForEach($searchResult, id: \.ISBN) { $book in
 
-                            if viewModel.giveBookValueToStoreUnderEachSection(book: book, chosenfilter: chosenFilter) == section {
+                            if viewModel.giveBookValueToStoreUnderEachSection(chosenfilter: chosenFilter, book: book, section: section) {
 
                                 NavigationLink {
                                         // use $ only to modify property
