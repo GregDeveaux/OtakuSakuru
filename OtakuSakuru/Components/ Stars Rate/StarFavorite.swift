@@ -9,38 +9,51 @@ import SwiftUI
 
 struct StarFavorite: View {
     @Binding var isFavorite: Bool
+    
+    @State private var isShowingStarsRateAfterLongPress: Bool = false
+    @State private var numberOfStarsChoose = 1
+    @State private var isChoose: Bool = false
 
     var body: some View {
-        Button {
-            isFavorite.toggle()
-        } label: {
-            if !isFavorite {
-                DragonBall(colorOfTheBall1: .red,
-                           colorOfTheBall2: Color.redJapan,
-                           colorOfTheStar: .white)
-            } else {
-                ZStack {
-                    if isFavorite {
-                        OuterGlow()
+        ZStack {
+            Button {
+                isFavorite.toggle()
+            } label: {
+                if !isFavorite {
+                    DragonBall(colorOfTheBall1: .red,
+                               colorOfTheBall2: Color.redJapan,
+                               colorOfTheStar: .white)
+                } else {
+                    ZStack {
+                        if isFavorite {
+                            OuterGlow()
+                        }
+                        DragonBall(colorOfTheBall1: .orange,
+                                   colorOfTheBall2: .yellow,
+                                   colorOfTheStar: Color.redJapan)
+
+                        if isShowingStarsRateAfterLongPress && !isChoose {
+                            ChooseNumberStars(numberOfStarsChoose: $numberOfStarsChoose,
+                                              isChoose: $isChoose)
+                        }
                     }
-                    DragonBall(colorOfTheBall1: .orange,
-                               colorOfTheBall2: .yellow,
-                               colorOfTheStar: Color.redJapan)
                 }
             }
-        }
-        .simultaneousGesture(
-        LongPressGesture(minimumDuration: 2)
-            .onEnded({ _ in
-                print("✅ STAR_FAVORITE/BUTTON_LONG_GESTURE: is actived")
-            })
+            .simultaneousGesture(
+            LongPressGesture(minimumDuration: 2)
+                .onEnded({ _ in
+                    isShowingStarsRateAfterLongPress = true
+                    isFavorite = true
+                    print("✅ STAR_FAVORITE/BUTTON_LONG_GESTURE: is actived")
+                })
         )
+        }
     }
 }
 
 struct StarFavorite_Previews: PreviewProvider {
     static var previews: some View {
-        StarFavorite(isFavorite: .constant(false))
+        StarFavorite(isFavorite: .constant(true))
     }
 }
 

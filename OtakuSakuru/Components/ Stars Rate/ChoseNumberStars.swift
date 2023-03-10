@@ -9,19 +9,29 @@ import SwiftUI
 
 struct ChooseNumberStars: View {
 
-    @State private var numberOfStarsChoose = 1
+    @Binding var numberOfStarsChoose: Int
+    @Binding var isChoose: Bool
+
     @State var isActived: Bool = false
 
     var body: some View {
         VStack(spacing: 5) {
             Text("Choisis le nombre d'étoiles")
                 .foregroundColor(.darkIndigoJapan)
+                .bold()
+            
             HStack {
                 ForEach(1...7, id: \.self) { index in
                     if index <= numberOfStarsChoose {
-                        StarForRate(index: index, isActived: true, numberOfStarsChoose: $numberOfStarsChoose)
+                        StarForRate(numberOfStarsChoose: $numberOfStarsChoose,
+                                    isChoose: $isChoose,
+                                    index: index,
+                                    isActived: true)
                     } else {
-                        StarForRate(index: index, isActived: false, numberOfStarsChoose: $numberOfStarsChoose)
+                        StarForRate(numberOfStarsChoose: $numberOfStarsChoose,
+                                    isChoose: $isChoose,
+                                    index: index,
+                                    isActived: false)
                     }
                 }
             }
@@ -38,21 +48,25 @@ struct ChooseNumberStars: View {
 
 struct ChoseNumberStars_Previews: PreviewProvider {
     static var previews: some View {
-        ChooseNumberStars()
+        ChooseNumberStars(numberOfStarsChoose: .constant(5),
+                          isChoose: .constant(false))
     }
 }
 
+    //create star button with index
 struct StarForRate: View {
     @Environment(\.colorScheme) var colorScheme
 
+    @Binding var numberOfStarsChoose: Int
+    @Binding var isChoose: Bool
+
     var index: Int
     var isActived: Bool
-    @Binding var numberOfStarsChoose: Int
-
 
     var body: some View {
         Button {
             numberOfStarsChoose = index
+            isChoose.toggle()
         } label: {
             Image(systemName: isActived ? "star.fill" : "star")
                 .foregroundColor(colorScheme == .light ? .redJapan : .blueGreenJapan)
