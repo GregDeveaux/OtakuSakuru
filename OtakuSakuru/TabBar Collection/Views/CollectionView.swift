@@ -17,7 +17,7 @@ struct CollectionView: View {
 
     @State private var searchText: String = ""
     @State private var chosenFilter: SortFilter = .title
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -125,7 +125,7 @@ struct CollectionView: View {
         ScrollViewReader { scrollView in
                 // create a list of the all manga
             List {
-                ForEach(viewModel.titlesSectionBySortFilter, id: \.self) { section in
+                ForEach($viewModel.titlesSectionBySortFilter, id: \.self) { $section in
                         // create a section in terms of filter
                     Section {
                             // Books sorted by section title
@@ -138,6 +138,7 @@ struct CollectionView: View {
                                     BookDetailView(book: book, isFavorite: $book.isFavorite)
                                 } label: {
                                     MangaVolumeRow(book: book, isFavorite: $book.isFavorite)
+                                        .padding(.trailing, -20)
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }
@@ -145,11 +146,14 @@ struct CollectionView: View {
                             //onDelete only works with ForEach
                         .onDelete(perform: { indexSet in
                             viewModel.deleteRow(indexSet: indexSet)
+                            searchResult = viewModel.mangaBooksCollection
+                            if section.isEmpty {
+                                guard let index = viewModel.titlesSectionBySortFilter.firstIndex(of: section) else { return }
+                                viewModel.titlesSectionBySortFilter.remove(at: index)
+                            }
                         })
                             // searchBar action
                         .onChange(of: searchText) { searchText in
-
-//                            searchResult = viewModel.mangaBooksCollection
                                 // modify collection according to searchText
                             if searchText.isEmpty || searchText != searchText {
                                 searchResult = viewModel.mangaBooksCollection
@@ -175,18 +179,33 @@ struct CollectionView: View {
                     }
                     .listRowBackground(Color.otakuBackgroundSecondary)
                     .listRowSeparator(.hidden)
+                        // create id section for automatic scroll
                     .id(section)
                 }
+                    //go to the section by automatic scroll
                 .onChange(of: scrollSectionID) { sectionID in
                     withAnimation(.spring()) {
                         scrollView.scrollTo(sectionID, anchor: .top)
                     }
                 }
             }
-            .listStyle(PlainListStyle())
+            .listStyle(PlainListStyle()) // without section menu
             .background(Color.otakuBackgroundSecondary)
+                // as soon as the view is show update list
             .onAppear {
                 viewModel.setUpList(by: chosenFilter)
+            }
+                // use the refresh by scroll
+            .refreshable {
+                viewModel.setUpList(by: chosenFilter)
+            }
+                // message text if list is empty
+            .overlay {
+                if viewModel.mangaBooksCollection.isEmpty {
+                    Text("Ta collection est vide,\nscanne un code barre pour ajouter\nautomatiquement un titre")
+                        .bold()
+                        .multilineTextAlignment(.center)
+                }
             }
         }
 

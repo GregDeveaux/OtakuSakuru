@@ -50,7 +50,7 @@ struct LoginView: View {
                             .disableAutocorrection(true)
                             .frame(width: 300, height: 45, alignment: .center)
                             .onSubmit {
-                                    //                            validate(name: username)
+                                    // validate(name: username)
                             }
                             .opacity(appear ? 1 : 0)
                             .animation(.easeInOut(duration: 2).delay(1.15), value: appear)

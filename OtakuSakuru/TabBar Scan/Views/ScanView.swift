@@ -55,11 +55,11 @@ private extension ScanView {
         Button {
             if !isActivated {
                 isActivated = true
-                scanViewModel.cameraIsActivate.toggle() ///true
+                scanViewModel.cameraIsActivate.toggle()
                 scanViewModel.scanBarcode()
             } else {
                 isActivated = false
-                scanViewModel.cameraIsActivate.toggle() ///false
+                scanViewModel.cameraIsActivate.toggle()
             }
             print("✅ SCAN_VIEW/SCAN_BUTTON: Camera is activate? \(scanViewModel.cameraIsActivate)")
         } label: {

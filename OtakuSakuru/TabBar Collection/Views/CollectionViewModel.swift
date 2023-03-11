@@ -96,7 +96,6 @@ class CollectionViewModel: ObservableObject {
         ///   - section: section to store the book in the collection
         /// - Returns: value true if book value equal at a section
     func giveBookValueToStoreUnderEachSection(chosenfilter: SortFilter, book: Book, section: String) -> Bool {
-
         switch chosenfilter {
             case .title:
                 return book.title.capitalized == section.capitalized

@@ -12,15 +12,13 @@ struct LogoWithHalo: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
-
     var body: some View {
-            /// Halo
         GeometryReader { proxy in
             ZStack {
                 Halo(proxy: proxy)
-                    /// Red circle under the circle of logo
+
                 RedCircle()
-                    /// Logo
+
                 AppLogo()
             }
         }
@@ -34,10 +32,11 @@ struct LogoWithHalo_Previews: PreviewProvider {
 }
 
 struct Halo: View {
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var angle: Double = 360
+    
     var proxy: GeometryProxy
-    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         Image("Halo")
@@ -55,6 +54,7 @@ struct Halo: View {
     }
 }
 
+    // Red circle under the circle of logo
 struct RedCircle: View {
     var body: some View {
         Circle()

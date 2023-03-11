@@ -21,6 +21,10 @@ struct BookDetailView: View {
                     VStack(alignment: .center, spacing: 15) {
 
                         Text("lecture : \(Text(book.readStatus.rawValue).bold())")
+                            .background(Rectangle()
+                                .foregroundColor(Color.redJapan)
+                                .ignoresSafeArea()
+                                        )
 
                         HStack(spacing: 50) {
                             ForEach(book.kinds) { kind in
@@ -31,8 +35,8 @@ struct BookDetailView: View {
                         Image(book.imageName)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: proxy.size.width * 0.65,
-                                   height: proxy.size.height * 0.65,
+                            .frame(width: proxy.size.width * 0.55,
+                                   height: proxy.size.height * 0.55,
                                    alignment: .center)
                             .padding()
                             .padding(.top, 40)
