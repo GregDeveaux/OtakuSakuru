@@ -17,9 +17,9 @@ struct LogoWithHalo: View {
             ZStack {
                 Halo(proxy: proxy)
 
-                RedCircle()
+                RedCircle(proxy: proxy)
 
-                AppLogo()
+                AppLogo(proxy: proxy)
             }
         }
     }
@@ -56,19 +56,25 @@ struct Halo: View {
 
     // Red circle under the circle of logo
 struct RedCircle: View {
+
+    var proxy: GeometryProxy
+
     var body: some View {
         Circle()
-            .frame(width: 129, height: 129, alignment: .center)
+            .frame(width: proxy.size.width / 3.2, alignment: .center)
             .offset(y: -23)
             .foregroundColor(.redJapan)
     }
 }
 
 struct AppLogo: View {
+
+    var proxy: GeometryProxy
+
     var body: some View {
         Image("LogoOtakuSakuru")
             .resizable()
             .scaledToFit()
-            .frame(width: 200, height: 200, alignment: .center)
+            .frame(width: proxy.size.width / 2, height: proxy.size.height / 2, alignment: .center)
     }
 }

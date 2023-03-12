@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
     // -------------------------------------------------------------
     // MARK: - profil
     // -------------------------------------------------------------
 
-struct ProfilUser {
+struct ProfilUser: Codable, Identifiable {
+    var id: UUID = UUID()
     let name: String
     let age: Int  // for the adult Manga
     let imageName: String
@@ -19,13 +21,13 @@ struct ProfilUser {
         // Manga books in possession
     let mangasCollection: [Manga]
 
-    let statistics: [Statistic]? = nil
+    var statistics: [Statistic]? = nil
 }
 
     // -------------------------------------------------------------
     // MARK: - statistics
     // -------------------------------------------------------------
 
-struct Statistic {
+struct Statistic: Codable {
 
 }

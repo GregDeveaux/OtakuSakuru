@@ -24,7 +24,7 @@ struct OtakuSakuruApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }

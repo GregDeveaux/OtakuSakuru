@@ -11,7 +11,7 @@ struct MangaVolumeRow: View {
         // listen the modification in darkmode or lightmode
     @Environment(\.colorScheme) var colorScheme
 
-    var book: Book
+    var book: Manga
     var mangakas: [Mangaka] {
         book.mangakas
     }
@@ -78,7 +78,7 @@ struct MangaVolumeRow: View {
     /// 3D Book
     var book3D: some View {
         HStack(alignment: .top, spacing: 0, content: {
-            Image(book.imageName)
+            Image(book.cover)
                 .resizable()
                 .frame(width: 80,height: 150, alignment: .leading)
                 .offset(x: 20, y: -20)
@@ -103,7 +103,7 @@ struct MangaVolumeRow: View {
 struct CollectionCell_Previews: PreviewProvider {
 
     static let viewModel = CollectionViewModel()
-    static let books = Book.example
+    static let books = Manga.example
 
     static var previews: some View {
         ZStack {

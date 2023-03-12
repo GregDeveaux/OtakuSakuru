@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    @State var book: Book
+    @State var book: Manga
     @Binding var isFavorite: Bool
 
     var body: some View {
@@ -32,7 +32,7 @@ struct BookDetailView: View {
                             }
                         }
 
-                        Image(book.imageName)
+                        Image(book.cover)
                             .resizable()
                             .scaledToFill()
                             .frame(width: proxy.size.width * 0.55,
@@ -66,7 +66,7 @@ struct BookDetailView: View {
 
                             Text("Date de publication : \(Text(book.releaseDate).bold())")
 
-                            Text("ISBN : \(Text(String(book.ISBN)).bold())")
+                            Text("ISBN : \(Text(String(book.isbn)).bold())")
 
                             ForEach(book.mangakas) { mangaka in
                                 Text("mangakas : \(Text(mangaka.name).bold())")
@@ -89,7 +89,7 @@ struct BookDetailView: View {
 }
 
 struct BookDetailView_Previews: PreviewProvider {
-    static var book = Book.example
+    static var book = Manga.example
 
     static var previews: some View {
         BookDetailView(book: book[5], isFavorite: .constant(true))

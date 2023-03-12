@@ -7,21 +7,32 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 class AuthentificationViewModel: ObservableObject {
 
-    func createUser(withEmail: String, password: String) {
-        Auth.auth().createUser(withEmail: withEmail, password: password) { result, error in
-            guard error == nil else {
+    let authentification = Auth.auth()
+    let firestore = Firestore.firestore()
+
+        // create user account
+    func createAccount(withEmail: String, password: String, username: String) {
+        authentification.createUser(withEmail: withEmail, password: password) { result, error in
+            guard let result = result, error == nil else {
                 return print("🛑 AUTHENTIFICATION_VIEW_MODEL/CREATE_USER: Create user failed: \(String(describing: error?.localizedDescription))")
             }
-            print("✅ AUTHENTIFICATION_VIEW_MODEL/CREATE_USER: Create user is a success")
+
+            // and save his username in data according to the userID (used to whole app)
+            let userUid = result.user.uid
+            print("✅ AUTHENTIFICATION_VIEW_MODEL/CREATE_USER: The user has been create with success: \(userUid)")
+
+            self.firestore.collection("users").addDocument(data: ["id": userUid, "name": username])
+
         }
     }
 
-
+        // check if user exist
     func signIn(withEmail: String, password: String) {
-        Auth.auth().signIn(withEmail: withEmail, password: password) { result, error in
+        authentification.signIn(withEmail: withEmail, password: password) { result, error in
             guard error == nil else {
                 return print("🛑 AUTHENTIFICATION_VIEW_MODEL/SIGN_IN: Sign In failed: \(String(describing: error?.localizedDescription))")
             }
@@ -30,7 +41,13 @@ class AuthentificationViewModel: ObservableObject {
     }
 
 
+    func authListener() {
+        authentification.addStateDidChangeListener { auth, user in
+            if user != nil {
 
+            }
+        }
+    }
 
 
 

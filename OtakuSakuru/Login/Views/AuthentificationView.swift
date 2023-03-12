@@ -22,7 +22,6 @@ struct LoginView: View {
         // for animation
     @State private var appear: Bool = false
 
-
     var body: some View {
         GeometryReader { proxy in
             ZStack {
@@ -109,6 +108,8 @@ struct LoginView: View {
 
                     registerOrLogInButton
 
+                    createAccountButton
+                    
                     forgetPasswordButton
                 }
                 .position(x: proxy.size.width / 2,
@@ -133,7 +134,7 @@ struct LoginView: View {
     var registerOrLogInButton: some View {
         Button {
             if newUser {
-                viewModel.createUser(withEmail: email, password: password)
+                viewModel.createAccount(withEmail: email, password: password, username: username)
             } else {
                 viewModel.signIn(withEmail: email, password: password)
             }
@@ -141,14 +142,32 @@ struct LoginView: View {
             Text(newUser ? "S'enregister" : "Se connecter")
                 .fontWeight(.medium)
                 .foregroundColor(appear ? .white : .indigoJapan)
-                .frame(width: 300, height: 45, alignment: .center)
-                .background(Color.indigoJapan)
-                .cornerRadius(15)
+                .frame(width: 300, height: 35, alignment: .center)
                 .animation(.easeInOut(duration: 2).delay(0.4), value: appear)
         }
+        .buttonStyle(.borderedProminent)
+        .cornerRadius(15)
+        .tint(Color.indigoJapan)
         .padding(15)
         .opacity(appear ? 1 : 0)
         .animation(.easeInOut(duration: 2).delay(0.2), value: appear)
+    }
+
+    var createAccountButton: some View {
+        Button {
+            newUser.toggle()
+        } label: {
+            Text("Créer un compte")
+                .fontWeight(.medium)
+                .frame(width: 300, height: 35, alignment: .center)
+                .foregroundColor(.white)
+                .opacity(0.5)
+        }
+        .buttonStyle(.bordered)
+        .tint(Color.indigoJapan)
+        .cornerRadius(15)
+        .padding(.top, -10)
+        .opacity(newUser ? 0 : 1)
     }
 
     var forgetPasswordButton: some View {
@@ -160,9 +179,11 @@ struct LoginView: View {
                 .fontWeight(.thin)
                 .foregroundColor(.white)
         }
-        .padding(.top, -10)
+        .padding(5)
         .opacity(newUser ? 0 : 1)
     }
+
+
 }
 
 struct LoginView_Previews: PreviewProvider {

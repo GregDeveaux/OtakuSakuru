@@ -129,7 +129,7 @@ struct CollectionView: View {
                         // create a section in terms of filter
                     Section {
                             // Books sorted by section title
-                        ForEach($searchResult, id: \.ISBN) { $book in
+                        ForEach($searchResult, id: \.isbn) { $book in
 
                             if viewModel.giveBookValueToStoreUnderEachSection(chosenfilter: chosenFilter, book: book, section: section) {
 
@@ -202,9 +202,43 @@ struct CollectionView: View {
                 // message text if list is empty
             .overlay {
                 if viewModel.mangaBooksCollection.isEmpty {
-                    Text("Ta collection est vide,\nscanne un code barre pour ajouter\nautomatiquement un titre")
-                        .bold()
-                        .multilineTextAlignment(.center)
+                    VStack {
+                        HStack {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 35))
+                                .foregroundColor(.redJapan)
+
+                            ZStack {
+                                Image(systemName: "timelapse")
+                                    .font(.system(size: 75))
+                                    .fontWeight(.light)
+                                    .foregroundColor(.redJapan)
+
+                                Circle()
+                                    .frame(width: 40)
+                                    .foregroundColor(.redJapan)
+
+                                Image(systemName: "fish.circle.fill")
+                                    .font(.system(size: 55))
+                                    .fontWeight(.light)
+                            }
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 35))
+                                .foregroundColor(.redJapan)
+                        }
+
+                        Text("Ta collection est vide")
+                            .font(.title.smallCaps())
+                            .fontDesign(.rounded)
+
+                        RoundedRectangle(cornerRadius: 20)
+                            .frame(width: 200, height: 1)
+                            .padding(.bottom, 10)
+
+                        Text("Scanne un code barre pour ajouter\nautomatiquement un titre.")
+                            .bold()
+                            .multilineTextAlignment(.center)
+                    }
                 }
             }
         }

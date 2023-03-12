@@ -23,8 +23,8 @@ struct Publisher: Identifiable {
         // MARK: - collection published
         // -------------------------------------------------------------
 
-    let mangas: [Manga]
-    let books: [Book]
+    let mangas: [Serie]
+    let books: [Manga]
 }
 
 
@@ -38,24 +38,24 @@ extension Publisher {
                   imageLogoName: "",
                   History: "",
                   mangas: [],
-                  books: Book.example.filter({ $0.publisher == "Glénat" })),
+                  books: Manga.example.filter({ $0.publisher == "Glénat" })),
 
         Publisher(name: "Crunchyroll",
                   imageLogoName: "",
                   History: "",
                   mangas: [],
-                  books: Book.example.filter({ $0.publisher == "Crunchyroll" })),
+                  books: Manga.example.filter({ $0.publisher == "Crunchyroll" })),
 
         Publisher(name: "Kana",
                   imageLogoName: "",
                   History: "",
                   mangas: [],
-                  books: Book.example.filter({ $0.publisher == "Kana" })),
+                  books: Manga.example.filter({ $0.publisher == "Kana" })),
 
         Publisher(name: "Kurokawa",
                   imageLogoName: "",
                   History: "",
                   mangas: [],
-                  books: Book.example.filter({ $0.publisher == "Kurokawa" }))
+                  books: Manga.example.filter({ $0.publisher == "Kurokawa" }))
     ]
 }

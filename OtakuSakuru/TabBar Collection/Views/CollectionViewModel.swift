@@ -6,17 +6,19 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
-    @Published var mangaBooksCollection: [Book] = Book.example
+    @Published var mangaBooksCollection: [Manga] = []
 
     @Published var titlesSectionBySortFilter: [String] = []
 
     @Published var titlesButtonBySortFilter: [String] = []
 
+    let firestore = Firestore.firestore()
 
         // ----------------------------------------------------------------
         // MARK: - collection Manga books
@@ -95,7 +97,7 @@ class CollectionViewModel: ObservableObject {
         ///   - book: book in the collection
         ///   - section: section to store the book in the collection
         /// - Returns: value true if book value equal at a section
-    func giveBookValueToStoreUnderEachSection(chosenfilter: SortFilter, book: Book, section: String) -> Bool {
+    func giveBookValueToStoreUnderEachSection(chosenfilter: SortFilter, book: Manga, section: String) -> Bool {
         switch chosenfilter {
             case .title:
                 return book.title.capitalized == section.capitalized
@@ -112,6 +114,30 @@ class CollectionViewModel: ObservableObject {
 
     func deleteRow(indexSet: IndexSet) {
         mangaBooksCollection.remove(atOffsets: indexSet)
+    }
+
+    func getData() {
+        firestore.collection("mangas").getDocuments { snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                return print("🛑 API_FIRESTORE_MANAGER/GET_DATA: Not data: \(String(describing: error?.localizedDescription))")
+            }
+
+            self.mangaBooksCollection = snapshot.documents.map { snapshotDocument in
+                return Manga(editionType: snapshotDocument["editionType"] as? Manga.EditionType ?? .manga,
+                             category: snapshotDocument["category"] as? Category ?? .shonen,
+                             kinds: snapshotDocument["kinds"] as? [Kind] ?? [],
+                             title: snapshotDocument["title"] as? String ?? "",
+                             volume: snapshotDocument["volume"] as? Int ?? 0,
+                             cover: snapshotDocument["title"] as? String ?? "",
+                             mangakas: snapshotDocument["mangakas"] as? [Mangaka] ?? [],
+                             isbn: snapshotDocument["isbn"] as? Int ?? 0,
+                             publisher: snapshotDocument["publisher"] as? String ?? "",
+                             synopsis: snapshotDocument["synopsis"] as? String ?? "",
+                             numberOfPages: snapshotDocument["numberOfPages"] as? Int ?? 0,
+                             dimensions: snapshotDocument["dimensions"] as? String ?? "",
+                             releaseDate: snapshotDocument["releaseDate"] as? String ?? "")
+            }
+        }
     }
 }
 

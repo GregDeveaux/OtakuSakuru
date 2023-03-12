@@ -6,164 +6,260 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-/// A manga is the whole oeuvre
-struct Manga: Identifiable, Equatable {
+    // The book is a volume of one manga or artbook(draws) or guidebook(characters info) or novel
+struct Manga: Identifiable, Codable {
 
-    static func == (lhs: Manga, rhs: Manga) -> Bool {
-        return lhs.title == rhs.title
+    var id: Int {
+        return isbn
     }
 
-
-    let id = UUID()
-
         // -------------------------------------------------------------
-        // MARK: - design identity
+        // MARK: - categories
         // -------------------------------------------------------------
 
-    let title: String
-    let imageLogoName: String       // logo of the title
+    let editionType: EditionType
+    enum EditionType: String, Codable {
+        case manga
+        case artbook
+        case guidebook
+        case novel
+    }
 
-    let imagesDrawName: [String]    // presentation images of Manga for carousel
+    let category: Category
 
-    let mangakas: [Mangaka]
-    let story: String
-
-        // -------------------------------------------------------------
-        // MARK: - favorite/notation
-        // -------------------------------------------------------------
-
-    var starRatingWholeUser: Double = 0          // for whole notation of the app users (different with book)
-    var isFavorite: Bool = false                 // for the user (different with book)
-
-        // categories according to the age
-    let categories: Category
-
-        // literature kinds
     let kinds: [Kind]
 
-        // release status
-    var releaseStatus: State
-    enum State: String, CaseIterable {
+        // -------------------------------------------------------------
+        // MARK: - description
+        // -------------------------------------------------------------
+
+    /// book
+    let title: String
+    let volume: Int
+    let cover: String
+    let mangakas: [Mangaka]
+    
+    /// published
+    let isbn: Int
+    let publisher: String
+    let synopsis: String
+    let numberOfPages: Int
+    let dimensions: String
+    let releaseDate: String
+    var price: Double? = nil
+
+        // -------------------------------------------------------------
+        // MARK: - status of published
+        // -------------------------------------------------------------
+
+    var state: State = .inProgress
+    enum State: String, CaseIterable, Codable {
         case inProgress = "In progress"
         case novelty
-        case stopPublished
+        case alreadyPublished
         case comingSoon
     }
 
         // -------------------------------------------------------------
-        // MARK: - books with the Manga title
+        // MARK: - for user collection (like/follow/read status)
         // -------------------------------------------------------------
 
-    var books: [Book]!
-}
+    // volume liked
+    var starRatingWholeUser: Double = 0
+    var isFavorite: Bool = false
 
-enum Category: String, Identifiable {
-    var id: Self {
-            return self
+    // volume personnal info
+    var acquisitionDate: Date? = nil
+    var isAcquired: Bool = false {
+        didSet {
+            if acquisitionDate != nil {
+                isAcquired = true
+            }
         }
+    }
 
-    case kodomo                 // for kids - age: +3
-    case shonen = "Shōnen"      // for male - age: +7
-    case shojo = "Shōjo"        // for female - age: +7
-    case seinen                 // for male - age: +14
-    case seijin                 // for female - age: +14
-    case josei                  // for all - age: +18
-}
+    var totalNumberOfUsersWhoAcquiredIt: Int = 0
 
-enum Kind: String, CaseIterable, Identifiable {
-    var id: Self {
-            return self
-        }
+         // follow the book to know if published
+    var followUp: Bool = false
 
-    case action
-    case adventure
-    case comedy
-    case drama
-    case ecchi
-    case fantasy
-    case hentai
-    case horror
-    case mahouShoujo = "Mahou Shoujo"
-    case mecha
-    case music
-    case mystery
-    case psychological
-    case romance
-    case sciFi = "Sci-Fi"
-    case sliceOfLife = "Slice of life"
-    case sports
-    case supernatural
-    case thriller
+        // state to read of user for the profil
+    var readStatus: UserReadingStatus = .toRead
+    enum UserReadingStatus: String, CaseIterable, Codable {
+        case toRead = "À lire"
+        case nowPlaying = "En cours de lecture"
+        case read = "Déjà lu"
+        case pause = "En pause"
+        case readingCanceled = "Bof !, j'arrête de le lire"
+    }
 }
 
 
     // -------------------------------------------------------------
-    // MARK: - example Mangas
+    // MARK: - example books
     // -------------------------------------------------------------
-
 extension Manga {
     static var example: [Manga] = [
-        Manga(title: "Naruto",
-              imageLogoName: "LogoNaruto",
-              imagesDrawName: [],
-              mangakas: Mangaka.example.filter({ $0.mangas == ["Naruto"] }),
-              story: "L'histoire commence pendant l'adolescence de Naruto, vers ses douze ans. Orphelin cancre et grand farceur, il fait toutes les bêtises possibles pour se faire remarquer. Son rêve : devenir le meilleur Hokage afin d'être reconnu par les habitants de son village. En effet, le démon renard à neuf queues scellé en lui a attisé la crainte et le mépris des autres villageois, qui, avec le temps, ne font plus de différence entre Kyûbi et Naruto. Malgré cela, Naruto s'entraîne dur afin de devenir genin, le premier niveau chez les ninjas. Après avoir raté l'examen genin 3 fois, il arrive finalement à recevoir son bandeau frontal de Konoha. Il est alors inclus dans une équipe de trois apprentis ninjas, avec Sakura Haruno et le talentueux Sasuke Uchiwa qui veut venger les personnes chères à ses yeux, en tuant son frère Itachi Uchiwa. Peu après, ils rencontrent leur jōnin (ninja de classe supérieure), celui qui s'occupera de leur formation : le mystérieux Kakashi Hatake./n/nAu début craint et méprisé par ses pairs, Naruto va peu à peu monter en puissance et gagner le respect et l'affection des villageois grâce, notamment, aux combats dantesques qu'il remportera face aux ennemis les plus puissants du monde ninja.",
-              starRatingWholeUser: 4.5,
-              isFavorite: true,
-              categories: .shonen,
-              kinds: [.action, .comedy, .adventure],
-              releaseStatus: .stopPublished,
-              books: Book.example.filter({ $0.title == "Naruto" })),
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "Naruto",
+             volume: 8,
+             cover: "Naruto_Tome8",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("Naruto")}),
+             isbn: 9782505115021,
+             publisher: "Kana",
+             synopsis: "Naruto, Sasuke et Sakura ont brillamment passé la deuxième épreuve et s'apprêtent maintenant à entamer la troisième. Mais avant cela, il y aura une pré-sélection ! Kabuto vient de déclarer forfait... 20 candidats, parmi les plus doués, vont s'affronter dans une série de duels au sommet !!",
+             numberOfPages: 380,
+             dimensions: "140 mm x 210 mm",
+             releaseDate: "03/02/2023",
+             isAcquired: true,
+             readStatus: .nowPlaying),
 
-        Manga(title: "One Piece",
-              imageLogoName: "OnePieceLogoColor",
-              imagesDrawName: [],
-              mangakas: Mangaka.example.filter({ $0.mangas == ["One Piece"] }),
-              story: "L'histoire de One Piece se déroule dans un monde fictif dominé par les océans, où certains pirates aspirent à une ère de liberté et d'aventure connue comme « l'âge d'or de la piraterie ». Cette époque fut inaugurée à la suite des derniers mots prononcés par le roi des pirates, Gol D. Roger, surnommé Gold Roger avant son exécution2. Roger annonce au monde que ses habitants étaient libres de chercher toutes les richesses qu'il avait accumulées durant sa vie entière, le « One Piece3. »/n/nVingt-deux ans après l'exécution de Roger, l'intérêt pour le One Piece s’effrite. Beaucoup y ont renoncé, certains se demandent même s'il existe vraiment. Même si les pirates sont toujours une menace pour les habitants, la Marine est devenue plus efficace pour contrer leurs attaques sur les quatre mers : East Blue, North Blue, West Blue et South Blue. Pourtant, ce changement n'a pas dissuadé Monkey D. Luffy, un jeune garçon, de vouloir devenir le successeur du légendaire Roger. Il va ainsi partir à l’aventure en se donnant comme premier objectif de créer un équipage afin de rejoindre la mer de Grand Line, où la fièvre de la « grande vague de piraterie » continue de sévir, et où de nombreux grands noms de la piraterie sont à la poursuite du One Piece, supposé être sur la dernière île de cette grande mer, Laugh Tale (orthographe voulue par Oda)./n/nLuffy part à l'aventure après sa rencontre avec Shanks le Roux, le capitaine d'un navire de pirates qui a passé un an dans son village et l'a sauvé d'un monstre marin en sacrifiant son bras gauche. Depuis, Luffy porte son chapeau de paille qu'il lui a offert pour marquer la promesse de devenir un grand pirate. Ce chapeau deviendra donc le symbole de son équipage. C'est à cette époque qu'il mange un fruit du démon que détenait Shanks : le fruit du Gum Gum, et qui rend son corps élastique. Les fruits du Démon une fois mangés donnent des capacités spéciales à leur détenteur, qui perd par la même occasion toutes ses forces lorsqu'il est immergé dans l'eau de mer, c'est une malédiction. Luffy et son équipage feront de nombreuses rencontres qui renforceront leur amitié et élargiront leur équipage. Mais ils devront se confronter aux équipages pirates prônant violence et pouvoirs, ainsi qu'à la Marine et ses soldats, garants de la justice.",
-              starRatingWholeUser: 5.0,
-              isFavorite: true,
-              categories: .shonen,
-              kinds: [.action, .comedy, .adventure],
-              releaseStatus: .inProgress,
-              books: Book.example.filter({ $0.title == "One Piece" })),
+        Manga(editionType: .novel,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One Piece - Ace",
+             volume: 1,
+             cover: "OnePiece-Novel",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One Piece - Ace") }),
+             isbn: 9782344038796,
+             publisher: "Glénat",
+             synopsis: "Des années avant que Luffy ne prenne la mer, découvrez comment Ace s’est constitué son équipage… et comment il a acquis les pouvoirs du pyro-fruit !",
+             numberOfPages: 270,
+             dimensions: "115 x 180 mm",
+             releaseDate: "02/2022",
+             isAcquired: true,
+             readStatus: .pause),
 
-        Manga(title: "Hokuto No Ken",
-              imageLogoName: "OnePieceLogoColor",
-              imagesDrawName: [],
-              mangakas: Mangaka.example.filter({ $0.mangas == ["Hokuto No Ken"] }),
-              story: "L'histoire se déroule dans les années 1990 (ce qui était alors un futur relativement proche), sur une terre ravagée par une guerre nucléaire, ayant eu pour conséquence l'évaporation de la plupart des mers et océans, tout comme la destruction d’une grande partie de la végétation. Lors de l'introduction de la série animée on peut lire « 199X », soit une année indéterminée à la fin du xxe siècle2. Dans cet univers post-apocalyptique, les survivants sont soit d'humbles villageois s'efforçant de survivre, soit des bandits vicieux regroupés en gangs qui s'adonnent au pillage et à la persécution des villageois./n/nCependant, un expert en arts martiaux nommé Kenshiro, dit Ken, un homme reconnaissable aux sept cicatrices qu'il porte sur le torse (formant la constellation de la Grande Ourse), a été choisi pour devenir le successeur d'une légendaire école d'art martial assassin, le Hokuto Shinken (北斗神拳?, l'art divin de l'Étoile du Nord), dont la technique consiste à presser les points vitaux de l'adversaire pour le faire exploser de l'intérieur. Au début de l'aventure, Ken, homme blessé, ne cherche pas réellement à aider les villageois, mais au fur et à mesure que son étoile le guide, il se révèle comme étant le sauveur tant attendu par une population au bord du désespoir. Accompagné dans son périple par deux jeunes enfants nommés Bart et Lynn, Ken sera confronté à un grand nombre de gangs et devra affronter deux de ses frères adoptifs, eux aussi disciples de l'art du Hokuto Shinken, et se mesurer à cinq des six maîtres de l'école concurrente Nanto Seiken (南斗聖拳?, le poing sacré de l'Étoile du Sud)./n/nAvant de rencontrer Raoh, ultime adversaire, aîné des 4 frères du Hokuto et conquérant de la fin des temps qui a enfreint les lois de Hokuto en refusant d'abandonner son art à la suite de la désignation de Kenshiro comme unique héritier puis en employant son art pour régner par la terreur, Kenshiro doit faire face à une série de tragédies qui l'affectent profondément (disparitions de sa fiancée, mort de ses frères d'armes, massacres d'innocents…)3./n/nPlusieurs années après la mort de Raoh et de Yuria (Julia en version française), Ken effectue une seconde venue pour prêter main-forte à Bart et Lynn, maintenant adultes et leaders de l'armée du Hokuto, milice rebelle contre la tyrannie des troupes de l'Empereur céleste, commandées par un régent nommé le Gouverneur Jakoh. Ken se mesure alors aux maîtres de l'école Gento Kokken. Après la défaite finale de Jakoh, Lynn est enlevée et Ken doit traverser le seul océan restant pour se rendre sur les terres de Shura (修羅の国, Shura no Kuni?), connues aussi sous le nom de Pays des démons. Les Terres de Shura ne sont autres que le lieu naissance de Raoh, Toki et Kenshiro. Ce pays est gouverné par Kaioh, le frère biologique de Raoh, qui est aussi dépositaire du Hokuto Ryūken (北斗琉拳, Le poing du dragon de l'étoile du nord?), une branche déviante et maléfique du Hokuto./n/nAprès avoir retrouvé le secret du Hokuto originel (Hokuto Sōke), Ken vainc le mal de Kaioh, sauve Lynn et libère le pays des démons. Enfin, Ken retrouve Ryu, le fils de Raoh, et le prend comme disciple pour faire de lui son successeur4. Dans l'animation, la fin diffère en ce sens que Ken, pensant avoir mis fin à la tragédie du Hokuto, fait une rétrospective de sa vie, du sens de ses rencontres et de ses combats, puis disparaît avec Kokuo en se promettant de se battre tant qu'il resterait des adversaires dignes de lui.",
-              starRatingWholeUser: 5.0,
-              isFavorite: true,
-              categories: .seinen,
-              kinds: [.action, .adventure, .drama, .sciFi],
-              releaseStatus: .inProgress,
-              books: Book.example.filter({ $0.title == "Hokuto No Ken" })),
+        Manga(editionType: .manga,
+             category: .seinen,
+             kinds: [.action, .adventure, .drama, .sciFi],
+             title: "Hokuto No Ken",
+             volume: 5,
+             cover: "HokutoNoKen_Tome5",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("Hokuto No Ken") }),
+             isbn: 9782820345950,
+             publisher: "Crunchyroll",
+             synopsis: "Des années avant que Luffy ne prenne la mer, découvrez comment Ace s’est constitué son équipage… et comment il a acquis les pouvoirs du pyro-fruit !",
+             numberOfPages: 270,
+             dimensions: "115 x 180 mm",
+             releaseDate: "06/2022",
+             isAcquired: true,
+             readStatus: .nowPlaying),
 
-        Manga(title: "Fire force",
-              imageLogoName: "LogoFireForce",
-              imagesDrawName: [],
-              mangakas: Mangaka.example.filter({ $0.mangas == ["Fire force"] }),
-              story: "En l'an 198 du calendrier solaire, le monde fait face au phénomène de combustion humaine où l'humanité peut s'enflammer sans prévenir et se transformer en « torche humaine » (焰ビト, Homura Bito?). Les membres des brigades spéciales Fire Force du royaume de Tokyo cherchent à découvrir les raisons de ce phénomène et parmi eux se trouve Shinra Kusakabe, surnommé « le démon », qui intègre la 8e brigade pour éradiquer le phénomène de combustion humaine et découvrir la vérité sur l'incendie ayant coûté la vie à sa mère et son frère, il y a douze ans.",
-              starRatingWholeUser: 4.0,
-              isFavorite: true,
-              categories: .shonen,
-              kinds: [.action, .comedy, .adventure],
-              releaseStatus: .inProgress,
-              books: Book.example.filter({ $0.title == "Fire force" })),
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One Piece",
+             volume: 1,
+             cover: "OnePiece-Manga-Tome1",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One Piece") }),
+             isbn: 9782723488525,
+             publisher: "Glénat",
+             synopsis: "Le roi des pirates, ce sera lui ! Nous sommes à l'ère des pirates. Luffy, un garçon espiègle, rêve de devenir le roi des pirates en trouvant le \"One Piece\", un fabuleux trésor. Seulement, Luffy a avalé un fruit du démon qui l'a transformé en homme élastique. Depuis, il est capable de contorsionner son corps dans tous les sens, mais il a perdu la faculté de nager. Avec l'aide de ses précieux amis, il va devoir affronter de redoutables pirates dans des aventures toujours plus rocambolesques./n/nÉgalement adapté en dessin animé pour la télévision et le cinéma, One Piece remporte un formidable succès à travers le monde. Les aventures de Luffy au chapeau de paille ont désormais gagné tous les lecteurs, qui se passionnent chaque trimestre pour les aventures exceptionnelles de leurs héros.",
+             numberOfPages: 203,
+             dimensions: "11,5 cm × 18,0 cm × 1,6 cm",
+             releaseDate: "03/07/2013",
+             isAcquired: true,
+             readStatus: .read),
 
-        Manga(title: "One-Punch Man",
-              imageLogoName: "LogoOnePunchMan",
-              imagesDrawName: [],
-              mangakas: Mangaka.example.filter({ $0.mangas == ["One-Punch Man"] }),
-              story: "Saitama est un jeune homme sans emploi, déprimé et sans but profond dans sa vie. Un jour, il rencontre un homme-crabe qui recherche un jeune garçon « avec un menton fendu comme un cul » selon ses termes. Saitama finit par rencontrer ce jeune garçon et décide de le sauver de l'homme-crabe, qu'il arrive à battre difficilement. Dès lors, Saitama décide de devenir un super-héros et s’entraîne pendant trois ans très sérieusement : 100 pompes, 100 squats, 100 abdos et 10 km de course au quotidien et il n'y a pas de conditions de chauffage ni de climatisation . À la fin de son entrainement « si intense qu'il en perd ses cheveux », il remarque qu'il est devenu tellement fort qu'il parvient désormais à battre tous ses adversaires d'un seul coup de poing. Sa force démesurée est pour lui source de problèmes, puisqu'il ne trouve pas d'adversaires à sa taille et s'ennuie dans son métier de héros car les combats ne lui procurent plus aucune sensation ni aucune adrénaline... Bien qu'il ait mis un terme à un bon nombre de menaces toutes plus dangereuses les unes que les autres, personne ne semble remarquer l'incroyable capacité de Saitama, à l'exception de son ami et disciple Genos, un jeune homme devenu cyborg.",
-              starRatingWholeUser: 5.0,
-              isFavorite: true,
-              categories: .shonen,
-              kinds: [.action, .comedy, .adventure],
-              releaseStatus: .inProgress,
-              books: Book.example.filter({ $0.title == "One-Punch Man" }))
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One Piece",
+             volume: 2,
+             cover: "OnePiece-Manga-Tome2",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One Piece") }),
+             isbn: 9782723489898,
+             publisher: "Glénat",
+             synopsis: "Luffy fait la connaissance de Nami, une ravissante jeune fille maîtrisant la navigation. Seulement, Nami déteste les pirates et refuse d'entrer dans son équipage. Pire, elle fait prisonnier Luffy, pour le livrer au terrible... Baggy le clown !",
+             numberOfPages: 192,
+             dimensions: "11,5 cm × 18,0 cm × 1,6 cm",
+             releaseDate: "03/07/2013",
+             isAcquired: true,
+             readStatus: .read),
 
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One Piece",
+             volume: 9,
+             cover: "OnePiece-Manga-Tome9",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One Piece") }),
+             isbn: 9782723492539,
+             publisher: "Glénat",
+             synopsis: "A la poursuite de Nami, Luffy et son équipage arrivent à Arlong Park, sur les terres des hommes-poissons. C'est là qu'ils en apprendront plus sur le surprenant passé de leur navigatrice ! Dans la bataille solitaire qu'elle mène depuis si longtemps, Nami saura-t-elle reconnaître ses vrais amis ?",
+             numberOfPages: 204,
+             dimensions: "115 x 180 mm",
+             releaseDate: "03/07/2013",
+             isAcquired: true,
+             readStatus: .read),
+
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One Piece",
+             volume: 100,
+             cover: "OnePiece-Manga-Tome100",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One Piece") }),
+             isbn: 9782344049020,
+             publisher: "Glénat",
+             synopsis: "Alors que les germes d'un grand conflit mondial se font de plus en plus prégnants, Luffy et son équipage poursuivent leur folle aventure à la recherche du One Piece. Quels adversaires se dresseront face à eux ? Quels alliés parviendront-ils à découvrir ? Quels secrets révéleront-ils ? Vous le saurez en lisant ce tome 100, proposé à la fois en version normale et en version collector.",
+             numberOfPages: 208,
+             dimensions: "11,8 cm × 18,2 cm × 1,3 cm",
+             releaseDate: "08/12/2021",
+             isAcquired: true,
+             readStatus: .read),
+
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .comedy, .adventure],
+             title: "One-Punch Man",
+             volume: 13,
+             cover: "OnePunchMan_Tome13",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("One-Punch Man") }),
+             isbn: 9782368525586,
+             publisher: "Kurokawa",
+             synopsis: "Alors que les héros de classe A sont impuissants face à l'énorme pieuvre Léviatank, le classe S Flashy Flash arrive en renfort et se joint au combat. Quel est donc le dessein de l'Organisation des monstres qui semble tout à coup passer à la vitesse supérieure ? Pendant ce temps, la finale du tournoi d'arts martiaux est sur le point de commencer ! !",
+             numberOfPages: 208,
+             dimensions: "11,8 cm × 17,9 cm × 1,7 cm",
+             releaseDate: "06/12/2018",
+             isAcquired: true,
+             readStatus: .nowPlaying),
+
+        Manga(editionType: .manga,
+             category: .seinen,
+             kinds: [.action, .adventure, .drama, .sciFi],
+             title: "Hokuto No Ken",
+             volume: 1,
+             cover: "HokutoNoKen_Tome1",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("Hokuto No Ken") }),
+             isbn: 9782820344885,
+             publisher: "Crunchyroll",
+             synopsis: "An 199X... La Terre a été consumée par l'enfer des flammes atomiques pour se changer en un monde de violence et de mort. Le dernier espoir de l'Humanité réside dans les poings d'un seul homme, au torse orné de sept cicatrices. L'affrontement entre Hokuto Shinken et Nanto Seiken s'apprête à entrer dans la légende...",
+             numberOfPages: 304,
+             dimensions: "13,0 cm × 18,0 cm × 2,6 cm",
+             releaseDate: "12/10/2022",
+             isAcquired: true,
+             readStatus: .nowPlaying),
+
+        Manga(editionType: .manga,
+             category: .shonen,
+             kinds: [.action, .adventure],
+             title: "Fire Force",
+             volume: 27,
+             cover: "FireForce_Tome27",
+             mangakas: Mangaka.example.filter({ $0.mangas.contains("Fire force") }),
+             isbn: 9782505117223,
+             publisher: "Kana",
+             synopsis: "Quel destin Shinra porte-t-il donc sur ses épaules ? Et quelle est la vérité sur sa naissance et celle de son frère Shô ? Alors que ce dernier, accompagné d'Arrow, mène une enquête sur le mystérieux secret concernant sa famille, il retrouve, par le biais de l'Adora Link, sa mère Mari devenue une Torche humaine. Quelle décision le jeune homme va-t-il prendre après avoir découvert toute la vérité ?! Au même moment…",
+             numberOfPages: 192,
+             dimensions: "115 mm x 175 mm",
+             releaseDate: "01/2023",
+             isAcquired: true,
+             readStatus: .read)
     ]
-
 }
