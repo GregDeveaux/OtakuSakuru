@@ -11,7 +11,7 @@ struct HomeView: View {
 
     var body: some View {
         TabView {
-            LoginView()
+            AuthentificationView()
                 .tabItem {
                     Label("Launch", systemImage: "airtag.fill")
                 }

@@ -14,12 +14,12 @@ import FirebaseFirestoreSwift
 
 struct ProfilUser: Codable, Identifiable {
     var id: UUID = UUID()
-    let name: String
-    let age: Int  // for the adult Manga
-    let imageName: String
+    var name: String
+    var age: Int  // for the adult Manga
+    var imageName: String
 
         // Manga books in possession
-    let mangasCollection: [Manga]
+    var mangasCollection: [Manga]
 
     var statistics: [Statistic]? = nil
 }

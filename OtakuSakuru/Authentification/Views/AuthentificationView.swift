@@ -1,19 +1,18 @@
 //
-//  LoginView.swift
+//  AuthentificationView.swift
 //  OtakuSakuru
 //
-//  Created by Greg-Mini on 05/03/2023.
+//  Created by Greg Deveaux on 05/03/2023.
 //
 
 import SwiftUI
+import Combine
+import FirebaseAnalyticsSwift
 
-struct LoginView: View {
+struct AuthentificationView: View {
 
-    @StateObject var viewModel = AuthentificationViewModel()
+    @ObservedObject var viewModel = AuthentificationViewModel()
 
-    @State private var username: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
         // for password
     @State private var visible: Bool = false
         // to login version or register version
@@ -43,7 +42,7 @@ struct LoginView: View {
 
                     if newUser {
                         TextField("Nom d'utilisateur",
-                                  text: $username,
+                                  text: $viewModel.username,
                                   prompt: Text("Nom d'utilisateur").foregroundColor(.white))
                             .foregroundColor(.white)
                             .disableAutocorrection(true)
@@ -64,7 +63,7 @@ struct LoginView: View {
                     }
 
                     TextField("Adresse mail",
-                              text: $email,
+                              text: $viewModel.email,
                               prompt: Text("Adresse mail").foregroundColor(.white))
                         .keyboardType(.emailAddress)
                         .frame(width: 300, height: 45, alignment: .center)
@@ -82,11 +81,11 @@ struct LoginView: View {
                     VStack {
                         if !visible {
                             SecureField("Mot de passe",
-                                        text: $password,
+                                        text: $viewModel.password,
                                         prompt: Text("Mot de passe").foregroundColor(.white))
                         } else {
                             TextField("Mot de passe",
-                                      text: $password,
+                                      text: $viewModel.password,
                                       prompt: Text("Mot de passe").foregroundColor(.white))
                         }
                     }
@@ -134,9 +133,13 @@ struct LoginView: View {
     var registerOrLogInButton: some View {
         Button {
             if newUser {
-                viewModel.createAccount(withEmail: email, password: password, username: username)
+                Task {
+                    await viewModel.createAccount()
+                }
             } else {
-                viewModel.signIn(withEmail: email, password: password)
+                Task {
+                    await viewModel.signIn()
+                }
             }
         } label: {
             Text(newUser ? "S'enregister" : "Se connecter")
@@ -172,7 +175,9 @@ struct LoginView: View {
 
     var forgetPasswordButton: some View {
         Button {
-
+            Task {
+                await viewModel.passwordReset()
+            }
         } label: {
             Text("Mot de passe oublié ?")
                 .font(.system(size: 15))
@@ -186,8 +191,8 @@ struct LoginView: View {
 
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct AuthentificationView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        AuthentificationView()
     }
 }

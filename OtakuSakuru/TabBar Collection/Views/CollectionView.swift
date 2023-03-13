@@ -202,50 +202,13 @@ struct CollectionView: View {
                 // message text if list is empty
             .overlay {
                 if viewModel.mangaBooksCollection.isEmpty {
-                    VStack {
-                        HStack {
-                            Image(systemName: "ellipsis")
-                                .font(.system(size: 35))
-                                .foregroundColor(.redJapan)
-
-                            ZStack {
-                                Image(systemName: "timelapse")
-                                    .font(.system(size: 75))
-                                    .fontWeight(.light)
-                                    .foregroundColor(.redJapan)
-
-                                Circle()
-                                    .frame(width: 40)
-                                    .foregroundColor(.redJapan)
-
-                                Image(systemName: "fish.circle.fill")
-                                    .font(.system(size: 55))
-                                    .fontWeight(.light)
-                            }
-                            Image(systemName: "ellipsis")
-                                .font(.system(size: 35))
-                                .foregroundColor(.redJapan)
-                        }
-
-                        Text("Ta collection est vide")
-                            .font(.title.smallCaps())
-                            .fontDesign(.rounded)
-
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 200, height: 1)
-                            .padding(.bottom, 10)
-
-                        Text("Scanne un code barre pour ajouter\nautomatiquement un titre.")
-                            .bold()
-                            .multilineTextAlignment(.center)
-                    }
+                    EmptyCollection()
                 }
             }
         }
 
     }
 }
-
 
 struct CollectionView_Previews: PreviewProvider {
 
@@ -254,5 +217,45 @@ struct CollectionView_Previews: PreviewProvider {
     }
 }
 
+    // if the mangas collection not yet began
+struct EmptyCollection: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 35))
+                    .foregroundColor(.redJapan)
 
+                ZStack {
+                    Image(systemName: "timelapse")
+                        .font(.system(size: 75))
+                        .fontWeight(.light)
+                        .foregroundColor(.redJapan)
 
+                    Circle()
+                        .frame(width: 40)
+                        .foregroundColor(.redJapan)
+
+                    Image(systemName: "fish.circle.fill")
+                        .font(.system(size: 55))
+                        .fontWeight(.light)
+                }
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 35))
+                    .foregroundColor(.redJapan)
+            }
+
+            Text("Ta collection est vide")
+                .font(.title.smallCaps())
+                .fontDesign(.rounded)
+
+            RoundedRectangle(cornerRadius: 20)
+                .frame(width: 200, height: 1)
+                .padding(.bottom, 10)
+
+            Text("Scanne le code barre\nd'un manga pour l'ajouter\nautomatiquement dans ta collec.")
+                .bold()
+                .multilineTextAlignment(.center)
+        }
+    }
+}

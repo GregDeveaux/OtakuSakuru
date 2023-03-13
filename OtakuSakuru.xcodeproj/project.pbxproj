@@ -69,7 +69,7 @@
 		BCBEAF2C298F16A0008EE3FA /* OtakuSakuruTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF2B298F16A0008EE3FA /* OtakuSakuruTests.swift */; };
 		BCBEAF33298F266E008EE3FA /* MangaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF32298F266E008EE3FA /* MangaDetailView.swift */; };
 		BCBEAF35298F2BF3008EE3FA /* Serie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF34298F2BF3008EE3FA /* Serie.swift */; };
-		BCBEAF38298FCCEB008EE3FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF37298FCCEB008EE3FA /* User.swift */; };
+		BCBEAF38298FCCEB008EE3FA /* ProfilUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF37298FCCEB008EE3FA /* ProfilUser.swift */; };
 		BCBEAF3A298FD32A008EE3FA /* Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF39298FD329008EE3FA /* Manga.swift */; };
 		BCBEAF3C298FFF40008EE3FA /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF3B298FFF40008EE3FA /* LaunchView.swift */; };
 		BCBEAF4029901225008EE3FA /* MangaImageParallaxEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBEAF3F29901225008EE3FA /* MangaImageParallaxEffect.swift */; };
@@ -133,7 +133,7 @@
 		BCBEAF2B298F16A0008EE3FA /* OtakuSakuruTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtakuSakuruTests.swift; sourceTree = "<group>"; };
 		BCBEAF32298F266E008EE3FA /* MangaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaDetailView.swift; sourceTree = "<group>"; };
 		BCBEAF34298F2BF3008EE3FA /* Serie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serie.swift; sourceTree = "<group>"; };
-		BCBEAF37298FCCEB008EE3FA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BCBEAF37298FCCEB008EE3FA /* ProfilUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilUser.swift; sourceTree = "<group>"; };
 		BCBEAF39298FD329008EE3FA /* Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manga.swift; sourceTree = "<group>"; };
 		BCBEAF3B298FFF40008EE3FA /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BCBEAF3F29901225008EE3FA /* MangaImageParallaxEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaImageParallaxEffect.swift; sourceTree = "<group>"; };
@@ -176,13 +176,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BC02B4B829B50A83002A5658 /* Login */ = {
+		BC02B4B829B50A83002A5658 /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
 				BC02B4BB29B52232002A5658 /* Views */,
 				BC02B4BE29B54C6C002A5658 /* ViewModels */,
 			);
-			path = Login;
+			path = Authentification;
 			sourceTree = "<group>";
 		};
 		BC02B4BB29B52232002A5658 /* Views */ = {
@@ -252,7 +252,7 @@
 				BCBEAF36298F2BFC008EE3FA /* Model */,
 				BC8EC4FF29943792009366D9 /* Launch */,
 				BCB3B21829984FEC00585FC7 /* Home */,
-				BC02B4B829B50A83002A5658 /* Login */,
+				BC02B4B829B50A83002A5658 /* Authentification */,
 				BCFBDEB62991C7AE00EE5742 /* TabBar News */,
 				BC8EC4F52992F60A009366D9 /* TabBar Scan */,
 				BCB3B2112997D98300585FC7 /* TabBar Collection */,
@@ -422,7 +422,7 @@
 			children = (
 				BCB3B230299995BD00585FC7 /* Camera */,
 				BCB3B22129992AD000585FC7 /* API */,
-				BCBEAF37298FCCEB008EE3FA /* User.swift */,
+				BCBEAF37298FCCEB008EE3FA /* ProfilUser.swift */,
 				BCBEAF34298F2BF3008EE3FA /* Serie.swift */,
 				BCBEAF39298FD329008EE3FA /* Manga.swift */,
 				BCB3B1FE2997A58200585FC7 /* Mangaka.swift */,
@@ -655,7 +655,7 @@
 				BC5AD358299D857A004B695C /* API_Anilist.swift in Sources */,
 				BCB3B2342999966700585FC7 /* FrameManager.swift in Sources */,
 				BCB3B22029992AB400585FC7 /* API_Method.swift in Sources */,
-				BCBEAF38298FCCEB008EE3FA /* User.swift in Sources */,
+				BCBEAF38298FCCEB008EE3FA /* ProfilUser.swift in Sources */,
 				BC52557C29A2643200940C01 /* AddInCollectionView.swift in Sources */,
 				BC5F02B629BDFA330045FC32 /* API_FirestoreManager.swift in Sources */,
 				BCBEAF35298F2BF3008EE3FA /* Serie.swift in Sources */,
