@@ -12,11 +12,9 @@ class CollectionViewModel: ObservableObject {
 
     @Published var searchQueryTextField = ""
 
-    @Published var mangaBooksCollection: [Manga] = []
+    @Published var mangaBooksCollection: [Manga] = Manga.example
 
     @Published var titlesSectionBySortFilter: [String] = []
-
-    @Published var titlesButtonBySortFilter: [String] = []
 
     let firestore = Firestore.firestore()
 
@@ -32,6 +30,7 @@ class CollectionViewModel: ObservableObject {
             // sort the book according to filter and alphabetic
         mangaBooksCollection
             .sort { ($0.title.capitalized, $0.volume) < ($1.title.capitalized, $1.volume) }
+        print("✅ COLLECTION_VIEWMODEL/SET_UP_LIST: the collection contains \(mangaBooksCollection.count) mangas")
     }
 
 
@@ -44,51 +43,49 @@ class CollectionViewModel: ObservableObject {
     private func createTheAnchorsOfSection(by filter: SortFilter) {
         switch filter {
             case .title:
-                titlesButtonBySortFilter.removeAll()
-                titlesButtonBySortFilter = mangaBooksCollection.map { $0.title }
+                titlesSectionBySortFilter.removeAll()
+                titlesSectionBySortFilter = mangaBooksCollection.map { $0.title }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for title \(titlesButtonBySortFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for title \(titlesSectionBySortFilter)")
 
             case .mangaka:
-                titlesButtonBySortFilter.removeAll()
+                titlesSectionBySortFilter.removeAll()
                     // retrieve the different mangakas of the book sorted
                 mangaBooksCollection.forEach { book in
                     book.mangakas.forEach {
-                        titlesButtonBySortFilter.append($0.name)
+                        titlesSectionBySortFilter.append($0.name)
                     }
                 }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for mangaka \(titlesButtonBySortFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for mangaka \(titlesSectionBySortFilter)")
 
             case .publisher:
-                titlesButtonBySortFilter.removeAll()
-                titlesButtonBySortFilter = mangaBooksCollection.map { $0.publisher }
+                titlesSectionBySortFilter.removeAll()
+                titlesSectionBySortFilter = mangaBooksCollection.map { $0.publisher }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for publisher \(titlesButtonBySortFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for publisher \(titlesSectionBySortFilter)")
 
             case .kind:
-                titlesButtonBySortFilter.removeAll()
+                titlesSectionBySortFilter.removeAll()
                     // retrieve the different kinds of the book sorted
-                titlesButtonBySortFilter = mangaBooksCollection
+                titlesSectionBySortFilter = mangaBooksCollection
                     .flatMap { $0.kinds }
                     .map { $0.rawValue }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for kind \(titlesButtonBySortFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for kind \(titlesSectionBySortFilter)")
 
             case .category:
-                titlesButtonBySortFilter.removeAll()
-                titlesButtonBySortFilter = mangaBooksCollection.map { $0.category.rawValue }
+                titlesSectionBySortFilter.removeAll()
+                titlesSectionBySortFilter = mangaBooksCollection.map { $0.category.rawValue }
                 sortAlphabetic()
-                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for category \(titlesButtonBySortFilter)")
+                print("✅ COLLECTION_VIEW_MODEL/CREATE_ANCHOR_SECTION: the buttons are for category \(titlesSectionBySortFilter)")
         }
     }
 
     private func sortAlphabetic() {
-        titlesButtonBySortFilter = Array(Set(titlesButtonBySortFilter))
+        titlesSectionBySortFilter = Array(Set(titlesSectionBySortFilter))
             .map { $0.capitalized }
             .sorted { $0 < $1 }
-            // save name section
-        titlesSectionBySortFilter = titlesButtonBySortFilter
     }
 
         /// Give the book values  to check equality with the section to store  the books under each section

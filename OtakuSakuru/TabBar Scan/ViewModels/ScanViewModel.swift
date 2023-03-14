@@ -22,8 +22,7 @@ class ScanViewModel: ObservableObject {
     @Published var isbnFound = false
 
         // retrieve infomations to the manga
-    @Published var imageName: String?
-    @Published var title: String?
+    @Published var manga: Manga?
 
 
         // -------------------------------------------------------
@@ -97,7 +96,8 @@ class ScanViewModel: ObservableObject {
                 case .failure(let error):
                     print("🛑 SCAN_VM/DATA_ISBN: \(error.localizedDescription)")
                 case .success(let result):
-                    self?.title = result.items[0].volumeInfo.title
+                    let title = result.items.first?.volumeInfo.title
+                    let image = result.items.first?.volumeInfo.publishedDate
                     print("✅ SCAN_VM/DATA_ISBN: The ISBN give the result: \(result)")
 
                         // stop the camera

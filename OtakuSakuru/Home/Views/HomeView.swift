@@ -6,32 +6,34 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct HomeView: View {
 
+    @ObservedObject var viewModel = AuthentificationViewModel()
+
     var body: some View {
-        TabView {
+        if !viewModel.validatedUser {
             AuthentificationView()
-                .tabItem {
-                    Label("Launch", systemImage: "airtag.fill")
-                }
+        } else {
+            TabView {
+                ScanView()
+                    .tabItem {
+                        Label("Scan", systemImage: "barcode")
+                    }
 
-            ScanView()
-                .tabItem {
-                    Label("Scan", systemImage: "barcode")
-                }
+                MangaDetailView()
+                    .tabItem {
+                        Label("Manga", systemImage: "star")
+                    }
 
-            MangaDetailView()
-                .tabItem {
-                    Label("Manga", systemImage: "star")
-                }
-
-            CollectionView()
-                .tabItem {
-                    Label("Collection", systemImage: "books.vertical.fill")
-                }
+                CollectionView()
+                    .tabItem {
+                        Label("Collection", systemImage: "books.vertical.fill")
+                    }
+            }
+            .accentColor(.black)
         }
-        .accentColor(.black)
     }
 }
 

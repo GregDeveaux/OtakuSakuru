@@ -36,7 +36,7 @@ struct Manga: Identifiable, Codable {
         // -------------------------------------------------------------
 
     /// book
-    let title: String
+    var title: String
     let volume: Int
     let cover: String
     let mangakas: [Mangaka]
@@ -249,7 +249,7 @@ extension Manga {
         Manga(editionType: .manga,
              category: .shonen,
              kinds: [.action, .adventure],
-             title: "Fire Force",
+             title: "Fire Forc8",
              volume: 27,
              cover: "FireForce_Tome27",
              mangakas: Mangaka.example.filter({ $0.mangas.contains("Fire force") }),

@@ -12,7 +12,7 @@ struct ValidatePopupView: View {
 
     var title: String
     var isbn: String
-        // found code key of the url to retrieve the image
+        // found code key of the url to retrieve the image in website
     var numberKeyToRecieveImage: Int {
         var number = 00
         if !isbn.isEmpty {
@@ -24,68 +24,61 @@ struct ValidatePopupView: View {
 
     var body: some View {
         VStack {
-            GeometryReader { proxy in
-                RoundedRectangle(cornerRadius: 15)
-                    .foregroundColor(.white)
-                    .frame(width: proxy.size.width * 0.8,
-                           height: proxy.size.height * 0.7,
-                           alignment: .center)
-                    .position(x: proxy.size.width / 2,
-                              y: proxy.size.height / 2)
-                    .opacity(0.5)
-                    .background(.ultraThinMaterial)
-                    .overlay {
-                        VStack {
-                            Text("Yippee!")
-                                .fontWeight(.heavy)
-                                .bold()
-                                .font(.system(size: 30))
-                                .fontDesign(.rounded)
-                                .foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan)
+            Rectangle()
+                .foregroundColor(.white)
+                .frame(width: 300,
+                       height: 540,
+                       alignment: .center)
+                .opacity(0.5)
+                .background(.ultraThinMaterial)
+                .cornerRadius(15)
+                .overlay {
+                    VStack {
+                        Text("Subarashī!")
+                            .fontWeight(.heavy)
+                            .bold()
+                            .font(.system(size: 30))
+                            .fontDesign(.rounded)
+                            .foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan)
 
-                            Text("You don't have this manga\n in your collection")
-                                .font(.system(size: 17))
-                                .bold()
-                                .multilineTextAlignment(.center)
-                                .padding(.top, 1)
-                                .offset(y: -10)
+                        Text("Tu n'as pas ce manga\n dans ta collection")
+                            .font(.system(size: 17))
+                            .bold()
+                            .multilineTextAlignment(.center)
 
-                            AsyncImage(url: URL(string: "https://www.canalbd.net/img/couvpage/\(numberKeyToRecieveImage)/\(isbn)_cg.jpg")) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
-                                    .frame(width: proxy.size.width * 0.5, height: proxy.size.height * 0.33, alignment: .center)
-                                    .background(Color.indigoJapan)
-                            }
-                            .scaledToFit()
-                            .frame(width: proxy.size.width * 0.5,
-                                   height: proxy.size.height * 0.33,
-                                   alignment: .center)
-                            .padding(.bottom, 25)
-                            .overlay(alignment: .bottom) {
-                                Text(isbn)
-                                    .font(.system(size: 15))
-                                    .frame(width: 150, height: 30, alignment: .center)
-                                    .background(.regularMaterial)
-                                    .cornerRadius(30)
-                                    .padding(.bottom, 40)
-                            }
+                        AsyncImage(url: URL(string: "https://www.canalbd.net/img/couvpage/\(numberKeyToRecieveImage)/\(isbn)_cg.jpg")) { image in
+                            image.resizable()
+                        } placeholder: {
+                                // substitution image with progress indicator
+                            ProgressView()
+                                .frame(width: 195, height: 270, alignment: .center)
+                                .background(Color.indigoJapan)
+                        }
+                        .scaledToFit()
+                        .frame(width: 195, height: 270, alignment: .center)
+                        .overlay(alignment: .bottom) {
+                            Text(isbn)
+                                .font(.system(size: 12))
+                                .frame(width: 120, height: 20, alignment: .center)
+                                .background(.regularMaterial)
+                                .cornerRadius(30)
+                                .padding(.bottom, 20)
+                        }
 
-                            Text("Do you want to add\n \(Text("\(title)").bold().foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan))  \nin the collection?")
-                                .font(.system(size: 17))
-                                .multilineTextAlignment(.center)
+                        Text("Est-ce que tu veux ajouter\n \(Text("\(title)").bold().foregroundColor(colorSheme == .light ? Color.blueGreenJapan : Color.darkIndigoJapan))  \nà ta collection ?")
+                            .font(.system(size: 17))
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 10)
+                            .padding(.bottom, 0)
 
-                            HStack {
-                                AddInCollectionView(
-                                    color: .redJapan,
-                                    buttonYes: false)
-                                AddInCollectionView(
-                                    color: .blueGreenJapan,
-                                    buttonYes: true)
-                            }
+                        HStack {
+                            ButtonOfValidation(
+                                isButtonYes: false)
+                            ButtonOfValidation(
+                                isButtonYes: true)
                         }
                     }
-            }
+                }
         }
         .transition(.move(edge: .bottom))
     }

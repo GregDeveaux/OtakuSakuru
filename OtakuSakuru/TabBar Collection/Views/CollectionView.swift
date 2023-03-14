@@ -18,6 +18,8 @@ struct CollectionView: View {
     @State private var searchText: String = ""
     @State private var chosenFilter: SortFilter = .title
 
+    @State private var mangaIsDelete: Bool = false
+
     var body: some View {
         NavigationView {
             VStack {
@@ -97,7 +99,7 @@ struct CollectionView: View {
     var scrollAnchorButtonOfItem: some View {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack(spacing: 15) {
-                ForEach(viewModel.titlesButtonBySortFilter, id: \.self) { itemFilter in
+                ForEach(viewModel.titlesSectionBySortFilter, id: \.self) { itemFilter in
                     Button {
                         scrollSectionID = String(itemFilter)
                     } label: {
@@ -146,11 +148,9 @@ struct CollectionView: View {
                             //onDelete only works with ForEach
                         .onDelete(perform: { indexSet in
                             viewModel.deleteRow(indexSet: indexSet)
+                            viewModel.setUpList(by: chosenFilter)
+                                // reinit array searchResult
                             searchResult = viewModel.mangaBooksCollection
-                            if section.isEmpty {
-                                guard let index = viewModel.titlesSectionBySortFilter.firstIndex(of: section) else { return }
-                                viewModel.titlesSectionBySortFilter.remove(at: index)
-                            }
                         })
                             // searchBar action
                         .onChange(of: searchText) { searchText in
@@ -199,10 +199,10 @@ struct CollectionView: View {
             .refreshable {
                 viewModel.setUpList(by: chosenFilter)
             }
-                // message text if list is empty
             .overlay {
+                    // substitution message text if list is empty
                 if viewModel.mangaBooksCollection.isEmpty {
-                    EmptyCollection()
+                    EmptyCollectionView()
                 }
             }
         }
@@ -218,7 +218,7 @@ struct CollectionView_Previews: PreviewProvider {
 }
 
     // if the mangas collection not yet began
-struct EmptyCollection: View {
+struct EmptyCollectionView: View {
     var body: some View {
         VStack {
             HStack {

@@ -10,7 +10,7 @@ import SwiftUI
 struct ScanView: View {
     @Environment (\.colorScheme) var colorSheme
 
-    @StateObject private var scanViewModel = ScanViewModel()
+    @StateObject private var viewModel = ScanViewModel()
     @State private var isActivated = false
 
     var body: some View {
@@ -24,7 +24,7 @@ struct ScanView: View {
                               y: proxy.size.height / 5.5)
 
                 VStack {
-                    FrameScanView(image: scanViewModel.frame, isbnText: scanViewModel.isbnText ?? "nil")
+                    FrameScanView(image: viewModel.frame, isbnText: viewModel.isbnText ?? "nil")
                         .position(x: proxy.size.width / 2,
                                   y: proxy.size.height / 1.75)
                         .accessibilityAddTraits(.startsMediaSession)
@@ -34,8 +34,8 @@ struct ScanView: View {
                         .accessibilityAddTraits(.isButton)
                         .accessibilityLabel("You activate the camera after push on the button camera and we stop it in push again.")
                 }
-                if scanViewModel.isbnFound {
-                    ValidatePopupView(title: scanViewModel.title ?? "not title", isbn: scanViewModel.isbnText ?? "nil")
+                if viewModel.isbnFound {
+                    ValidatePopupView(title: viewModel.manga?.title ?? "not title", isbn: viewModel.isbnText ?? "nil")
                 }
             }
             .accessibilityAddTraits(.isSummaryElement)
@@ -54,24 +54,24 @@ private extension ScanView {
     var scanButton: some View {
         Button {
             if !isActivated {
-                isActivated = true
-                scanViewModel.cameraIsActivate.toggle()
-                scanViewModel.scanBarcode()
+                isActivated.toggle()
+                viewModel.cameraIsActivate.toggle()
+                viewModel.scanBarcode()
             } else {
-                isActivated = false
-                scanViewModel.cameraIsActivate.toggle()
+                isActivated.toggle()
+                viewModel.cameraIsActivate.toggle()
             }
-            print("✅ SCAN_VIEW/SCAN_BUTTON: Camera is activate? \(scanViewModel.cameraIsActivate)")
+            print("✅ SCAN_VIEW/SCAN_BUTTON: Camera is activate? \(viewModel.cameraIsActivate)")
         } label: {
             Circle()
-                .frame(width: 90, height: 90, alignment: .center)
+                .frame(width: 80)
                 .foregroundColor(colorSheme == .light ? Color.indigoJapan : Color.redJapan)
                 .overlay {
                     Image(systemName: "camera")
                         .resizable()
                         .scaledToFill()
                         .foregroundColor(.white)
-                        .frame(width: 35, height: 35, alignment: .center)
+                        .frame(width: 30, height: 30, alignment: .center)
                 }
         }
         .padding(.bottom, 30)

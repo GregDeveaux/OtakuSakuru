@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct AddInCollectionView: View {
+struct ButtonOfValidation: View {
+
+    @StateObject var viewModel = CollectionViewModel()
 
     @State private var isAddToTheCollection: Bool = false
 
-    var color: Color
-    var buttonYes: Bool
+    var isButtonYes: Bool
 
     var body: some View {
         Button {
@@ -20,28 +21,28 @@ struct AddInCollectionView: View {
                 isAddToTheCollection.toggle()
             }
 
-            if !buttonYes {
+            if !isButtonYes {
                 print("🛑 ROUNDED_RECTANGLE_BUTTON_VIEW/BUTTON: No, the manga is rejected")
             } else {
                 isAddToTheCollection = true
                 print("✅ ROUNDED_RECTANGLE_BUTTON_VIEW/BUTTON: the manga is added in the collection")
             }
         } label: {
-            Text(buttonYes ? "YES" : "NO")
+            Text(isButtonYes ? "YES" : "NO")
                 .font(.system(size: 20))
                 .bold()
                 .foregroundColor(.white)
                 .frame(width: 120, height: 50
                        , alignment: .center)
         }
-        .background(color)
+        .background(isButtonYes ? Color.blueGreenJapan : Color.redJapan)
         .cornerRadius(10)
         .padding(.init(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 }
 
-struct RoundedRectangleButtonView_Previews: PreviewProvider {
+struct ButtonOfValidation_Previews: PreviewProvider {
     static var previews: some View {
-        AddInCollectionView(color: .blueGreenJapan, buttonYes: true)
+        ButtonOfValidation(isButtonYes: true)
     }
 }

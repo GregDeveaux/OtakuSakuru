@@ -112,7 +112,7 @@ struct AuthentificationView: View {
                     forgetPasswordButton
                 }
                 .position(x: proxy.size.width / 2,
-                          y: proxy.size.height / 1.8)
+                          y: proxy.size.height / 1.5)
                 .onSubmit {
                 }
             }
@@ -120,7 +120,7 @@ struct AuthentificationView: View {
     }
 
     var welcomeText: some View {
-        Text(newUser ? "Créez votre compte" : "Connectez-vous à votre compte")
+        Text(newUser ? "Crée ton compte" : "")
             .font(.system(size: 21.5))
             .fontWeight(.medium)
             .fontDesign(.rounded)
@@ -187,8 +187,6 @@ struct AuthentificationView: View {
         .padding(5)
         .opacity(newUser ? 0 : 1)
     }
-
-
 }
 
 struct AuthentificationView_Previews: PreviewProvider {

@@ -28,22 +28,22 @@ class AuthentificationViewModel: ObservableObject {
             let authResult = try await authentification.createUser(withEmail: email, password: password)
                 // send an email with verification link
             try await authentification.currentUser?.sendEmailVerification()
-                // save a auth user
-//            authUser = authResult.user
-
-                // next save his username in data according to the userID (used to whole app)
-//            user?.name = authResult.user.displayName ?? "Unknow"
-//            self.firestore.collection("users").addDocument(data: ["id": userUid, "name": self.username])
-            guard let checkEmail = authentification.currentUser?.isEmailVerified else { return false }
-
-            if checkEmail {
-                print("✅ AUTHENTIFICATION_VIEW_MODEL/CREATE_ACCOUNT: The user has been create with success: \(authResult.user.uid)")
-                return true
-            } else {
+                // check if email is verified by user
+            guard (authentification.currentUser?.isEmailVerified) != nil else {
                 print("🛑 AUTHENTIFICATION_VIEW_MODEL/CREATE_ACCOUNT: Check the email user is wrong")
-                return false
-            }
+                return false }
 
+                // save a auth user
+            let addName = authentification.currentUser?.createProfileChangeRequest()
+            addName?.displayName = username
+            let _ = addName?.commitChanges { error in
+                if error != nil {
+                    print("🛑 AUTHENTIFICATION_VIEW_MODEL/CHANGE_USERNAME: Check the email user is wrong")
+                }
+            }
+            validatedUser = true
+            print("✅ AUTHENTIFICATION_VIEW_MODEL/CREATE_ACCOUNT: The user has been create with success: \(authResult.user.uid), \(String(describing: authResult.user.displayName))")
+            return true
         }
         catch {
             print("🛑 AUTHENTIFICATION_VIEW_MODEL/CREATE_ACCOUNT: Create user failed: \(error.localizedDescription)")
@@ -56,7 +56,8 @@ class AuthentificationViewModel: ObservableObject {
             // since this call can generate errors, we wrap it in a do/try/catch
         do {
             let authResult = try await authentification.signIn(withEmail: email, password: password)
-            print("✅ AUTHENTIFICATION_VIEW_MODEL/SIGN_IN: Sign In is a success: \(authResult.user.uid)")
+            validatedUser = true
+            print("✅ AUTHENTIFICATION_VIEW_MODEL/SIGN_IN: Sign In is a success: \(authResult.user.uid), \(String(describing: authResult.user.displayName))")
             return true
         }
         catch {
@@ -80,6 +81,7 @@ class AuthentificationViewModel: ObservableObject {
     func signOut() {
         do {
             try authentification.signOut()
+            validatedUser = false
         }
         catch {
             print("🛑 AUTHENTIFICATION_VIEW_MODEL/SIGN_OUT: Sign Out failed: \(error.localizedDescription)")
@@ -93,6 +95,7 @@ class AuthentificationViewModel: ObservableObject {
             // since this call can generate errors, we wrap it in a do/try/catch
         do {
             try await user?.delete()
+            validatedUser = false
             return true
         }
         catch {
